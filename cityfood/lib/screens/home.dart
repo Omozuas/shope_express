@@ -49,6 +49,27 @@ class MyHomePage extends StatelessWidget {
         reviewImg2: 'assets/images/bacimg2.jpg',
         reviewImg3: 'assets/images/bacimg3.jpg',
         reviewImg4: 'assets/images/bacimg1.jpg'),
+    HomeSlide(
+        imgs: "assets/images/iphone3.png",
+        nameOfItem: "BrandNew Iphone xr",
+        reviewImg1: 'assets/images/bacimg3.jpg',
+        reviewImg2: 'assets/images/bacimg2.jpg',
+        reviewImg3: 'assets/images/bacimg3.jpg',
+        reviewImg4: 'assets/images/bacimg1.jpg'),
+    HomeSlide(
+        imgs: "assets/images/pcimg2.png",
+        nameOfItem: "A BranNew Dell Pc",
+        reviewImg1: 'assets/images/bacimg3.jpg',
+        reviewImg2: 'assets/images/bacimg2.jpg',
+        reviewImg3: 'assets/images/bacimg3.jpg',
+        reviewImg4: 'assets/images/bacimg1.jpg'),
+    HomeSlide(
+        imgs: "assets/images/shoe1.png",
+        nameOfItem: "AirJordan Sport Shoe",
+        reviewImg1: 'assets/images/bacimg3.jpg',
+        reviewImg2: 'assets/images/bacimg2.jpg',
+        reviewImg3: 'assets/images/bacimg3.jpg',
+        reviewImg4: 'assets/images/bacimg1.jpg'),
   ];
 
   //   {
@@ -77,220 +98,261 @@ class MyHomePage extends StatelessWidget {
               Container(
                 width: MediaQuery.sizeOf(context).width,
                 height: Responsive.isMobile(context)
-                    ? 760
+                    ? 720
                     : Responsive.isTablet(context)
                         ? 700
-                        : 630,
+                        : 570,
                 child: Column(
                   children: [
                     Center(child: FlexAppBar()),
-                    SizedBox(
-                      height: 20,
-                    ),
                     if (Responsive.isTablet(context))
-                      Container(
-                        // width: 100,
-                        height: 300,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset('assets/images/headsetImg1.png',
-                                width: 400,
-                                height: 350,
-                                fit: BoxFit.contain,
-                                alignment: Alignment.bottomCenter),
-                            Image.asset(
-                              'assets/images/headsetImg1.png',
-                              width: 100,
-                              height: 300,
-                              fit: BoxFit.contain,
-                              alignment: Alignment.bottomLeft,
-                            ),
-                          ],
-                        ),
-                      ),
-                    if (Responsive.isTablet(context))
-                      Container(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10.0, right: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.headphones,
-                                    size: 20,
-                                    color: Colors.white,
-                                  ),
-                                  Text(
-                                    'Options Brand',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              SizedBox(
-                                width: 400,
-                                child: Text(
-                                  'Options Wireless Headphone',
-                                  textAlign: TextAlign.center,
-                                  softWrap: true,
-                                  style: TextStyle(
-                                      fontSize: 50,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.white),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    width: 100,
-                                    height: 40,
-                                    // padding: EdgeInsets.only(top: 5),
-                                    child: Stack(children: [
-                                      Positioned(
-                                        left: 0,
-                                        child: CirclerImageContainer(
-                                          width: 40,
-                                          height: 40,
-                                          circleZize: 70,
-                                          image: 'assets/images/bacimg3.jpg',
-                                        ),
-                                      ),
-                                      Positioned(
-                                        left: 20,
-                                        child: CirclerImageContainer(
-                                          width: 40,
-                                          height: 40,
-                                          circleZize: 90,
-                                          image: 'assets/images/bacimg2.jpg',
-                                        ),
-                                      ),
-                                      Positioned(
-                                        left: 40,
-                                        child: CirclerImageContainer(
-                                          width: 40,
-                                          height: 40,
-                                          circleZize: 90,
-                                          image: 'assets/images/bacimg3.jpg',
-                                        ),
-                                      ),
-                                      Positioned(
-                                        left: 60,
-                                        child: CirclerImageContainer(
-                                          width: 40,
-                                          height: 40,
-                                          circleZize: 90,
-                                          image: 'assets/images/bacimg1.jpg',
-                                        ),
-                                      ),
-                                    ]),
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
+                      CarouselSlider(
+                        items: homeSlide
+                            .map((e) => Column(
+                                  children: [
+                                    Container(
+                                      // width: 100,
+                                      height: 300,
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
-                                          Icon(
-                                            Icons.star,
-                                            color: Colors.black,
-                                          ),
-                                          Icon(
-                                            Icons.star,
-                                            color: Colors.black,
-                                          ),
-                                          Icon(
-                                            Icons.star,
-                                            color: Colors.black,
-                                          ),
-                                          Icon(
-                                            Icons.star,
-                                            color: Colors.black,
-                                          ),
-                                          Icon(
-                                            Icons.star_half_sharp,
-                                            color: Colors.black,
+                                          Image.asset(e.imgs,
+                                              width: 400,
+                                              height: 350,
+                                              fit: BoxFit.contain,
+                                              alignment:
+                                                  Alignment.bottomCenter),
+                                          Image.asset(
+                                            e.imgs,
+                                            width: 100,
+                                            height: 300,
+                                            fit: BoxFit.contain,
+                                            alignment: Alignment.bottomLeft,
                                           ),
                                         ],
                                       ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            '100+',
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                          SizedBox(
-                                            width: 5,
-                                          ),
-                                          Text(
-                                            'reviews',
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w100),
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              InkWell(
-                                onTap: () {},
-                                child: Container(
-                                  padding: EdgeInsets.all(12),
-                                  margin: EdgeInsets.symmetric(horizontal: 1),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    shape: BoxShape.rectangle,
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(6),
                                     ),
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Icon(
-                                        Icons.shopping_cart_outlined,
-                                        color: Colors.black,
+                                    Container(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 10.0, right: 10),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.headphones,
+                                                  size: 20,
+                                                  color: Colors.white,
+                                                ),
+                                                Text(
+                                                  'Options Brand',
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      color: Colors.white),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            SizedBox(
+                                              width: 400,
+                                              child: Text(
+                                                e.nameOfItem,
+                                                textAlign: TextAlign.center,
+                                                softWrap: true,
+                                                style: TextStyle(
+                                                    fontSize: 50,
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 15,
+                                            ),
+                                            Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                SizedBox(
+                                                  width: 100,
+                                                  height: 40,
+                                                  // padding: EdgeInsets.only(top: 5),
+                                                  child: Stack(children: [
+                                                    Positioned(
+                                                      left: 0,
+                                                      child:
+                                                          CirclerImageContainer(
+                                                        width: 40,
+                                                        height: 40,
+                                                        circleZize: 70,
+                                                        image: e.reviewImg1,
+                                                      ),
+                                                    ),
+                                                    Positioned(
+                                                      left: 20,
+                                                      child:
+                                                          CirclerImageContainer(
+                                                        width: 40,
+                                                        height: 40,
+                                                        circleZize: 90,
+                                                        image: e.reviewImg2,
+                                                      ),
+                                                    ),
+                                                    Positioned(
+                                                      left: 40,
+                                                      child:
+                                                          CirclerImageContainer(
+                                                        width: 40,
+                                                        height: 40,
+                                                        circleZize: 90,
+                                                        image: e.reviewImg3,
+                                                      ),
+                                                    ),
+                                                    Positioned(
+                                                      left: 60,
+                                                      child:
+                                                          CirclerImageContainer(
+                                                        width: 40,
+                                                        height: 40,
+                                                        circleZize: 90,
+                                                        image: e.reviewImg4,
+                                                      ),
+                                                    ),
+                                                  ]),
+                                                ),
+                                                SizedBox(
+                                                  width: 20,
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        Icon(
+                                                          Icons.star,
+                                                          color: Colors.black,
+                                                        ),
+                                                        Icon(
+                                                          Icons.star,
+                                                          color: Colors.black,
+                                                        ),
+                                                        Icon(
+                                                          Icons.star,
+                                                          color: Colors.black,
+                                                        ),
+                                                        Icon(
+                                                          Icons.star,
+                                                          color: Colors.black,
+                                                        ),
+                                                        Icon(
+                                                          Icons.star_half_sharp,
+                                                          color: Colors.black,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        Text(
+                                                          '100+',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500),
+                                                        ),
+                                                        SizedBox(
+                                                          width: 5,
+                                                        ),
+                                                        Text(
+                                                          'reviews',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 14,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w100),
+                                                        ),
+                                                      ],
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 15,
+                                            ),
+                                            InkWell(
+                                              onTap: () {},
+                                              child: Container(
+                                                padding: EdgeInsets.all(12),
+                                                margin: EdgeInsets.symmetric(
+                                                    horizontal: 1),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  shape: BoxShape.rectangle,
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(6),
+                                                  ),
+                                                ),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Icon(
+                                                      Icons
+                                                          .shopping_cart_outlined,
+                                                      color: Colors.black,
+                                                    ),
+                                                    Text(
+                                                      'shop now',
+                                                      style: TextStyle(
+                                                          color: Colors.black),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                      Text(
-                                        'shop now',
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                                    ),
+                                  ],
+                                ))
+                            .toList(),
+                        options: CarouselOptions(
+                            initialPage: 0,
+                            viewportFraction: 1,
+                            autoPlay: true,
+                            height: 600,
+                            // aspectRatio: 16 / 2,
+                            scrollDirection: Axis.horizontal,
+                            autoPlayInterval: Duration(seconds: 5),
+                            enlargeCenterPage: true,
+                            enlargeFactor: 0.5,
+                            disableCenter: true),
                       ),
                     if (Responsive.isMobile(context))
                       CarouselSlider(
@@ -299,7 +361,7 @@ class MyHomePage extends StatelessWidget {
                                   children: [
                                     Container(
                                       // width: 50,
-                                      height: 250,
+                                      height: 350,
                                       child: Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -308,20 +370,23 @@ class MyHomePage extends StatelessWidget {
                                         children: [
                                           Image.asset(
                                             e.imgs,
-                                            width: 200,
-                                            height: 400,
+                                            width: 250,
+                                            height: 300,
                                             fit: BoxFit.contain,
                                             alignment: Alignment.bottomLeft,
                                           ),
                                           Image.asset(
                                             e.imgs,
                                             width: 50,
-                                            height: 400,
+                                            height: 300,
                                             fit: BoxFit.contain,
                                             alignment: Alignment.bottomRight,
                                           ),
                                         ],
                                       ),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
                                     ),
                                     Container(
                                       child: Padding(
@@ -334,7 +399,7 @@ class MyHomePage extends StatelessWidget {
                                               MainAxisAlignment.start,
                                           children: [
                                             SizedBox(
-                                              height: 40,
+                                              height: 30,
                                             ),
                                             Row(
                                               mainAxisAlignment:
@@ -359,7 +424,7 @@ class MyHomePage extends StatelessWidget {
                                               ],
                                             ),
                                             SizedBox(
-                                              height: 10,
+                                              height: 20,
                                             ),
                                             SizedBox(
                                               width: 300,
@@ -544,7 +609,8 @@ class MyHomePage extends StatelessWidget {
                             scrollDirection: Axis.horizontal,
                             autoPlayInterval: Duration(seconds: 5),
                             enlargeCenterPage: true,
-                            enlargeFactor: 0.3),
+                            enlargeFactor: 0.5,
+                            disableCenter: true),
                       ),
                     if (Responsive.isDesktop(context))
                       CarouselSlider(
@@ -812,9 +878,10 @@ class MyHomePage extends StatelessWidget {
                             initialPage: 0,
                             autoPlay: true,
                             viewportFraction: 1,
-                            height: 550,
+                            height: 500,
                             autoPlayInterval: Duration(seconds: 5),
                             enlargeCenterPage: true,
+                            disableCenter: true,
                             enlargeFactor: 0.5),
                       ),
                   ],

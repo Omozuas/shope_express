@@ -44,5 +44,26 @@ final List<HomeSlide> homeSlide = [
       reviewImg1: 'assets/images/bacimg3.jpg',
       reviewImg2: 'assets/images/bacimg2.jpg',
       reviewImg3: 'assets/images/bacimg3.jpg',
-      reviewImg4: 'assets/images/bacimg1.jpg')
+      reviewImg4: 'assets/images/bacimg1.jpg'),
+  HomeSlide(
+      imgs: "assets/images/iphone3.png",
+      nameOfItem: "BrandNew Iphone xr",
+      reviewImg1: 'assets/images/bacimg3.jpg',
+      reviewImg2: 'assets/images/bacimg2.jpg',
+      reviewImg3: 'assets/images/bacimg3.jpg',
+      reviewImg4: 'assets/images/bacimg1.jpg'),
+  HomeSlide(
+      imgs: "assets/images/pcimg2.png",
+      nameOfItem: "A BranNew Dell Pc",
+      reviewImg1: 'assets/images/bacimg3.jpg',
+      reviewImg2: 'assets/images/bacimg2.jpg',
+      reviewImg3: 'assets/images/bacimg3.jpg',
+      reviewImg4: 'assets/images/bacimg1.jpg'),
+  HomeSlide(
+      imgs: "assets/images/shoe1.png",
+      nameOfItem: "A BranNew Dell Pc",
+      reviewImg1: 'assets/images/bacimg3.jpg',
+      reviewImg2: 'assets/images/bacimg2.jpg',
+      reviewImg3: 'assets/images/bacimg3.jpg',
+      reviewImg4: 'assets/images/bacimg1.jpg'),
 ];
