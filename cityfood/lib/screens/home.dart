@@ -1,11 +1,15 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cityfood/controller/controller.dart';
+import 'package:cityfood/model/cards/cardcategory.dart';
 import 'package:cityfood/model/homeSlide_Model.dart';
 import 'package:cityfood/util/responsive.dart';
 import 'package:cityfood/widgets/appBar.dart';
+import 'package:cityfood/widgets/cards/cartegoryCard.dart';
 import 'package:cityfood/widgets/side_menu_widget.dart';
+import 'package:flutter/cupertino.dart';
 // import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 // import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +17,17 @@ import '../widgets/circlerImage.dart';
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
+  List<CardCatrgory> categoryCard = [
+    CardCatrgory(imgs: "assets/images/clothes1.png", nameOfItem: "Hoodie"),
+    CardCatrgory(imgs: "assets/images/friedge1.png", nameOfItem: "electronics"),
+    CardCatrgory(imgs: "assets/images/androidpic3.webp", nameOfItem: "android"),
+    CardCatrgory(imgs: "assets/images/funiture1.png", nameOfItem: "Funiturs"),
+    CardCatrgory(
+        imgs: "assets/images/headsetImg1.png", nameOfItem: "head phones"),
+    CardCatrgory(imgs: "assets/images/iphone3.png", nameOfItem: "iphones"),
+    CardCatrgory(imgs: "assets/images/pcimg2.png", nameOfItem: "Laptops"),
+    CardCatrgory(imgs: "assets/images/shoe1.png", nameOfItem: "shoes"),
+  ];
   final List<HomeSlide> homeSlide = [
     HomeSlide(
         imgs: "assets/images/clothes1.png",
@@ -88,7 +103,7 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       key: context.read<MenuAppController>().scaffoldKey,
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Colors.grey[200],
       drawer: SideMenuWidget(),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -890,7 +905,121 @@ class MyHomePage extends StatelessWidget {
                     image: DecorationImage(
                         image: AssetImage('assets/images/bacimg1.jpg'),
                         fit: BoxFit.cover)),
-              )
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              if (Responsive.isDesktop(context))
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.category_outlined,
+                            color: Colors.orange,
+                            size: 20,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Categories',
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: ListCategoryard(
+                            cardCatrgory: categoryCard,
+                          )),
+                    ],
+                  ),
+                ),
+              if (Responsive.isTablet(context))
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.category_outlined,
+                            color: Colors.orange,
+                            size: 20,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Categories',
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: ListCategoryard(
+                            cardCatrgory: categoryCard,
+                          )),
+                    ],
+                  ),
+                ),
+              if (Responsive.isMobile(context))
+                Padding(
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.category_outlined,
+                            color: Colors.orange,
+                            size: 20,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(
+                            'Categories',
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: ListCategoryard(
+                            cardCatrgory: categoryCard,
+                          )),
+                    ],
+                  ),
+                )
 
               // Center(child: FlexAppBar())
             ],

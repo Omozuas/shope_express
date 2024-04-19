@@ -1,4 +1,5 @@
 import 'package:cityfood/controller/controller.dart';
+import 'package:cityfood/routes/routes.dart';
 import 'package:cityfood/screens/home.dart';
 import 'package:cityfood/theme/darkTheme.dart';
 import 'package:cityfood/theme/lightTheme.dart';
@@ -15,17 +16,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: lightTheme,
-        darkTheme: darkTheme,
-        home: MultiProvider(
-          providers: [
-            ChangeNotifierProvider(
-              create: (context) => MenuAppController(),
-            ),
-          ],
-          child: MyHomePage(),
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (context) => MenuAppController(),
+          ),
+        ],
+        child: GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: lightTheme,
+          darkTheme: darkTheme,
+          initialRoute: RoutesClass.getHomeRoute(),
+          getPages: RoutesClass.routes,
         ));
   }
 }

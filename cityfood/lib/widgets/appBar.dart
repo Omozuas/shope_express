@@ -1,8 +1,11 @@
 import 'package:cityfood/controller/controller.dart';
+import 'package:cityfood/routes/routes.dart';
 import 'package:cityfood/util/responsive.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:provider/provider.dart';
 
 class FlexAppBar extends StatelessWidget {
@@ -76,7 +79,7 @@ class FlexAppBar extends StatelessWidget {
                     width: 60,
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () => Get.toNamed(RoutesClass.getStoreRoute()),
                     child: Text(
                       'Get a Store',
                       style: TextStyle(
