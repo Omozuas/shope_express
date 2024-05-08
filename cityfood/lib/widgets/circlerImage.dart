@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class CirclerImageContainer extends StatelessWidget {
   CirclerImageContainer(
@@ -27,6 +29,35 @@ class CirclerImageContainer extends StatelessWidget {
           ),
           fit: BoxFit.cover,
         ),
+      ),
+    );
+  }
+}
+
+class CirclerContainer extends StatelessWidget {
+  CirclerContainer(
+      {super.key,
+      required this.child,
+      required this.width,
+      required this.color,
+      required this.height,
+      required this.circleZize});
+  double width;
+  double height;
+  Widget child;
+  Color color;
+  double circleZize;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      height: height,
+      child: child,
+      // padding: EdgeInsets.all(0),
+      decoration: BoxDecoration(
+        color: color,
+        // shape: BoxShape.circle,
+        borderRadius: BorderRadius.circular(circleZize),
       ),
     );
   }

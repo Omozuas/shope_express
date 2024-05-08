@@ -1,18 +1,17 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cityfood/colorsConstrain/colorsHex.dart';
 import 'package:cityfood/controller/controller.dart';
 import 'package:cityfood/model/cards/cardcategory.dart';
 import 'package:cityfood/model/homeSlide_Model.dart';
 import 'package:cityfood/util/responsive.dart';
 import 'package:cityfood/widgets/appBar.dart';
 import 'package:cityfood/widgets/cards/cartegoryCard.dart';
+import 'package:cityfood/widgets/countdown/countdown.dart';
 import 'package:cityfood/widgets/side_menu_widget.dart';
 import 'package:flutter/cupertino.dart';
-// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-// import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-
 import '../widgets/circlerImage.dart';
 
 class MyHomePage extends StatelessWidget {
@@ -920,7 +919,7 @@ class MyHomePage extends StatelessWidget {
                         children: [
                           Icon(
                             Icons.category_outlined,
-                            color: Colors.orange,
+                            color: GlobalColors.willoGrove,
                             size: 20,
                           ),
                           SizedBox(
@@ -929,11 +928,18 @@ class MyHomePage extends StatelessWidget {
                           Text(
                             'Categories',
                             style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 13,
                                 color: Colors.black,
                                 fontWeight: FontWeight.w500),
                           )
                         ],
+                      ),
+                      Text(
+                        'Browse by Category',
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600),
                       ),
                       SizedBox(
                         height: 10,
@@ -943,6 +949,123 @@ class MyHomePage extends StatelessWidget {
                           child: ListCategoryard(
                             cardCatrgory: categoryCard,
                           )),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 1000,
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 28.0, right: 28),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                        child: Container(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Icon(
+                                                Icons.headphones,
+                                                color: GlobalColors.willoGrove,
+                                                size: 25,
+                                              ),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text(
+                                                'headPhone',
+                                                style: TextStyle(
+                                                    fontSize: 17,
+                                                    color: Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              )
+                                            ],
+                                          ),
+                                          Text(
+                                            "Enhance Your Music Experience",
+                                            softWrap: true,
+                                            style: TextStyle(
+                                                wordSpacing: 2, fontSize: 40),
+                                          ),
+                                          SizedBox(
+                                            height: 15,
+                                          ),
+                                          Countdown(
+                                              dateTime: DateTime.now()
+                                                  .add(Duration(days: 6))),
+                                          SizedBox(
+                                            height: 15,
+                                          ),
+                                          InkWell(
+                                            onTap: () {},
+                                            child: Container(
+                                              padding: EdgeInsets.all(12),
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: 9),
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                shape: BoxShape.rectangle,
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(6),
+                                                ),
+                                              ),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Text(
+                                                    'check it out',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: Colors.black),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )),
+                                    Expanded(
+                                      child: Container(
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Image.asset(
+                                              "assets/images/headsetImg2.png",
+                                              width: 300,
+                                              // height: 400,
+                                              fit: BoxFit.contain,
+                                              alignment: Alignment.bottomLeft,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            decoration:
+                                BoxDecoration(color: GlobalColors.orange),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -966,11 +1089,18 @@ class MyHomePage extends StatelessWidget {
                           Text(
                             'Categories',
                             style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 13,
                                 color: Colors.black,
                                 fontWeight: FontWeight.w500),
                           )
                         ],
+                      ),
+                      Text(
+                        'Browse by Category',
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600),
                       ),
                       SizedBox(
                         height: 10,
@@ -980,6 +1110,128 @@ class MyHomePage extends StatelessWidget {
                           child: ListCategoryard(
                             cardCatrgory: categoryCard,
                           )),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 748,
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 20, right: 20, top: 10, bottom: 10),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                        child: Container(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Icon(
+                                                Icons.headphones,
+                                                color: GlobalColors.willoGrove,
+                                                size: 25,
+                                              ),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text(
+                                                'headPhone',
+                                                style: TextStyle(
+                                                    fontSize: 17,
+                                                    color: Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              )
+                                            ],
+                                          ),
+                                          Text(
+                                            "Enhance Your Music Experience",
+                                            softWrap: true,
+                                            style: TextStyle(
+                                                wordSpacing: 2, fontSize: 40),
+                                          ),
+                                          Text(
+                                            "10% off",
+                                            softWrap: true,
+                                            style: TextStyle(fontSize: 20),
+                                          ),
+                                          SizedBox(
+                                            height: 25,
+                                          ),
+                                          Countdown(
+                                              dateTime: DateTime.now()
+                                                  .add(Duration(days: 6))),
+                                          SizedBox(
+                                            height: 25,
+                                          ),
+                                          InkWell(
+                                            onTap: () {},
+                                            child: Container(
+                                              padding: EdgeInsets.all(15),
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: 9),
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                shape: BoxShape.rectangle,
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(6),
+                                                ),
+                                              ),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Text(
+                                                    'check it out',
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: Colors.black),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )),
+                                    Expanded(
+                                      child: Container(
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Image.asset(
+                                              "assets/images/headsetImg2.png",
+                                              width: 300,
+                                              // height: 300,
+                                              fit: BoxFit.contain,
+                                              alignment: Alignment.center,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            decoration:
+                                BoxDecoration(color: GlobalColors.orange),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -1003,11 +1255,18 @@ class MyHomePage extends StatelessWidget {
                           Text(
                             'Categories',
                             style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 13,
                                 color: Colors.black,
                                 fontWeight: FontWeight.w500),
                           )
                         ],
+                      ),
+                      Text(
+                        'Browse by Category',
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600),
                       ),
                       SizedBox(
                         height: 10,
@@ -1017,9 +1276,139 @@ class MyHomePage extends StatelessWidget {
                           child: ListCategoryard(
                             cardCatrgory: categoryCard,
                           )),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Flexible(
+                            child: Container(
+                              // width: 450,
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 10, right: 10, top: 10, bottom: 10),
+                                  child: Row(
+                                    children: [
+                                      Flexible(
+                                          child: Container(
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.headphones,
+                                                  color:
+                                                      GlobalColors.willoGrove,
+                                                  size: 20,
+                                                ),
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Text(
+                                                  'headPhone',
+                                                  style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                )
+                                              ],
+                                            ),
+                                            Text(
+                                              "Enhance Your Music Experience",
+                                              softWrap: true,
+                                              style: TextStyle(
+                                                  wordSpacing: 2, fontSize: 20),
+                                            ),
+                                            Text(
+                                              "10% off",
+                                              softWrap: true,
+                                              style: TextStyle(fontSize: 20),
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Countdown2(
+                                                dateTime: DateTime.now()
+                                                    .add(Duration(days: 6))),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            InkWell(
+                                              onTap: () {},
+                                              child: Container(
+                                                padding: EdgeInsets.all(10),
+                                                margin: EdgeInsets.symmetric(
+                                                    horizontal: 9),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  shape: BoxShape.rectangle,
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(6),
+                                                  ),
+                                                ),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                    Text(
+                                                      'check it out',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          color: Colors.black),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )),
+                                      Flexible(
+                                        child: Container(
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Image.asset(
+                                                "assets/images/headsetImg2.png",
+                                                width: 165,
+                                                // height: 300,
+                                                fit: BoxFit.contain,
+                                                alignment: Alignment.topRight,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              decoration:
+                                  BoxDecoration(color: GlobalColors.orange),
+                            ),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
-                )
+                ),
+              SizedBox(
+                height: 25,
+              ),
 
               // Center(child: FlexAppBar())
             ],

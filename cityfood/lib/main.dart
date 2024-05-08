@@ -1,6 +1,5 @@
 import 'package:cityfood/controller/controller.dart';
 import 'package:cityfood/routes/routes.dart';
-import 'package:cityfood/screens/home.dart';
 import 'package:cityfood/theme/darkTheme.dart';
 import 'package:cityfood/theme/lightTheme.dart';
 import 'package:flutter/material.dart';
