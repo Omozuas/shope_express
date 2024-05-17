@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:cityfood/widgets/appbarname.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SideMenuWidget extends StatelessWidget {
   const SideMenuWidget({
@@ -8,6 +10,7 @@ class SideMenuWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(NavigationController());
     return Drawer(
       width: 200,
       backgroundColor: Color.fromARGB(255, 242, 164, 62),
@@ -27,43 +30,63 @@ class SideMenuWidget extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                DrawerListTile(
-                  title: "Home",
-                  iconData: Icons.home,
-                  press: () {},
-                  size: 20,
-                  textColor: Colors.black,
-                  color: Colors.black,
-                ),
-                DrawerListTile(
-                  title: "ABOUT",
-                  iconData: Icons.info_outline_rounded,
-                  press: () {},
-                  size: 20,
-                  textColor: Colors.black,
-                  color: Colors.black,
-                ),
-                DrawerListTile(
-                  title: "FAQ",
-                  iconData: Icons.question_mark_outlined,
-                  press: () {},
-                  size: 20,
-                  textColor: Colors.black,
-                  color: Colors.black,
-                ),
-                DrawerListTile(
-                  title: "Get a Store",
-                  iconData: Icons.store,
-                  press: () {},
-                  size: 20,
-                  textColor: Colors.black,
-                  color: Colors.black,
-                ),
-              ],
-            ),
+            child: Obx(() => Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    DrawerListTile(
+                      title: "Home",
+                      iconData: Icons.home,
+                      press: () => controller.selectedIndex.value = 0,
+                      size: 20,
+                      textColor: controller.selectedIndex.value == 0
+                          ? Colors.white
+                          : Colors.black,
+                      color: controller.selectedIndex.value == 0
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                    DrawerListTile(
+                      title: "ABOUT",
+                      iconData: Icons.info_outline_rounded,
+                      press: () {},
+                      size: 20,
+                      textColor: Colors.black,
+                      color: Colors.black,
+                    ),
+                    DrawerListTile(
+                      title: "FAQ",
+                      iconData: Icons.question_mark_outlined,
+                      press: () {},
+                      size: 20,
+                      textColor: Colors.black,
+                      color: Colors.black,
+                    ),
+                    DrawerListTile(
+                      title: "Get a Store",
+                      iconData: Icons.store,
+                      press: () => controller.selectedIndex.value = 1,
+                      size: 20,
+                      textColor: controller.selectedIndex.value == 1
+                          ? Colors.white
+                          : Colors.black,
+                      color: controller.selectedIndex.value == 1
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                    DrawerListTile(
+                      title: "SignUp",
+                      iconData: Icons.app_registration_sharp,
+                      press: () => controller.selectedIndex.value = 2,
+                      size: 20,
+                      textColor: controller.selectedIndex.value == 2
+                          ? Colors.white
+                          : Colors.black,
+                      color: controller.selectedIndex.value == 2
+                          ? Colors.white
+                          : Colors.black,
+                    ),
+                  ],
+                )),
           ),
         ],
       ),

@@ -1,7 +1,7 @@
 import 'package:cityfood/controller/controller.dart';
-import 'package:cityfood/routes/routes.dart';
 import 'package:cityfood/theme/darkTheme.dart';
 import 'package:cityfood/theme/lightTheme.dart';
+import 'package:cityfood/widgets/appBar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
@@ -25,8 +25,9 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: lightTheme,
           darkTheme: darkTheme,
-          initialRoute: RoutesClass.getHomeRoute(),
-          getPages: RoutesClass.routes,
+          home: FlexAppBar(),
+          // initialRoute: RoutesClass.getHomeRoute(),
+          // getPages: RoutesClass.routes,
         ));
   }
 }
