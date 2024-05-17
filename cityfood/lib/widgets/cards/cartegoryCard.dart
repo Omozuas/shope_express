@@ -2,19 +2,32 @@ import 'package:cityfood/model/cards/cardcategory.dart';
 import 'package:flutter/material.dart';
 
 class ListCategoryard extends StatelessWidget {
-  ListCategoryard({super.key, required this.cardCatrgory});
+  ListCategoryard({super.key, required this.cardCatrgory, required this.onTap});
   List<CardCatrgory> cardCatrgory = [];
+  final onTap;
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: cardCatrgory.map((e) => Categoryard(cardCatrgory: e)).toList(),
+      children: cardCatrgory
+          .map((e) => Categoryard(
+                cardCatrgory: e,
+                onTap: onTap,
+              ))
+          .toList(),
     );
   }
 }
 
-class Categoryard extends StatelessWidget {
-  Categoryard({super.key, required this.cardCatrgory});
+class Categoryard extends StatefulWidget {
+  Categoryard({super.key, required this.cardCatrgory, required this.onTap});
   CardCatrgory cardCatrgory;
+
+  final onTap;
+  @override
+  State<Categoryard> createState() => _CategoryardState();
+}
+
+class _CategoryardState extends State<Categoryard> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -32,7 +45,7 @@ class Categoryard extends StatelessWidget {
               // mainAxisSize: MainAxisSize.min,
               children: [
                 Image.asset(
-                  cardCatrgory.imgs,
+                  widget.cardCatrgory.imgs,
                   width: 100,
                   height: 100,
                 ),
@@ -40,7 +53,7 @@ class Categoryard extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  cardCatrgory.nameOfItem,
+                  widget.cardCatrgory.nameOfItem,
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 15,
