@@ -3,9 +3,9 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 
-const RESOURCES = {"assets/AssetManifest.bin": "0d6fb00b0304e423b45524388ca2d94a",
-"assets/AssetManifest.bin.json": "b501af933f1bfb12726ab25a3c602b63",
-"assets/AssetManifest.json": "608de21036d7f6b069cdf3ddb1bb601f",
+const RESOURCES = {"assets/AssetManifest.bin": "53eaea2e5f00eca1cfc1534bedeeda65",
+"assets/AssetManifest.bin.json": "319dbd6c88c50425bac5ffd96efc6a4e",
+"assets/AssetManifest.json": "15a5d7011cb4ac4afe0659c67c5d1e0f",
 "assets/assets/images/androidpic1.png": "ad2514043e9d8c6e992a26b85549230e",
 "assets/assets/images/androidpic2.png": "f784d17d77017a2d7ebdb3ce0bbbcb03",
 "assets/assets/images/androidpic3.webp": "fee41bc229f4077be35fd9c4be4e9e67",
@@ -39,7 +39,9 @@ const RESOURCES = {"assets/AssetManifest.bin": "0d6fb00b0304e423b45524388ca2d94a
 "assets/assets/images/PngItem_1218427.png": "f35d37dbd1d41fa8f3e2d40fc34940c9",
 "assets/assets/images/PngItem_1218520.png": "73a76f805864de21bc4cc97d0dcba1a1",
 "assets/assets/images/PngItem_1218916.png": "a99867e4d893b553a0943c4ea4fbb9f4",
+"assets/assets/images/PngItem_1619416.png": "198b628ebc37ece232e1f61001e6cc47",
 "assets/assets/images/PngItem_2484287.png": "47e473c2b5b7910804df0d2d34cd2246",
+"assets/assets/images/PngItem_332868.png": "aa481c00d28d819b7863b8ca80a5e739",
 "assets/assets/images/PngItem_6331185.png": "2bb172d059346c21b83c4af29f54ef46",
 "assets/assets/images/shoe1.png": "0802c2d76880835d02fe61e0708fdbf8",
 "assets/assets/images/shoe2.png": "aa7aa40965b7147db5e166ba3a3704e7",
@@ -53,7 +55,7 @@ const RESOURCES = {"assets/AssetManifest.bin": "0d6fb00b0304e423b45524388ca2d94a
 "assets/assets/images/wristwatch3.png": "16eb5b12e671f0223a9b68175ddeca3c",
 "assets/assets/images/wristwatch4.png": "9b5b49af2f49e940dd0ecb240d5bfd27",
 "assets/FontManifest.json": "dc3d03800ccca4601324923c0b1d6d57",
-"assets/fonts/MaterialIcons-Regular.otf": "804ed5b4a13e3b17e24b9eb1d8f7a57a",
+"assets/fonts/MaterialIcons-Regular.otf": "c27fcfc13a44965b23a6fd66ded60e0d",
 "assets/NOTICES": "dea8e8dc64c1d6c0acf23be8e2b52c6e",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "398df714586da08ae6c53d92eb6de3bf",
 "assets/shaders/ink_sparkle.frag": "ecc85a2e95f5e9f53123dcaf8cb9b6ce",
@@ -73,9 +75,9 @@ const RESOURCES = {"assets/AssetManifest.bin": "0d6fb00b0304e423b45524388ca2d94a
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
-"index.html": "bfc8a2625ec9e4f8ee7b0faa33bff4d6",
-"/": "bfc8a2625ec9e4f8ee7b0faa33bff4d6",
-"main.dart.js": "7e51f7e7ed0b46615a53dc0a331b1e1e",
+"index.html": "d66aa033c76925ded17f321d999656ab",
+"/": "d66aa033c76925ded17f321d999656ab",
+"main.dart.js": "3c606da07e83d71f7bc7410b33082235",
 "manifest.json": "52b3105bde9d4f46cea7c36a70356abf",
 "version.json": "5bd1ee0c00dcc6f1554fc875112c33c0"};
 // The application shell files that are downloaded before a service worker can
