@@ -46,6 +46,13 @@ final List<HomeSlide> homeSlide = [
       reviewImg3: 'assets/images/bacimg3.jpg',
       reviewImg4: 'assets/images/bacimg1.jpg'),
   HomeSlide(
+      imgs: "assets/images/headsetImg1.png",
+      nameOfItem: "Options Wireless Headphone",
+      reviewImg1: 'assets/images/bacimg3.jpg',
+      reviewImg2: 'assets/images/bacimg2.jpg',
+      reviewImg3: 'assets/images/bacimg3.jpg',
+      reviewImg4: 'assets/images/bacimg1.jpg'),
+  HomeSlide(
       imgs: "assets/images/iphone3.png",
       nameOfItem: "BrandNew Iphone xr",
       reviewImg1: 'assets/images/bacimg3.jpg',
@@ -61,7 +68,7 @@ final List<HomeSlide> homeSlide = [
       reviewImg4: 'assets/images/bacimg1.jpg'),
   HomeSlide(
       imgs: "assets/images/shoe1.png",
-      nameOfItem: "A BranNew Dell Pc",
+      nameOfItem: "AirJordan Sport Shoe",
       reviewImg1: 'assets/images/bacimg3.jpg',
       reviewImg2: 'assets/images/bacimg2.jpg',
       reviewImg3: 'assets/images/bacimg3.jpg',

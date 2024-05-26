@@ -1,7 +1,5 @@
 import 'package:cityfood/colorsConstrain/colorsHex.dart';
 import 'package:cityfood/controller/controller.dart';
-import 'package:cityfood/routes/routes.dart';
-import 'package:cityfood/screens/view/signUp.dart';
 import 'package:cityfood/util/responsive.dart';
 import 'package:cityfood/widgets/appbarname.dart';
 import 'package:cityfood/widgets/side_menu_widget.dart';

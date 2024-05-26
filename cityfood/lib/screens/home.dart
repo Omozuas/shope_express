@@ -1,18 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cityfood/colorsConstrain/colorsHex.dart';
-import 'package:cityfood/controller/controller.dart';
 import 'package:cityfood/model/cards/cardcategory.dart';
 import 'package:cityfood/model/homeSlide_Model.dart';
 import 'package:cityfood/util/responsive.dart';
-import 'package:cityfood/widgets/appBar.dart';
 import 'package:cityfood/widgets/cards/cartegoryCard.dart';
 import 'package:cityfood/widgets/countdown/countdown.dart';
-import 'package:cityfood/widgets/side_menu_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:provider/provider.dart';
 import '../widgets/circlerImage.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -38,77 +33,6 @@ class _MyHomePageState extends State<MyHomePage> {
       scrollPosition = _scrollController.position.pixels;
     });
   }
-
-  List<CardCatrgory> categoryCard = [
-    CardCatrgory(imgs: "assets/images/clothes1.png", nameOfItem: "Hoodie"),
-    CardCatrgory(imgs: "assets/images/friedge1.png", nameOfItem: "electronics"),
-    CardCatrgory(imgs: "assets/images/androidpic3.webp", nameOfItem: "android"),
-    CardCatrgory(imgs: "assets/images/funiture1.png", nameOfItem: "Funiturs"),
-    CardCatrgory(
-        imgs: "assets/images/headsetImg1.png", nameOfItem: "head phones"),
-    CardCatrgory(imgs: "assets/images/iphone3.png", nameOfItem: "iphones"),
-    CardCatrgory(imgs: "assets/images/pcimg2.png", nameOfItem: "Laptops"),
-    CardCatrgory(imgs: "assets/images/shoe1.png", nameOfItem: "shoes"),
-  ];
-
-  final List<HomeSlide> homeSlide = [
-    HomeSlide(
-        imgs: "assets/images/clothes1.png",
-        nameOfItem: "BlackHoodie Mixed Gender",
-        reviewImg1: 'assets/images/bacimg3.jpg',
-        reviewImg2: 'assets/images/bacimg2.jpg',
-        reviewImg3: 'assets/images/bacimg3.jpg',
-        reviewImg4: 'assets/images/bacimg1.jpg'),
-    HomeSlide(
-        imgs: "assets/images/friedge1.png",
-        nameOfItem: "Brand New LG Friedge",
-        reviewImg1: 'assets/images/bacimg3.jpg',
-        reviewImg2: 'assets/images/bacimg2.jpg',
-        reviewImg3: 'assets/images/bacimg3.jpg',
-        reviewImg4: 'assets/images/bacimg1.jpg'),
-    HomeSlide(
-        imgs: "assets/images/androidpic3.webp",
-        nameOfItem: "Samsung Galaxy A15 ",
-        reviewImg1: 'assets/images/bacimg3.jpg',
-        reviewImg2: 'assets/images/bacimg2.jpg',
-        reviewImg3: 'assets/images/bacimg3.jpg',
-        reviewImg4: 'assets/images/bacimg1.jpg'),
-    HomeSlide(
-        imgs: "assets/images/funiture1.png",
-        nameOfItem: "A Yellow Funiture Couch",
-        reviewImg1: 'assets/images/bacimg3.jpg',
-        reviewImg2: 'assets/images/bacimg2.jpg',
-        reviewImg3: 'assets/images/bacimg3.jpg',
-        reviewImg4: 'assets/images/bacimg1.jpg'),
-    HomeSlide(
-        imgs: "assets/images/headsetImg1.png",
-        nameOfItem: "Options Wireless Headphone",
-        reviewImg1: 'assets/images/bacimg3.jpg',
-        reviewImg2: 'assets/images/bacimg2.jpg',
-        reviewImg3: 'assets/images/bacimg3.jpg',
-        reviewImg4: 'assets/images/bacimg1.jpg'),
-    HomeSlide(
-        imgs: "assets/images/iphone3.png",
-        nameOfItem: "BrandNew Iphone xr",
-        reviewImg1: 'assets/images/bacimg3.jpg',
-        reviewImg2: 'assets/images/bacimg2.jpg',
-        reviewImg3: 'assets/images/bacimg3.jpg',
-        reviewImg4: 'assets/images/bacimg1.jpg'),
-    HomeSlide(
-        imgs: "assets/images/pcimg2.png",
-        nameOfItem: "A BranNew Dell Pc",
-        reviewImg1: 'assets/images/bacimg3.jpg',
-        reviewImg2: 'assets/images/bacimg2.jpg',
-        reviewImg3: 'assets/images/bacimg3.jpg',
-        reviewImg4: 'assets/images/bacimg1.jpg'),
-    HomeSlide(
-        imgs: "assets/images/shoe1.png",
-        nameOfItem: "AirJordan Sport Shoe",
-        reviewImg1: 'assets/images/bacimg3.jpg',
-        reviewImg2: 'assets/images/bacimg2.jpg',
-        reviewImg3: 'assets/images/bacimg3.jpg',
-        reviewImg4: 'assets/images/bacimg1.jpg'),
-  ];
 
   final List _isHovering = [
     false,
