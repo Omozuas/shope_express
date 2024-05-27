@@ -805,7 +805,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 : const Icon(Icons.visibility_off_outlined),
                             color: Colors.white,
                           ),
-                          keyboardType4: TextInputType.number,
+                          keyboardType4: TextInputType.visiblePassword,
                           validate: (value) {
                             if (value!.isEmpty ||
                                 !RegExp(r'^.*$').hasMatch(value!)) {
