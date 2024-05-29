@@ -7,7 +7,7 @@ const { validateMongodbId } = require('../utils/validatemongodb');
 
 
 class UserController{
-    static async createUser  (req,res){
+     async createUser  (req,res){
         console.log({
           firstname:req.body.firstname,
         lastname:req.body.lastname,
