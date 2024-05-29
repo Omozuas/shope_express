@@ -8,7 +8,12 @@ const { validateMongodbId } = require('../utils/validatemongodb');
 
 class UserController{
     static  createUser = asynchandler(async (req,res)=>{
-        
+        console.log({
+          firstname:req.body.firstname,
+        lastname:req.body.lastname,
+        mobile:req.body.mobile,
+        email:req.body.email,
+        })
        const isExisting = await User.findOne({ email: req.body.email });
     
        if (isExisting) {

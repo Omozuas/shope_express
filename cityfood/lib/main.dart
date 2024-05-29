@@ -19,10 +19,10 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(
-            create: (context) => MenuAppController(),
+            create: (_) => UserProviderApi(),
           ),
           ChangeNotifierProvider(
-            create: (context) => UserProviderApi(),
+            create: (_) => MenuAppController(),
           ),
         ],
         child: GetMaterialApp(

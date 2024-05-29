@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cityfood/colorsConstrain/colorsHex.dart';
 import 'package:cityfood/services/Apis/auth_api/user_controller.dart';
@@ -5,9 +6,7 @@ import 'package:cityfood/util/responsive.dart';
 import 'package:cityfood/widgets/appbarname.dart';
 import 'package:cityfood/widgets/onboard_model.dart';
 import 'package:cityfood/widgets/textField_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +18,6 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
   final formKey1 = GlobalKey<FormState>();
   final formKey2 = GlobalKey<FormState>();
@@ -36,12 +34,9 @@ class _SignUpPageState extends State<SignUpPage> {
 
   bool _isVisible = false;
   void _createUser() async {
-    if (formKey.currentState!.validate() &&
-        formKey1.currentState!.validate() &&
-        formKey2.currentState!.validate() &&
-        formKey3.currentState!.validate() &&
-        formKey4.currentState!.validate()) {
+    if (formKey.currentState!.validate()) {
       final registerAuth = Provider.of<UserProviderApi>(context, listen: false);
+
       registerAuth
           .createUser(
               firstnameController.text.toString(),
@@ -50,28 +45,29 @@ class _SignUpPageState extends State<SignUpPage> {
               numberController.text.toString(),
               passwordcontroller.text.toString())
           .then((value) {
-        if (value.success == true) {
-          // success(context: context, message: value.message);
-          // Get.to(() => LoginScreen());
-          print('success');
-          print({
-            firstnameController.text.toString(),
-            lastnameController.text.toString(),
-            emailcontroller.text.toString(),
-            numberController.text.toString(),
-            passwordcontroller.text.toString()
-          });
-        } else {
-          // error(context: context, message: value.message);
-          print('err');
-          print({
-            firstnameController.text.toString(),
-            lastnameController.text.toString(),
-            emailcontroller.text.toString(),
-            numberController.text.toString(),
-            passwordcontroller.text.toString()
-          });
-        }
+        print(value);
+        // if (value.success == true) {
+        //   // success(context: context, message: value.message);
+        //   // Get.to(() => LoginScreen());
+        //   print('success');
+        //   print({
+        //     firstnameController.text.toString(),
+        //     lastnameController.text.toString(),
+        //     emailcontroller.text.toString(),
+        //     numberController.text.toString(),
+        //     passwordcontroller.text.toString()
+        //   });
+        // } else {
+        //   // error(context: context, message: value.message);
+        //   print('err');
+        //   print({
+        //     firstnameController.text.toString(),
+        //     lastnameController.text.toString(),
+        //     emailcontroller.text.toString(),
+        //     numberController.text.toString(),
+        //     passwordcontroller.text.toString()
+        //   });
+        // }
       });
     }
   }
@@ -614,7 +610,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                 ),
                               ),
                               child: Text(
-                                registerAuth.loading ? 'Loading' : 'SignUp',
+                                // registerAuth.loading ? 'Loading' :
+                                'SignUp',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Colors.black,
