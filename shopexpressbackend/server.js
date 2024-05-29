@@ -18,7 +18,6 @@ const app=express();
 
 //router
 app.use(bodyPerser.json())
-app.use(bodyPerser.urlencoded({extended:false}))
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
