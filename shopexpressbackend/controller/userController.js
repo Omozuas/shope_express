@@ -24,7 +24,7 @@ class UserController{
         password:hashedPassword
        });
        await newUser.save();
-       return res.status(200).json(newUser);
+       return res.status(200).json({newUser,message:'SigUp successful',success:true});
 
     });
     static loginUser = asynchandler(async(req,res)=>{

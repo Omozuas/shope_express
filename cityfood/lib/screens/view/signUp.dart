@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cityfood/colorsConstrain/colorsHex.dart';
+import 'package:cityfood/services/Apis/auth_api/user_controller.dart';
 import 'package:cityfood/util/responsive.dart';
 import 'package:cityfood/widgets/appbarname.dart';
 import 'package:cityfood/widgets/onboard_model.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 class SignUpPage extends StatefulWidget {
   SignUpPage({super.key});
@@ -33,9 +35,51 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController numberController = TextEditingController();
 
   bool _isVisible = false;
+  void _createUser() async {
+    if (formKey.currentState!.validate() &&
+        formKey1.currentState!.validate() &&
+        formKey2.currentState!.validate() &&
+        formKey3.currentState!.validate() &&
+        formKey4.currentState!.validate()) {
+      final registerAuth = Provider.of<UserProviderApi>(context, listen: false);
+      registerAuth
+          .createUser(
+              firstnameController.text.toString(),
+              lastnameController.text.toString(),
+              emailcontroller.text.toString(),
+              numberController.text.toString(),
+              passwordcontroller.text.toString())
+          .then((value) {
+        if (value.success == true) {
+          // success(context: context, message: value.message);
+          // Get.to(() => LoginScreen());
+          print('success');
+          print({
+            firstnameController.text.toString(),
+            lastnameController.text.toString(),
+            emailcontroller.text.toString(),
+            numberController.text.toString(),
+            passwordcontroller.text.toString()
+          });
+        } else {
+          // error(context: context, message: value.message);
+          print('err');
+          print({
+            firstnameController.text.toString(),
+            lastnameController.text.toString(),
+            emailcontroller.text.toString(),
+            numberController.text.toString(),
+            passwordcontroller.text.toString()
+          });
+        }
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(NavigationController());
+    final registerAuth = Provider.of<UserProviderApi>(context);
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(colors: [
@@ -255,7 +299,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                           InkWell(
                             onTap: () {
-                              controller.selectedIndex.value = 0;
+                              _createUser();
+                              // controller.selectedIndex.value = 0;
                             },
                             child: Container(
                               width: 270,
@@ -269,7 +314,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 ),
                               ),
                               child: Text(
-                                'SignUp',
+                                registerAuth.loading ? 'Loading' : 'SignUp',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Colors.black,
@@ -554,7 +599,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                           InkWell(
                             onTap: () {
-                              controller.selectedIndex.value = 0;
+                              _createUser();
+                              // controller.selectedIndex.value = 0;
                             },
                             child: Container(
                               width: 270,
@@ -568,7 +614,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                 ),
                               ),
                               child: Text(
-                                'SignUp',
+                                registerAuth.loading ? 'Loading' : 'SignUp',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Colors.black,
@@ -825,7 +871,8 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       InkWell(
                         onTap: () {
-                          controller.selectedIndex.value = 0;
+                          _createUser();
+                          // controller.selectedIndex.value = 0;
                         },
                         child: Container(
                           width: 270,
@@ -839,7 +886,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           ),
                           child: Text(
-                            'SignUp',
+                            registerAuth.loading ? 'Loading' : 'SignUp',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: Colors.black,

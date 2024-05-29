@@ -1,4 +1,5 @@
 import 'package:cityfood/controller/controller.dart';
+import 'package:cityfood/services/Apis/auth_api/user_controller.dart';
 import 'package:cityfood/theme/darkTheme.dart';
 import 'package:cityfood/theme/lightTheme.dart';
 import 'package:cityfood/widgets/appBar.dart';
@@ -19,6 +20,9 @@ class MyApp extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(
             create: (context) => MenuAppController(),
+          ),
+          ChangeNotifierProvider(
+            create: (context) => UserProviderApi(),
           ),
         ],
         child: GetMaterialApp(
