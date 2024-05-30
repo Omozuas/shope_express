@@ -7,7 +7,7 @@ const { validateMongodbId } = require('../utils/validatemongodb');
 
 
 class UserController{
-     async createUser  (req,res){
+    static  createUser = asynchandler(async (req,res)=>{
         console.log({
           firstname:req.body.firstname,
         lastname:req.body.lastname,
@@ -17,8 +17,8 @@ class UserController{
        const isExisting = await User.findOne({ email: req.body.email });
     
        if (isExisting) {
-        // throw new Error('Email Already Exists')
-           return res.status(400).json({ message:'Email is already taken by another user',success:false});
+        throw new Error('Email Already Exists')
+          //  return res.status(400).json({ message:'Email is already taken by another user',success:false});
         }
        const hashedPassword = await bcrypt.hash(req.body.password,10);
        const newUser=new User({
@@ -31,7 +31,7 @@ class UserController{
        await newUser.save();
        return res.status(200).json({newUser,message:'SigUp successful',success:true});
 
-    };
+    });
     static loginUser = asynchandler(async(req,res)=>{
 
         const isExisting = await User.findOne({ email: req.body.email })

@@ -17,6 +17,7 @@ const app=express();
 
 
 //router
+app.use(cors());
 app.use(bodyPerser.json())
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
