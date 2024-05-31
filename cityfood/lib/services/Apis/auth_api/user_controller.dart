@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:cityfood/services/Apis/urlcConnection/auth_api/connectioUrl.dart';
 import 'package:cityfood/services/models/auth_respons/loginRespons-model.dart';
+import 'package:cityfood/services/models/auth_respons/logoutRespons.dart';
 import 'package:cityfood/services/models/auth_respons/signUp_respond_model.dart';
 import 'package:cityfood/services/models/providers/user_Provider.dart';
 import 'package:http/http.dart' as http;
@@ -91,5 +92,28 @@ class UserProviderApi with ChangeNotifier {
     }
 
     return clientmodel(res.body);
+  }
+
+  Future<LogoutResopnsModel> logOutUser(String token) async {
+    setLoading(true);
+
+    var loginUser = "${ApiUrl.baseUrl}logout";
+    print(loginUser);
+    var res = await http.get(Uri.parse(loginUser), headers: {
+      'Content-Type': "application/json; charset=utf-8",
+      "Authorization": "Bearer $token"
+    });
+
+    if (res.statusCode == 204) {
+      var jsonres = jsonDecode(res.body);
+      print(jsonres);
+      setLoading(false);
+    } else if (res.statusCode == 404) {
+      setLoading(false);
+    } else if (res.statusCode == 500) {
+      setLoading(false);
+    }
+
+    return logoutResopnsModel(res.body);
   }
 }

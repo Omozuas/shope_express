@@ -4,6 +4,7 @@ import 'package:cityfood/services/Apis/auth_api/user_controller.dart';
 import 'package:cityfood/util/responsive.dart';
 import 'package:cityfood/widgets/appbarname.dart';
 import 'package:cityfood/widgets/side_menu_widget.dart';
+import 'package:cityfood/widgets/snackBarRes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,6 +26,8 @@ class _FlexAppBarState extends State<FlexAppBar> {
   double scrollPosition = 0;
   double opacity = 0;
   double ratingValue = 0.0;
+  String fullname = '';
+  bool isLogin = false;
   @override
   void initState() {
     _scrollController.addListener(_scrollListener);
@@ -50,11 +53,35 @@ class _FlexAppBarState extends State<FlexAppBar> {
       final getInfo = Provider.of<UserProviderApi>(context, listen: false);
       getInfo.getUser(prefs.getString('token')!).then((value) {
         print(value.firstname);
+        setState(() {
+          isLogin = value.isLogin;
+        });
       });
     }
   }
 
+  void logoutuser() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    final getInfo = Provider.of<UserProviderApi>(context, listen: false);
+    getInfo.logOutUser(prefs.getString('token')!).then((value) async {
+      if (value.success == true) {
+        print(value.message);
+        setState(() {
+          isLogin = false;
+        });
+        await prefs.clear();
+        success(context: context, message: value.message);
+      } else {
+        error(context: context, message: value.message);
+      }
+    });
+  }
+
   final List _isHovering = [
+    false,
+    false,
     false,
     false,
     false,
@@ -83,13 +110,20 @@ class _FlexAppBarState extends State<FlexAppBar> {
           padding: EdgeInsets.only(top: 0, left: 0, right: 0, bottom: 0),
           child: Container(
             // width: 1050,
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(opacity),
+              shape: BoxShape.rectangle,
+              borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(5), bottom: Radius.circular(5)),
+            ),
+            // width: 1050,
             child: Responsive.isDesktop(context)
                 ? Obx(() => Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       // mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(
+                        const Text(
                           'Shop Express',
                           textAlign: TextAlign.start,
                           style: TextStyle(
@@ -200,12 +234,14 @@ class _FlexAppBarState extends State<FlexAppBar> {
                                       : _isHovering[4] = false;
                                 });
                               },
-                              onTap: () {},
+                              onTap: () => controller.selectedIndex.value = 4,
                               child: Icon(
                                 CupertinoIcons.person,
                                 color: _isHovering[4]
                                     ? GlobalColors.orange
-                                    : Colors.black,
+                                    : controller.selectedIndex.value == 4
+                                        ? GlobalColors.orange
+                                        : Colors.black,
                                 size: 20,
                               ),
                             ),
@@ -226,12 +262,14 @@ class _FlexAppBarState extends State<FlexAppBar> {
                                       : _isHovering[5] = false;
                                 });
                               },
-                              onTap: () {},
+                              onTap: () => controller.selectedIndex.value == 5,
                               child: Icon(
                                 CupertinoIcons.cart,
                                 color: _isHovering[5]
                                     ? GlobalColors.orange
-                                    : Colors.black,
+                                    : controller.selectedIndex.value == 5
+                                        ? GlobalColors.orange
+                                        : Colors.black,
                                 size: 20,
                               ),
                             ),
@@ -252,12 +290,14 @@ class _FlexAppBarState extends State<FlexAppBar> {
                                       : _isHovering[6] = false;
                                 });
                               },
-                              onTap: () {},
+                              onTap: () => controller.selectedIndex.value == 6,
                               child: Icon(
                                 CupertinoIcons.heart,
                                 color: _isHovering[6]
                                     ? GlobalColors.orange
-                                    : Colors.black,
+                                    : controller.selectedIndex.value == 6
+                                        ? GlobalColors.orange
+                                        : Colors.black,
                                 size: 20,
                               ),
                             ),
@@ -278,11 +318,13 @@ class _FlexAppBarState extends State<FlexAppBar> {
                                       : _isHovering[7] = false;
                                 });
                               },
-                              onTap: () => controller.selectedIndex.value = 3,
+                              onTap: () => isLogin == false
+                                  ? controller.selectedIndex.value = 3
+                                  : {logoutuser()},
                               child: Row(
                                 children: [
                                   Text(
-                                    'Login',
+                                    isLogin == false ? 'Login' : 'Logout',
                                     style: TextStyle(
                                         fontSize: 15,
                                         color: _isHovering[7]
@@ -294,7 +336,9 @@ class _FlexAppBarState extends State<FlexAppBar> {
                                         fontWeight: FontWeight.w500),
                                   ),
                                   Icon(
-                                    Icons.login_outlined,
+                                    isLogin == false
+                                        ? Icons.login_outlined
+                                        : Icons.logout,
                                     color: _isHovering[7]
                                         ? GlobalColors.orange
                                         : controller.selectedIndex.value == 3
@@ -304,7 +348,7 @@ class _FlexAppBarState extends State<FlexAppBar> {
                                   ),
                                 ],
                               ),
-                            ),
+                            )
                           ],
                         )
                       ],
@@ -385,7 +429,7 @@ class _FlexAppBarState extends State<FlexAppBar> {
                                       : _isHovering[6] = false;
                                 });
                               },
-                              onTap: () => controller.selectedIndex.value == 6,
+                              onTap: () => controller.selectedIndex.value = 6,
                               child: Icon(
                                 CupertinoIcons.heart,
                                 color: _isHovering[6]
@@ -413,11 +457,13 @@ class _FlexAppBarState extends State<FlexAppBar> {
                                       : _isHovering[7] = false;
                                 });
                               },
-                              onTap: () => controller.selectedIndex.value = 3,
+                              onTap: () => isLogin == false
+                                  ? controller.selectedIndex.value = 3
+                                  : {logoutuser()},
                               child: Row(
                                 children: [
                                   Text(
-                                    'Login',
+                                    isLogin == false ? 'Login' : 'Logout',
                                     style: TextStyle(
                                         fontSize: 15,
                                         color: _isHovering[7]
@@ -429,7 +475,9 @@ class _FlexAppBarState extends State<FlexAppBar> {
                                         fontWeight: FontWeight.w500),
                                   ),
                                   Icon(
-                                    Icons.login_outlined,
+                                    isLogin == false
+                                        ? Icons.login_outlined
+                                        : Icons.logout,
                                     color: _isHovering[7]
                                         ? GlobalColors.orange
                                         : controller.selectedIndex.value == 3
@@ -439,18 +487,11 @@ class _FlexAppBarState extends State<FlexAppBar> {
                                   ),
                                 ],
                               ),
-                            ),
+                            )
                           ],
                         )
                       ],
                     )),
-
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(opacity),
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(5), bottom: Radius.circular(5)),
-            ),
           ),
         ),
       ),

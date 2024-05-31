@@ -90,7 +90,7 @@ class UserController{
             httpOnly:true,
             secure:true
         });
-        return  res.sendStatus(204);//forbidden
+        return  res.sendStatus(204).json({message:'logout successful',success:true});//forbidden
        
     });
     static getUsers = asynchandler(async(req,res)=>{

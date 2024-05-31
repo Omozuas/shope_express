@@ -1,6 +1,7 @@
 import 'package:cityfood/screens/cart.dart';
 import 'package:cityfood/screens/getAStore.dart';
 import 'package:cityfood/screens/home.dart';
+import 'package:cityfood/screens/pagess.dart';
 import 'package:cityfood/screens/profile.dart';
 import 'package:cityfood/screens/view/login.dart';
 import 'package:cityfood/screens/view/signUp.dart';
@@ -17,5 +18,6 @@ class NavigationController extends GetxController {
     ProfilePage(),
     CartPage(),
     WishListPage(),
+    Pagessss()
   ];
 }
