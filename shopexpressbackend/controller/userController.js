@@ -8,12 +8,7 @@ const { validateMongodbId } = require('../utils/validatemongodb');
 
 class UserController{
     static  createUser = asynchandler(async (req,res)=>{
-        console.log({
-          firstname:req.body.firstname,
-        lastname:req.body.lastname,
-        mobile:req.body.mobile,
-        email:req.body.email,
-        })
+       
        const isExisting = await User.findOne({ email: req.body.email });
     
        if (isExisting) {
@@ -46,7 +41,8 @@ class UserController{
         }
         const refreshToken=jwtToken.generateRefreshToken(isExisting?.id);
         const updateuser=await User.findByIdAndUpdate(isExisting.id,{
-            refreshToken:refreshToken
+            refreshToken:refreshToken,
+            isLogin:true
         },{new:true})
         res.cookie("refreshToken",refreshToken,{
             httpOnly:true,
@@ -88,6 +84,7 @@ class UserController{
       
         await User.findOneAndUpdate({refreshToken:refreshToken},{
             refreshToken:"",
+            isLogin:false
         });
         res.clearCookie("refreshToken",{
             httpOnly:true,

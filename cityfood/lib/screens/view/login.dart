@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cityfood/colorsConstrain/colorsHex.dart';
 import 'package:cityfood/services/Apis/auth_api/user_controller.dart';
@@ -47,6 +46,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(NavigationController());
+    final loginAuth = Provider.of<UserProviderApi>(context);
+
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(colors: [
@@ -213,7 +214,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                               child: Text(
-                                'Login',
+                                loginAuth.loading ? 'Loading' : 'Login',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Colors.black,
@@ -434,7 +435,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                               child: Text(
-                                'Login',
+                                loginAuth.loading ? 'Loading' : 'Login',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Colors.black,
@@ -627,7 +628,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           child: Text(
-                            'Login',
+                            loginAuth.loading ? 'Loading' : 'Login',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: Colors.black,

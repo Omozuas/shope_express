@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:cityfood/services/Apis/urlcConnection/auth_api/connectioUrl.dart';
 import 'package:cityfood/services/models/auth_respons/loginRespons-model.dart';
 import 'package:cityfood/services/models/auth_respons/signUp_respond_model.dart';
+import 'package:cityfood/services/models/providers/user_Provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,8 +15,13 @@ class UserProviderApi with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<SigupResopnsModel> createUser(String firstname, String lastname,
-      String email, String password, String mobile) async {
+  Future<SigupResopnsModel> createUser(
+    String firstname,
+    String lastname,
+    String email,
+    String mobile,
+    String password,
+  ) async {
     setLoading(true);
 
     var registerUser = "${ApiUrl.baseUrl}signup";
@@ -44,15 +50,17 @@ class UserProviderApi with ChangeNotifier {
     setLoading(true);
 
     var loginUser = "${ApiUrl.baseUrl}logIn";
+    print(loginUser);
     var res = await http.post(Uri.parse(loginUser),
-        headers: {'Content-Type': "application/json"},
+        headers: {'Content-Type': "application/json; charset=utf-8"},
         body: jsonEncode({"email": email, "password": password}));
 
     if (res.statusCode == 200) {
       var jsonres = jsonDecode(res.body);
       final _preferences = await SharedPreferences.getInstance();
       _preferences.setString('token', jsonres['token']);
-      print(_preferences.getString('token'));
+      _preferences.setString('role', jsonres['role']);
+
       setLoading(false);
     } else if (res.statusCode == 404) {
       setLoading(false);
@@ -61,5 +69,27 @@ class UserProviderApi with ChangeNotifier {
     }
 
     return loginresopnsModel(res.body);
+  }
+
+  Future<Clientmodel> getUser(String token) async {
+    setLoading(true);
+    var getuser = "${ApiUrl.baseUrl}:id";
+    var res = await http.get(
+      Uri.parse(getuser),
+      headers: {
+        'Content-Type': "application/json; charset=utf-8",
+        "Authorization": "Bearer $token"
+      },
+    );
+
+    if (res.statusCode == 200) {
+      setLoading(false);
+    } else if (res.statusCode == 404) {
+      setLoading(false);
+    } else if (res.statusCode == 500) {
+      setLoading(false);
+    }
+
+    return clientmodel(res.body);
   }
 }

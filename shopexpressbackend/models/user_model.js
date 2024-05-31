@@ -32,6 +32,10 @@ var userSchema = new mongoose.Schema({
         type:Boolean,
         default: false
     },
+    isLogin:{
+        type:Boolean,
+        default: false
+    },
     cart:{
         type:Array,
         default:[]

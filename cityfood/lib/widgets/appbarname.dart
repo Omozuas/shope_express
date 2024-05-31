@@ -1,10 +1,21 @@
+import 'package:cityfood/screens/cart.dart';
 import 'package:cityfood/screens/getAStore.dart';
 import 'package:cityfood/screens/home.dart';
+import 'package:cityfood/screens/profile.dart';
 import 'package:cityfood/screens/view/login.dart';
 import 'package:cityfood/screens/view/signUp.dart';
+import 'package:cityfood/screens/wishList.dart';
 import 'package:get/get.dart';
 
 class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
-  final screen = [SignUpPage(), MyHomePage(), GetAStore(), LoginPage()];
+  final screen = [
+    MyHomePage(),
+    GetAStore(),
+    SignUpPage(),
+    LoginPage(),
+    ProfilePage(),
+    CartPage(),
+    WishListPage(),
+  ];
 }

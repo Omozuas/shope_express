@@ -2,12 +2,15 @@ import 'dart:convert';
 
 class LoginresopnsModel {
   LoginresopnsModel(
-      {required this.message, required this.token, required this.success});
+      {required this.message,
+      required this.token,
+      required this.success,
+      required this.role});
 
   late final success;
   late final token;
   late final String message;
-  late final String role;
+  late final role;
 
   LoginresopnsModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];

@@ -1,5 +1,6 @@
 import 'package:cityfood/colorsConstrain/colorsHex.dart';
 import 'package:cityfood/controller/controller.dart';
+import 'package:cityfood/services/Apis/auth_api/user_controller.dart';
 import 'package:cityfood/util/responsive.dart';
 import 'package:cityfood/widgets/appbarname.dart';
 import 'package:cityfood/widgets/side_menu_widget.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FlexAppBar extends StatefulWidget {
   FlexAppBar({
@@ -27,6 +29,7 @@ class _FlexAppBarState extends State<FlexAppBar> {
   void initState() {
     _scrollController.addListener(_scrollListener);
     super.initState();
+    getaUser();
   }
 
   _scrollListener() {
@@ -34,6 +37,21 @@ class _FlexAppBarState extends State<FlexAppBar> {
       scrollPosition = _scrollController.position.pixels;
       print(scrollPosition);
     });
+  }
+
+  void getaUser() async {
+    final controller = Get.put(NavigationController());
+    WidgetsFlutterBinding.ensureInitialized();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('token') == null) {
+      controller.selectedIndex.value = 3;
+    } else {
+      print(prefs.getString('token')!);
+      final getInfo = Provider.of<UserProviderApi>(context, listen: false);
+      getInfo.getUser(prefs.getString('token')!).then((value) {
+        print(value.firstname);
+      });
+    }
   }
 
   final List _isHovering = [
@@ -311,12 +329,12 @@ class _FlexAppBarState extends State<FlexAppBar> {
                                       : _isHovering[4] = false;
                                 });
                               },
-                              onTap: () => controller.selectedIndex.value = 1,
+                              onTap: () => controller.selectedIndex.value = 4,
                               child: Icon(
                                 CupertinoIcons.person,
                                 color: _isHovering[4]
                                     ? GlobalColors.orange
-                                    : controller.selectedIndex.value == 1
+                                    : controller.selectedIndex.value == 4
                                         ? GlobalColors.orange
                                         : Colors.black,
                                 size: 20,
@@ -339,12 +357,14 @@ class _FlexAppBarState extends State<FlexAppBar> {
                                       : _isHovering[5] = false;
                                 });
                               },
-                              onTap: () {},
+                              onTap: () => controller.selectedIndex.value = 5,
                               child: Icon(
                                 CupertinoIcons.cart,
                                 color: _isHovering[5]
                                     ? GlobalColors.orange
-                                    : Colors.black,
+                                    : controller.selectedIndex.value == 5
+                                        ? GlobalColors.orange
+                                        : Colors.black,
                                 size: 20,
                               ),
                             ),
@@ -365,12 +385,14 @@ class _FlexAppBarState extends State<FlexAppBar> {
                                       : _isHovering[6] = false;
                                 });
                               },
-                              onTap: () {},
+                              onTap: () => controller.selectedIndex.value == 6,
                               child: Icon(
                                 CupertinoIcons.heart,
                                 color: _isHovering[6]
                                     ? GlobalColors.orange
-                                    : Colors.black,
+                                    : controller.selectedIndex.value == 6
+                                        ? GlobalColors.orange
+                                        : Colors.black,
                                 size: 20,
                               ),
                             ),
