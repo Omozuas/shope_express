@@ -18,6 +18,7 @@ class FlexAppBar extends StatefulWidget {
 }
 
 class _FlexAppBarState extends State<FlexAppBar> {
+  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
   final ScrollController _scrollController = ScrollController();
   double scrollPosition = 0;
   double opacity = 0;
@@ -433,6 +434,7 @@ class _FlexAppBarState extends State<FlexAppBar> {
       ),
       body: SingleChildScrollView(
         controller: _scrollController,
+        key: _scaffoldkey,
         child: Obx(() => controller.screen[controller.selectedIndex.value]),
       ),
     );

@@ -55,7 +55,8 @@ class UserController{
       return res.status(200).json({ 
             role: isExisting?.role,
             token:jwtToken.generateToken(isExisting?.id),
-            success:"login succesful" });
+            message:"login succesful",
+            success:true });
     });
     static  genRefreshToken = asynchandler(async(req,res)=>{
         const cookie = req.cookies;

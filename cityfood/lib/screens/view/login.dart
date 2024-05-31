@@ -1,12 +1,15 @@
 import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cityfood/colorsConstrain/colorsHex.dart';
+import 'package:cityfood/services/Apis/auth_api/user_controller.dart';
 import 'package:cityfood/util/responsive.dart';
 import 'package:cityfood/widgets/appbarname.dart';
 import 'package:cityfood/widgets/onboard_model.dart';
+import 'package:cityfood/widgets/snackBarRes.dart';
 import 'package:cityfood/widgets/textField_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({super.key});
@@ -16,25 +19,30 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
-
   final formKey = GlobalKey<FormState>();
 
   final formKey1 = GlobalKey<FormState>();
-
-  final formKey2 = GlobalKey<FormState>();
-
-  final formKey3 = GlobalKey<FormState>();
-
-  final formKey4 = GlobalKey<FormState>();
-
-  final formKey5 = GlobalKey<FormState>();
 
   TextEditingController emailcontroller = TextEditingController();
 
   TextEditingController passwordcontroller = TextEditingController();
 
   bool _isVisible = false;
+  void loginUser() async {
+    if (formKey.currentState!.validate() && formKey1.currentState!.validate()) {
+      final loginAuth = Provider.of<UserProviderApi>(context, listen: false);
+      loginAuth
+          .loginaUser(emailcontroller.text.toString(),
+              passwordcontroller.text.toString())
+          .then((value) {
+        if (value.success == true) {
+          success(context: context, message: value.message);
+        } else {
+          error(context: context, message: value.message);
+        }
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                             height: 12,
                           ),
                           textFiled(
-                              keys: formKey2,
+                              keys: formKey,
                               label: "Email",
                               hintText: "Email",
                               suffixIcon2: const Icon(Icons.email),
@@ -161,7 +169,7 @@ class _LoginPageState extends State<LoginPage> {
                                 }
                               }),
                           textFiled(
-                              keys: formKey4,
+                              keys: formKey1,
                               label: "PASSWORD",
                               hintText: "Password",
                               suffixIcon2: IconButton(
@@ -191,7 +199,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           InkWell(
                             onTap: () {
-                              controller.selectedIndex.value = 0;
+                              loginUser();
                             },
                             child: Container(
                               width: 270,
@@ -231,7 +239,9 @@ class _LoginPageState extends State<LoginPage> {
                             height: 15,
                           ),
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              loginUser();
+                            },
                             child: Container(
                               width: 270,
                               padding: EdgeInsets.all(10),
@@ -364,7 +374,7 @@ class _LoginPageState extends State<LoginPage> {
                             height: 12,
                           ),
                           textFiled(
-                              keys: formKey2,
+                              keys: formKey,
                               label: "Email",
                               hintText: "Email",
                               suffixIcon2: const Icon(Icons.email),
@@ -380,7 +390,7 @@ class _LoginPageState extends State<LoginPage> {
                                 }
                               }),
                           textFiled(
-                              keys: formKey4,
+                              keys: formKey1,
                               label: "PASSWORD",
                               hintText: "Password",
                               suffixIcon2: IconButton(
@@ -410,7 +420,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           InkWell(
                             onTap: () {
-                              controller.selectedIndex.value = 0;
+                              loginUser();
                             },
                             child: Container(
                               width: 270,
@@ -557,7 +567,7 @@ class _LoginPageState extends State<LoginPage> {
                         height: 12,
                       ),
                       textFiled(
-                          keys: formKey2,
+                          keys: formKey,
                           label: "Email",
                           hintText: "Email",
                           suffixIcon2: const Icon(Icons.email),
@@ -573,7 +583,7 @@ class _LoginPageState extends State<LoginPage> {
                             }
                           }),
                       textFiled(
-                          keys: formKey4,
+                          keys: formKey1,
                           label: "PASSWORD",
                           hintText: "Password",
                           suffixIcon2: IconButton(
@@ -603,7 +613,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       InkWell(
                         onTap: () {
-                          controller.selectedIndex.value = 0;
+                          loginUser();
                         },
                         child: Container(
                           width: 270,

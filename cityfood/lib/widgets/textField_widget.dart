@@ -31,12 +31,14 @@ Widget textFiled(
           controller: controller2,
           keyboardType: keyboardType4,
           obscureText: obscureText,
+          style: TextStyle(color: Colors.black),
           decoration: InputDecoration(
               suffixIcon: suffixIcon2,
               errorText: err,
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 0, horizontal: 30),
               hintText: hintText,
+              hintStyle: TextStyle(color: Colors.white),
               helperStyle: TextStyle(
                   color: GlobalColors.orange,
                   fontSize: 14,

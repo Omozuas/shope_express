@@ -5,6 +5,7 @@ import 'package:cityfood/services/Apis/auth_api/user_controller.dart';
 import 'package:cityfood/util/responsive.dart';
 import 'package:cityfood/widgets/appbarname.dart';
 import 'package:cityfood/widgets/onboard_model.dart';
+import 'package:cityfood/widgets/snackBarRes.dart';
 import 'package:cityfood/widgets/textField_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,9 +35,14 @@ class _SignUpPageState extends State<SignUpPage> {
 
   bool _isVisible = false;
   void _createUser() async {
-    if (formKey.currentState!.validate()) {
+    if (formKey.currentState!.validate() &&
+        formKey1.currentState!.validate() &&
+        formKey2.currentState!.validate() &&
+        formKey3.currentState!.validate() &&
+        formKey4.currentState!.validate() &&
+        formKey4.currentState!.validate()) {
       final registerAuth = Provider.of<UserProviderApi>(context, listen: false);
-
+      final controller = Get.put(NavigationController());
       registerAuth
           .createUser(
               firstnameController.text.toString(),
@@ -45,29 +51,12 @@ class _SignUpPageState extends State<SignUpPage> {
               numberController.text.toString(),
               passwordcontroller.text.toString())
           .then((value) {
-        print(value);
-        // if (value.success == true) {
-        //   // success(context: context, message: value.message);
-        //   // Get.to(() => LoginScreen());
-        //   print('success');
-        //   print({
-        //     firstnameController.text.toString(),
-        //     lastnameController.text.toString(),
-        //     emailcontroller.text.toString(),
-        //     numberController.text.toString(),
-        //     passwordcontroller.text.toString()
-        //   });
-        // } else {
-        //   // error(context: context, message: value.message);
-        //   print('err');
-        //   print({
-        //     firstnameController.text.toString(),
-        //     lastnameController.text.toString(),
-        //     emailcontroller.text.toString(),
-        //     numberController.text.toString(),
-        //     passwordcontroller.text.toString()
-        //   });
-        // }
+        if (value.success == true) {
+          success(context: context, message: value.message);
+          controller.selectedIndex.value = 3;
+        } else {
+          error(context: context, message: value.message);
+        }
       });
     }
   }
