@@ -97,18 +97,17 @@ class UserProviderApi with ChangeNotifier {
   Future<LogoutResopnsModel> logOutUser(String token) async {
     setLoading(true);
 
-    var loginUser = "${ApiUrl.baseUrl}logout";
-    print(loginUser);
-    var res = await http.post(Uri.parse(loginUser),
-        headers: {
-          'Content-Type': "application/json; charset=utf-8",
-          // "Authorization": "Bearer $token"
-        },
-        body: jsonEncode({"cookie": token}));
+    var logoutUser = "${ApiUrl.baseUrl}logout";
+    print(logoutUser);
+    var res = await http.get(
+      Uri.parse(logoutUser),
+      headers: {
+        'Content-Type': "application/json; charset=utf-8",
+        "Authorization": "Bearer $token"
+      },
+    );
 
     if (res.statusCode == 200) {
-      var jsonres = jsonDecode(res.body);
-      print(jsonres);
       setLoading(false);
     } else if (res.statusCode == 404) {
       setLoading(false);

@@ -55,12 +55,8 @@ class _FlexAppBarState extends State<FlexAppBar> {
       print(prefs.getString('token')!);
       final getInfo = Provider.of<UserProviderApi>(context, listen: false);
       getInfo.getUser(prefs.getString('token')!).then((value) {
-        print(value.firstname);
-        print(value.refreshToken);
         prefs.setString('refreshToken', value.refreshToken);
         cookie.set("refreshToken", value.refreshToken);
-        var value1 = cookie.get('refreshToken');
-        print({"res": value1});
         setState(() {
           isLogin = value.isLogin;
         });
@@ -74,9 +70,7 @@ class _FlexAppBarState extends State<FlexAppBar> {
 
     final getInfo = Provider.of<UserProviderApi>(context, listen: false);
     getInfo.logOutUser(prefs.getString('token')!).then((value) async {
-      print(value.stack);
       if (value.success == true) {
-        print(value.message);
         setState(() {
           isLogin = false;
         });

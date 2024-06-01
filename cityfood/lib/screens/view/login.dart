@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cityfood/colorsConstrain/colorsHex.dart';
 import 'package:cityfood/services/Apis/auth_api/user_controller.dart';
 import 'package:cityfood/util/responsive.dart';
+import 'package:cityfood/widgets/appBar.dart';
 import 'package:cityfood/widgets/appbarname.dart';
 import 'package:cityfood/widgets/onboard_model.dart';
 import 'package:cityfood/widgets/snackBarRes.dart';
@@ -30,11 +31,14 @@ class _LoginPageState extends State<LoginPage> {
   void loginUser() async {
     if (formKey.currentState!.validate() && formKey1.currentState!.validate()) {
       final loginAuth = Provider.of<UserProviderApi>(context, listen: false);
+      final controller = Get.put(NavigationController());
       loginAuth
           .loginaUser(emailcontroller.text.toString(),
               passwordcontroller.text.toString())
           .then((value) {
         if (value.success == true) {
+          Get.to(() => FlexAppBar());
+          controller.selectedIndex.value = 0;
           success(context: context, message: value.message);
         } else {
           error(context: context, message: value.message);
