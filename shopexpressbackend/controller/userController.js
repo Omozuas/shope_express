@@ -56,8 +56,8 @@ class UserController{
     });
     static  genRefreshToken = asynchandler(async(req,res)=>{
         const cookie = req.body.cookie;
-       if(!cookie?.refreshToken) throw new Error("No Refresh Token In Cookies")
-        const refreshToken =cookie.refreshToken;
+       if(!cookien) throw new Error("No Refresh Token In Cookies")
+        const refreshToken =cookie;
         const user=await User.findOne({refreshToken});
         if(!user) throw new Error("No rRefresh Token in Db");
         jwt.verify(refreshToken, process.env.JWT_SECRET,(err,decode)=>{
@@ -71,8 +71,9 @@ class UserController{
     });
     static  logout = asynchandler(async(req,res)=>{
         const cookie = req.body.cookie;
-       if(!cookie?.refreshToken) throw new Error("No Refresh Token In Cookies")
-        const refreshToken = cookie.refreshToken;
+        
+       if(!cookie) throw new Error("No Refresh Token In Cookies")
+        const refreshToken = cookie;
         const user=await User.findOne({refreshToken});
         if(!user){
             res.clearCookie("refreshToken",{
@@ -90,8 +91,8 @@ class UserController{
             httpOnly:true,
             secure:true
         });
-        return  res.sendStatus(204).json({message:'logout successful',success:true});//forbidden
-       
+        // res.sendStatus(204);//forbidden
+        return res.status(200).json({message:'logout successful',success:true});//forbidden
     });
     static getUsers = asynchandler(async(req,res)=>{
         const users =await User.find({});
