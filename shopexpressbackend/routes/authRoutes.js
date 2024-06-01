@@ -6,9 +6,9 @@ const Auth=require('../middlewares/Auth');
 
 Route.post('/signup',authRoter.createUser);
 Route.post('/logIn',authRoter.loginUser);
-Route.get('/getUser',authRoter.getUsers);
 Route.post('/refreshToken',authRoter.genRefreshToken);
 Route.post('/logout',authRoter.logout);
+Route.get('/getUser',authRoter.getUsers);
 Route.get('/:id',Auth.authmiddleware
 ,authRoter.getaUserbyId);
 Route.delete('/:id',Auth.authmiddleware,authRoter.deleteaUserbyId);

@@ -102,11 +102,11 @@ class UserProviderApi with ChangeNotifier {
     var res = await http.post(Uri.parse(loginUser),
         headers: {
           'Content-Type': "application/json; charset=utf-8",
-          "Authorization": "Bearer $token"
+          // "Authorization": "Bearer $token"
         },
         body: jsonEncode({"cookie": token}));
 
-    if (res.statusCode == 204) {
+    if (res.statusCode == 200) {
       var jsonres = jsonDecode(res.body);
       print(jsonres);
       setLoading(false);
