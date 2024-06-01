@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cityfood/colorsConstrain/colorsHex.dart';
 import 'package:cityfood/controller/controller.dart';
 import 'package:cityfood/services/Apis/auth_api/user_controller.dart';
@@ -10,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cooky/cooky.dart' as cookie;
 
 class FlexAppBar extends StatefulWidget {
   FlexAppBar({
@@ -53,6 +56,11 @@ class _FlexAppBarState extends State<FlexAppBar> {
       final getInfo = Provider.of<UserProviderApi>(context, listen: false);
       getInfo.getUser(prefs.getString('token')!).then((value) {
         print(value.firstname);
+        print(value.refreshToken);
+        prefs.setString('refreshToken', value.refreshToken);
+        cookie.set("refreshToken", value.refreshToken);
+        var value1 = cookie.get('refreshToken');
+        print({"res": value1});
         setState(() {
           isLogin = value.isLogin;
         });
@@ -65,13 +73,15 @@ class _FlexAppBarState extends State<FlexAppBar> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final getInfo = Provider.of<UserProviderApi>(context, listen: false);
-    getInfo.logOutUser(prefs.getString('token')!).then((value) async {
+    getInfo.logOutUser(prefs.getString('refreshToken')!).then((value) async {
+      print(value.stack);
       if (value.success == true) {
         print(value.message);
         setState(() {
           isLogin = false;
         });
         await prefs.clear();
+        cookie.remove('refreshToken');
         success(context: context, message: value.message);
       } else {
         error(context: context, message: value.message);

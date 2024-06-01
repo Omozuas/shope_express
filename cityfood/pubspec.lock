@@ -57,6 +57,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.18.0"
+  cooky:
+    dependency: "direct main"
+    description:
+      name: cooky
+      sha256: a15ea284053538f66e99f48592f98e07e5bdd4798ed733f372404782d8e94d64
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   cupertino_icons:
     dependency: "direct main"
     description:

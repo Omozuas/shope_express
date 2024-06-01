@@ -55,7 +55,7 @@ class UserController{
             success:true });
     });
     static  genRefreshToken = asynchandler(async(req,res)=>{
-        const cookie = req.cookies;
+        const cookie = req.body.cookie;
        if(!cookie?.refreshToken) throw new Error("No Refresh Token In Cookies")
         const refreshToken =cookie.refreshToken;
         const user=await User.findOne({refreshToken});
@@ -70,7 +70,7 @@ class UserController{
        
     });
     static  logout = asynchandler(async(req,res)=>{
-        const cookie = req.cookies;
+        const cookie = req.body.cookie;
        if(!cookie?.refreshToken) throw new Error("No Refresh Token In Cookies")
         const refreshToken = cookie.refreshToken;
         const user=await User.findOne({refreshToken});

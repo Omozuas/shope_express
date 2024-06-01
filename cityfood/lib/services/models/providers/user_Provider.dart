@@ -12,6 +12,7 @@ class Clientmodel {
   late final cart;
   late final wishlist;
   late final address;
+  late final refreshToken;
 
   Clientmodel(
       {required this.firstname,
@@ -22,6 +23,7 @@ class Clientmodel {
       required this.wishlist,
       required this.role,
       required this.isLogin,
+      required this.refreshToken,
       required this.id,
       required this.address,
       required this.cart});
@@ -33,6 +35,7 @@ class Clientmodel {
     firstname = json['firstname'];
     email = json['email'];
     mobile = json['mobile'];
+    refreshToken = json['refreshToken'];
     isBlocked = json['isBlocked'];
     lastname = json[' lastname'];
     role = json['role'];

@@ -99,10 +99,12 @@ class UserProviderApi with ChangeNotifier {
 
     var loginUser = "${ApiUrl.baseUrl}logout";
     print(loginUser);
-    var res = await http.get(Uri.parse(loginUser), headers: {
-      'Content-Type': "application/json; charset=utf-8",
-      "Authorization": "Bearer $token"
-    });
+    var res = await http.post(Uri.parse(loginUser),
+        headers: {
+          'Content-Type': "application/json; charset=utf-8",
+          "Authorization": "Bearer $token"
+        },
+        body: jsonEncode({"cookie": token}));
 
     if (res.statusCode == 204) {
       var jsonres = jsonDecode(res.body);
