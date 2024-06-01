@@ -73,7 +73,7 @@ class _FlexAppBarState extends State<FlexAppBar> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final getInfo = Provider.of<UserProviderApi>(context, listen: false);
-    getInfo.logOutUser(prefs.getString('refreshToken')!).then((value) async {
+    getInfo.logOutUser(prefs.getString('token')!).then((value) async {
       print(value.stack);
       if (value.success == true) {
         print(value.message);

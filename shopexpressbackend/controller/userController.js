@@ -55,12 +55,12 @@ class UserController{
             success:true });
     });
     static  genRefreshToken = asynchandler(async(req,res)=>{
-        const cookie = req.body.cookie;
+        const cookie = req.user;
        if(!cookie) throw new Error("No Refresh Token In Cookies")
-        const refreshToken =cookie;
-        const user=await User.findOne({refreshToken});
+        const refreshToken =cookie.id;
+        const user= await User.findById(refreshToken);
         if(!user) throw new Error("No rRefresh Token in Db");
-        jwt.verify(refreshToken, process.env.JWT_SECRET,(err,decode)=>{
+        jwt.verify(user.refreshToken, process.env.JWT_SECRET,(err,decode)=>{
             if(err||user.id !==decode.id){
                 throw new Error("something wrong with refresh token");
             }
@@ -70,11 +70,11 @@ class UserController{
        
     });
     static  logout = asynchandler(async(req,res)=>{
-        const cookie = req.body.cookie;
+        const cookie = req.user
         
        if(!cookie) throw new Error("No Refresh Token In Cookies")
-        const refreshToken = cookie;
-        const user=await User.findOne({refreshToken});
+      
+        const user=await User.findById(cookie.id);
         if(!user){
             res.clearCookie("refreshToken",{
                 httpOnly:true,
@@ -83,7 +83,7 @@ class UserController{
             return   res.sendStatus(204);//forbidden
         }
       
-        await User.findOneAndUpdate({refreshToken:refreshToken},{
+        await User.findOneAndUpdate({refreshToken:user.refreshToken},{
             refreshToken:"",
             isLogin:false
         });
@@ -91,8 +91,10 @@ class UserController{
             httpOnly:true,
             secure:true
         });
-        res.sendStatus(204);//forbidden
-        return res.status(200).json({message:'logout successful',success:true});//forbidden
+      
+        res.status(200).json({message:'logout successful',success:true});
+         
+       
     });
     static getUsers = asynchandler(async(req,res)=>{
         const users =await User.find({});
