@@ -81,6 +81,15 @@ class _UserProfilePageState extends State<UserProfilePage> {
               prefs.getString('token')!)
           .then((value) {
         if (value.success == true) {
+          firstnameController.text = value.firstname;
+          lastnameController.text = value.lastname;
+          numberController.text = value.mobile;
+          emailcontroller.text = value.email;
+          setState(() {
+            firstname = value.firstname;
+            lastname = value.lastname;
+            // address = value.address;
+          });
           success(
             context: context,
             message: value.message,
@@ -233,6 +242,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     "firstnmae": firstnameController.text,
                     "lastname": lastnameController.text
                   });
+                  updateAUser();
                 },
                 child: Container(
                   alignment: Alignment.center,
@@ -285,7 +295,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                             hintText: "First Name",
                             suffixIcon2: Icon(Icons.people_alt_outlined,
                                 color: GlobalColors.orange),
-                            controller2: lastnameController,
+                            controller2: firstnameController,
                             keyboardType4: TextInputType.name,
                             validate: (value) {
                               if (value!.isEmpty ||
@@ -383,7 +393,15 @@ class _UserProfilePageState extends State<UserProfilePage> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  print({
+                    "mobile": numberController.text,
+                    "email": emailcontroller.text,
+                    "firstnmae": firstnameController.text,
+                    "lastname": lastnameController.text
+                  });
+                  updateAUser();
+                },
                 child: Container(
                   alignment: Alignment.center,
                   width: 250,
@@ -429,7 +447,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     hintText: "First Name",
                     suffixIcon2: Icon(Icons.people_alt_outlined,
                         color: GlobalColors.orange),
-                    controller2: lastnameController,
+                    controller2: firstnameController,
                     keyboardType4: TextInputType.name,
                     validate: (value) {
                       if (value!.isEmpty ||
@@ -493,7 +511,15 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   height: 30,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    print({
+                      "mobile": numberController.text,
+                      "email": emailcontroller.text,
+                      "firstnmae": firstnameController.text,
+                      "lastname": lastnameController.text
+                    });
+                    updateAUser();
+                  },
                   child: Container(
                     alignment: Alignment.center,
                     width: 250,

@@ -138,8 +138,6 @@ class UserProviderApi with ChangeNotifier {
         }));
 
     if (res.statusCode == 200) {
-      var jsonres = jsonDecode(res.body);
-      print(jsonres);
       setLoading(false);
     } else if (res.statusCode == 404) {
       setLoading(false);

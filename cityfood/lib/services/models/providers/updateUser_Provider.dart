@@ -7,22 +7,24 @@ class UpdateUsermodel {
   late final success;
   late final message;
   late final lastname;
+  late final user;
 
-  UpdateUsermodel({
-    required this.firstname,
-    required this.email,
-    required this.mobile,
-    required this.success,
-    required this.lastname,
-    required this.message,
-  });
+  UpdateUsermodel(
+      {required this.firstname,
+      required this.email,
+      required this.mobile,
+      required this.success,
+      required this.lastname,
+      required this.message,
+      required this.user});
   UpdateUsermodel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     message = json['message'];
-    firstname = json['firstname'];
-    email = json['email'];
-    mobile = json['mobile'];
-    lastname = json['lastname'];
+    user = json['user'];
+    firstname = user['firstname'];
+    email = user['email'];
+    mobile = user['mobile'];
+    lastname = user['lastname'];
   }
 }
 
