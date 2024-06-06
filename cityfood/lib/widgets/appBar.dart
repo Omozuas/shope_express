@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cityfood/colorsConstrain/colorsHex.dart';
 import 'package:cityfood/controller/controller.dart';
 import 'package:cityfood/services/Apis/auth_api/user_controller.dart';
@@ -35,7 +33,7 @@ class _FlexAppBarState extends State<FlexAppBar> {
   void initState() {
     _scrollController.addListener(_scrollListener);
     super.initState();
-    getaUser();
+    // getaUser();
   }
 
   _scrollListener() {

@@ -3,6 +3,7 @@ import 'package:cityfood/services/Apis/urlcConnection/auth_api/connectioUrl.dart
 import 'package:cityfood/services/models/auth_respons/loginRespons-model.dart';
 import 'package:cityfood/services/models/auth_respons/logoutRespons.dart';
 import 'package:cityfood/services/models/auth_respons/signUp_respond_model.dart';
+import 'package:cityfood/services/models/providers/updateUser_Provider.dart';
 import 'package:cityfood/services/models/providers/user_Provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -116,5 +117,36 @@ class UserProviderApi with ChangeNotifier {
     }
 
     return logoutResopnsModel(res.body);
+  }
+
+  Future<UpdateUsermodel> updateUser(String firstname, String lastname,
+      String email, String mobile, String token) async {
+    setLoading(true);
+
+    var loginUser = "${ApiUrl.baseUrl}:id";
+    print(loginUser);
+    var res = await http.put(Uri.parse(loginUser),
+        headers: {
+          'Content-Type': "application/json; charset=utf-8",
+          "Authorization": "Bearer $token"
+        },
+        body: jsonEncode({
+          "firstname": firstname,
+          "lastname": lastname,
+          "email": email,
+          "mobile": mobile,
+        }));
+
+    if (res.statusCode == 200) {
+      var jsonres = jsonDecode(res.body);
+      print(jsonres);
+      setLoading(false);
+    } else if (res.statusCode == 404) {
+      setLoading(false);
+    } else if (res.statusCode == 500) {
+      setLoading(false);
+    }
+
+    return updateUsermodel(res.body);
   }
 }

@@ -140,7 +140,7 @@ class UserController{
       if (!user) {
         throw new Error('User not found');
       }
-        res.status(200).json(user);
+        res.status(200).json({user,message:'profile Updated',success:true});
     });
     static blockUserbyId = asynchandler(async(req,res)=>{
 

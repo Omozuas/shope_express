@@ -57,3 +57,58 @@ Widget textFiled(
     ),
   );
 }
+
+Widget textFiledProfile(
+    {label,
+    hintText,
+    err,
+    controller2,
+    suffixIcon2,
+    keyboardType4,
+    validate,
+    onchange,
+    keys,
+    obscureText = false}) {
+  return Form(
+    key: keys,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          label,
+          style: TextStyle(
+              fontSize: 16, fontWeight: FontWeight.w400, color: Colors.black87),
+        ),
+        const SizedBox(height: 5),
+        TextFormField(
+          onChanged: onchange,
+          validator: validate,
+          controller: controller2,
+          keyboardType: keyboardType4,
+          obscureText: obscureText,
+          style: TextStyle(color: Colors.black),
+          decoration: InputDecoration(
+              suffixIcon: suffixIcon2,
+              errorText: err,
+              contentPadding:
+                  const EdgeInsets.symmetric(vertical: 0, horizontal: 30),
+              hintText: hintText,
+              hintStyle: TextStyle(color: Colors.black),
+              helperStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400),
+              enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black12),
+                  borderRadius: BorderRadius.circular(10)),
+              focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: Colors.black54),
+                  borderRadius: BorderRadius.circular(10))),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+      ],
+    ),
+  );
+}

@@ -37,7 +37,7 @@ class Clientmodel {
     mobile = json['mobile'];
     refreshToken = json['refreshToken'];
     isBlocked = json['isBlocked'];
-    lastname = json[' lastname'];
+    lastname = json['lastname'];
     role = json['role'];
     id = json['_id'];
   }
