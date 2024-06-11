@@ -1,9 +1,9 @@
 class IndexController{
     static index(req,res){
-        res.send('hello from index controller')
+        res.send('hello from shope-express controller')
     }
     static home(req,res){
-        res.send('hello from home index controller')
+        res.send('hello from home Product controller')
     }
 }
 

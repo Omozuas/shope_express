@@ -4,7 +4,9 @@ const asynchandler=require('express-async-handler');
 const jwtToken = require('../config/jwtToken');
 const jwt = require("jsonwebtoken");
 const { validateMongodbId } = require('../utils/validatemongodb');
-
+const crypto=require('crypto');
+const Email=require('../controller/emailController');
+const otpgen= require('otp-generator');
 
 class UserController{
     static  createUser = asynchandler(async (req,res)=>{
@@ -169,5 +171,79 @@ class UserController{
       }
         res.status(200).json({message:'User Unblocked'});
     });
+    static updateUserPasswordbyId = asynchandler(async(req,res)=>{
+
+      const { id } = req.user;
+      const password =req.body.password;
+      const hashedPassword = await bcrypt.hash(password,10) 
+      const resetToken= crypto.randomBytes(32).toString("hex");
+     validateMongodbId(id);
+      const user = await User.findById(id);
+
+      if(password){
+        user.passwordResetToken=crypto.createHash("sha256").update(resetToken).digest("hex");
+        user.passwordResetExpires=Date.now()+30*60*1000//10 mins
+        user.password=hashedPassword;
+        const updatPassword=await user.save();
+        res.status(200).json({updatPassword,message:'password changed',success:true});
+      }else{
+        res.json(user);
+      }
+ 
+   
+     
+    });
+    static forgotPassword = asynchandler(async(req,res)=>{
+
+    const email = req.body.email;
+    const user = await User.findOne({email});
+    if (!user)throw new Error("User not found")
+      const otp=otpgen.generate(
+        4,{
+            digits:true,
+            upperCaseAlphabets:false,
+            specialChars:false,
+            lowerCaseAlphabets:false
+        }
+    );
+    try{
+      user.passwordResetToken=crypto.createHash("sha256").update(otp).digest("hex");
+      user.passwordResetExpires=Date.now()+30*60*1000//10 mins
+      await user.save();
+      const restUrl=`<p>Dear Customer, this is the onetime PIN for  registring <b>DO NOT DISCLOSE</b></p><p style="color:tomato; font-size:25px; letter-spacing:2px"><b>${otp}</b></p><p>this code<b>expires in 10 min</b>.</p>`;
+      const data={
+        to:email,
+        text:"Hello",
+        subject: "Confirm your OTP",
+        html:restUrl
+      }
+     Email.sendEmail(data);
+      res.status(200).json({otp,message:'you will recive an OTP mail',success:true});
+    }catch(error){
+      throw new Error(error)
+    }
+
+ 
+   
+    });
+    static resetPassword = asynchandler(async(req,res)=>{
+
+    const password = req.body.password;
+    const otp = req.body.otp;
+    const hashedPassword = await bcrypt.hash(password,10) 
+    const ResetToken=crypto.createHash("sha256").update(otp).digest("hex");
+    const user = await User.findOne({
+      passwordResetToken:ResetToken,
+      passwordResetExpires:{$gt:Date.now()}
+    });
+    if (!user)throw new Error("OTP Expired");
+      user.password=hashedPassword;
+      user.passwordResetToken=undefined;
+      user.passwordResetExpires=undefined
+      await user.save();
+      res.status(200).json({message:'password changed',success:true});
+   
+   
+  });
 }
 module.exports=UserController;

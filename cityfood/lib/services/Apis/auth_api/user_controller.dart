@@ -123,7 +123,7 @@ class UserProviderApi with ChangeNotifier {
       String email, String mobile, String token) async {
     setLoading(true);
 
-    var loginUser = "${ApiUrl.baseUrl}:id";
+    var loginUser = "${ApiUrl.baseUrl}edit-user";
     print(loginUser);
     var res = await http.put(Uri.parse(loginUser),
         headers: {

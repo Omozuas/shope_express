@@ -29,32 +29,22 @@ class _ProfilePageState extends State<ProfilePage> {
     final controller = Get.put(ProfileController());
     return SafeArea(
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(left: 20, right: 20, top: 5),
+            padding: EdgeInsets.only(left: 10, right: 10, top: 5),
             child: Container(
-                height: Responsive.isDesktop(context)
-                    ? 650
-                    : Responsive.isTablet(context)
-                        ? 500
-                        : Responsive.isMobile(context)
-                            ? MediaQuery.of(context).size.height
-                            : 650,
+                height: MediaQuery.of(context).size.height,
                 width: Responsive.isDesktop(context)
-                    ? 200
+                    ? 130
                     : Responsive.isTablet(context)
-                        ? 160
+                        ? 130
                         : Responsive.isMobile(context)
                             ? 70
-                            : 200,
+                            : 130,
                 padding:
                     EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
-                // color: Colors.grey[200],
-                decoration: BoxDecoration(
-                  border: Border.symmetric(
-                      vertical: BorderSide(width: 1),
-                      horizontal: BorderSide.none),
-                ),
                 child: Obx(
                   () => Column(
                     children: [
@@ -158,7 +148,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Icon(
-                                Icons.notifications_outlined,
+                                Icons.cloud_upload_outlined,
                                 color: _isHovering[1]
                                     ? Colors.grey[200]
                                     : controller.selectedIndex.value == 1
@@ -167,7 +157,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               if (Responsive.isDesktop(context))
                                 Text(
-                                  'Notification',
+                                  'upload',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 15,
@@ -180,7 +170,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               if (Responsive.isTablet(context))
                                 Text(
-                                  'Notification',
+                                  'upload',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 15,

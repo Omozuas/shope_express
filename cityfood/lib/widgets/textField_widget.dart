@@ -67,6 +67,8 @@ Widget textFiledProfile(
     keyboardType4,
     validate,
     onchange,
+    maxLines,
+    maxLength,
     keys,
     obscureText = false}) {
   return Form(
@@ -83,6 +85,8 @@ Widget textFiledProfile(
         TextFormField(
           onChanged: onchange,
           validator: validate,
+          maxLength: maxLength,
+          maxLines: maxLines,
           controller: controller2,
           keyboardType: keyboardType4,
           obscureText: obscureText,
@@ -91,7 +95,7 @@ Widget textFiledProfile(
               suffixIcon: suffixIcon2,
               errorText: err,
               contentPadding:
-                  const EdgeInsets.symmetric(vertical: 0, horizontal: 30),
+                  const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
               hintText: hintText,
               hintStyle: TextStyle(color: Colors.black),
               helperStyle: TextStyle(

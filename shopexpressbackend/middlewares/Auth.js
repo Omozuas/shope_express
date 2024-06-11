@@ -39,6 +39,19 @@ class Auth{
       next(); 
      
      });
+
+     static authIsVendor = asynchandler(async (req, res, next) => {
+      const { email } = req.user;
+      const user = await User.findOne({ email });
+  
+      if (!user || (user.role !== "isAdmin" && user.role !== "isVendor")) {
+          console.log(user ? user.role : "No user found");
+          return res.status(403).json({ message: 'User not authorized' });
+      }
+  
+      console.log(user.role);
+      next();
+  });
 }
 
 module.exports=Auth;

@@ -33,7 +33,7 @@ class _FlexAppBarState extends State<FlexAppBar> {
   void initState() {
     _scrollController.addListener(_scrollListener);
     super.initState();
-    getaUser();
+    // getaUser();
   }
 
   _scrollListener() {

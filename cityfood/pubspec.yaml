@@ -45,6 +45,10 @@ dependencies:
   another_flushbar: ^1.12.30
   shared_preferences: ^2.2.3
   cooky: ^2.0.0
+  dotted_border: ^2.1.0
+  image_picker: ^1.1.2
+  file_picker: ^8.0.4
+  font_awesome_flutter: ^10.7.0
 
 dev_dependencies:
   flutter_test:
