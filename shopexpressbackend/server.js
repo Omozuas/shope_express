@@ -40,12 +40,14 @@ app.use('/api/brand',brandRoter);
 app.use('/api/blog-category',blogCategoryRoter);
 app.use('/api/cupon',cuponRoter);
 
+cron.schedule("*/10 * * * * ",()=>{
+ const currentTime = new Date();
+ console.log(`Current time: ${currentTime}`);
+    })
+
+
 //start server
 app.listen(process.env.PORT ,()=>{
-   cron.schedule("*/10 * * * * ",()=>{
     console.log('server is running on 4000')
-    const currentTime = new Date();
-    console.log(`Current time: ${currentTime}`);
-    })
 })
 
