@@ -5,16 +5,19 @@ const productController=require('../controller/productController');
 const authIsVendorOrIsAdmin=require("../middlewares/Auth");
 const { upload } = require('../middlewares/multer');
 
-
 //this is  we binding middleware all the rotes in this file defined
 Route.post('/add-new-product',authIsVendorOrIsAdmin.authmiddleware,authIsVendorOrIsAdmin.authIsVendor,upload.array('image'),productController.createProduct);
-Route.get('/:id',authIsVendorOrIsAdmin.authmiddleware,productController.getAProduct);
-Route.put('/:id',authIsVendorOrIsAdmin.authmiddleware,authIsVendorOrIsAdmin.authIsVendor,productController.updateProducts);
-Route.delete('/:id',authIsVendorOrIsAdmin.authmiddleware,authIsVendorOrIsAdmin.authIsVendor, productController.deleteProduct);
+Route.put('/wishlist',authIsVendorOrIsAdmin.authmiddleware,productController.addToWishlist);
+Route.put('/rating',authIsVendorOrIsAdmin.authmiddleware,productController.rating);
+Route.get('/get-a-product/:id',authIsVendorOrIsAdmin.authmiddleware,productController.getAProduct);
+Route.put('/update-a-product/:id',authIsVendorOrIsAdmin.authmiddleware,authIsVendorOrIsAdmin.authIsVendor,productController.updateProducts);
+Route.delete('/delete-a-product/:id',authIsVendorOrIsAdmin.authmiddleware,authIsVendorOrIsAdmin.authIsVendor, productController.deleteProduct);
 
-Route.put('/',authIsVendorOrIsAdmin.authmiddleware,productController.addToWishlist);
 
-Route.get('/',productController.searchProduct);
+
+
+
+Route.get('/search-for-product',productController.searchProduct);
 // Route.post('/upload-image',upload.array('image'),productController.imageProduct);
 
 

@@ -4,6 +4,7 @@ const slugify=require('slugify');
 const cloudinary=require("../config/cloudnary");
 const fs=require('fs');
 const User = require("../models/user_model");
+const { validateMongodbId } = require("../utils/validatemongodb");
 class ProductController{
     static createProduct = asynchandler(async (req,res)=>{
       try{ 
@@ -138,23 +139,23 @@ class ProductController{
 //             throw new Error(error);
 //         }
 //     });
-static addToWishlist = asynchandler(async(req,res)=>{
-    const {_id}= req.user;
-    const {productId}= req.body;
-
-    try {
+    static addToWishlist = asynchandler(async(req,res)=>{
+        const { _id } = req.user;
+        const { productId } = req.body;
+        validateMongodbId(_id)
+     try {
         const user =await User.findById({_id});
         const alreadyadded=user.whislist.find((id)=>id.toString() === productId );
         if(alreadyadded){
-         let user= await User.findByIdAndUpdate(_id,
-            {
-               $pull:{whislist: productId},
-            },
-            {
-                new:true,
-            }
+            let user= await User.findByIdAndUpdate(_id,
+                {
+                   $pull:{whislist: productId},
+                },
+                {
+                    new:true,
+                }
         );
-         res.json({user,message:"wishitem deleted",success:true});
+         res.json({user,message:"wishitem removed",success:true});
         }else{
             let user= await User.findByIdAndUpdate(_id,
                 {
@@ -167,10 +168,61 @@ static addToWishlist = asynchandler(async(req,res)=>{
             res.json({user,message:"wishitem added",success:true});
         }
        
-    } catch (error) {
+      } catch (error) {
         throw new Error(error);
-    }
-});
+      }
+    });
+    static rating = asynchandler(async(req,res)=>{
+        const { _id } = req.user;
+        const { star,comment,productId } = req.body;
+        validateMongodbId(_id)
+        try{
+            const product=await Product.findById(productId);
+            let alreadyRated=product.ratings.find((userId)=>userId.postedBy.toHexString()=== _id.toString());
+            if(alreadyRated){
+                const updateRatingt=await Product.updateOne({
+                    ratings:{$elemMatch:alreadyRated}},{
+                        $set:{"ratings.$.star":star,"ratings.$.comment":comment}
+                    },{
+                        new:true,
+                     }
+                     
+                  );
+              
+           
+             }else{
+              const rateProduct=await Product.findByIdAndUpdate(productId,
+                {
+                    $push:{
+                        ratings: {
+                            star:star,
+                             postedBy:_id
+                        }
+                    }
+                 },{
+                    new:true,
+                 }
+              );
+              
+       
+           }
+           const getAllRatings =await Product.findById(productId);
+           let totalRating = getAllRatings.ratings.length;
+           let ratingSum =getAllRatings.ratings.map((item)=>item.star).reduce((prev,curr)=>prev+curr,0);
+           let actualRating=Math.round(ratingSum/totalRating);
+       let finalproduct=    await Product.findByIdAndUpdate(
+            productId,
+            {
+                totalrating:actualRating
+            },{
+                new:true
+            }
+           )
+           res.json({finalproduct,message:"totalrating",success:true});
+        }catch(error){
+            throw new Error(error)
+        }
+    });
 }
 
 module.exports=ProductController;

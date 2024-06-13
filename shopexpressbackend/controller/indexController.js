@@ -1,5 +1,6 @@
+const cron = require("node-cron");
 class IndexController{
-    static index(req,res){
+    static  index(req,res){
         res.send('hello from shope-express controller')
     }
     static home(req,res){

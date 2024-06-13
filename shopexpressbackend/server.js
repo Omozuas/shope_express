@@ -10,8 +10,11 @@ const authRoter=require('./routes/authRoutes');
 const categoryRoter=require('./routes/categoryRoutes');
 const brandRoter=require('./routes/brandCategoryRoutes');
 const blogCategoryRoter=require('./routes/blogcartegoryRoutes');
+const cuponRoter=require('./routes/couponRoutes');
 const cookieParser = require('cookie-parser')
 const morgan=require('morgan');
+const cron = require("node-cron");
+const shell=require('shelljs')
 dbConnect();
 
 
@@ -28,14 +31,21 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
 
+
 app.use(Router);
 app.use('/api/user',authRoter);
 app.use('/api/product',productRouter);
 app.use('/api/category',categoryRoter);
 app.use('/api/brand',brandRoter);
 app.use('/api/blog-category',blogCategoryRoter);
+app.use('/api/cupon',cuponRoter);
 
 //start server
 app.listen(process.env.PORT ,()=>{
+   cron.schedule("*/10 * * * * ",()=>{
     console.log('server is running on 4000')
+    const currentTime = new Date();
+    console.log(`Current time: ${currentTime}`);
+    })
 })
+
