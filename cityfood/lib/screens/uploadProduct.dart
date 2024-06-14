@@ -8,6 +8,7 @@ import 'package:cityfood/widgets/snackBarRes.dart';
 import 'package:cityfood/widgets/textField_widget.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get_connect/http/src/multipart/form_data.dart';
@@ -48,22 +49,42 @@ class _UploadProductPageState extends State<UploadProductPage> {
   late Uint8List bytes;
 
   void _imagesPicker() async {
-    FilePickerResult? filePickerResult = await FilePicker.platform.pickFiles(
-      allowMultiple: true,
-      type: FileType.image,
-    );
+    if (Responsive.isDesktop(context)) {
+      print("web");
+      FilePickerResult? filePickerResult = await FilePicker.platform.pickFiles(
+        allowMultiple: true,
+        type: FileType.image,
+      );
 
-    if (filePickerResult != null) {
-      for (var image in filePickerResult.files) {
-        path = image.name;
-        bytes = image.bytes!;
-        images.add({"bytes": image.bytes, "path": path});
-        images1.add(File(image.name));
-        setState(() {
-          path = filePickerResult.files.first.name;
-          bytes = filePickerResult.files.first.bytes!;
-        });
-        print(images1);
+      if (filePickerResult != null) {
+        for (var image in filePickerResult.files) {
+          path = image.name;
+          bytes = image.bytes!;
+          images.add({"bytes": image.bytes, "path": path});
+          images1.add(File(image.name));
+          setState(() {
+            path = filePickerResult.files.first.name;
+            bytes = filePickerResult.files.first.bytes!;
+          });
+          print(images1);
+        }
+      }
+    } else {
+      print("mobile");
+      final List<XFile>? pickedFiles = await imagePicker.pickMultiImage();
+      if (pickedFiles != null && pickedFiles.isNotEmpty) {
+        for (var image in pickedFiles) {
+          String path = image.name;
+          Uint8List bytes = await image.readAsBytes();
+          images.add({"bytes": bytes, "path": path});
+          images1.add(File(image.path));
+          setState(() {
+            path = pickedFiles.first.name;
+            bytes = bytes;
+          });
+          // // print("File Name: $path");
+          // print("Bytes: $bytes");
+        }
       }
     }
   }
@@ -1357,7 +1378,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
                       keyboardType4: TextInputType.name,
                       validate: (value) {
                         if (value!.isEmpty ||
-                            !!RegExp(r'^[a-z A-Z]+$').hasMatch(value!)) {
+                            !RegExp(r'^[a-z A-Z]+$').hasMatch(value!)) {
                           return "Enter Your brand of product";
                         } else {
                           return null;
