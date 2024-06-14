@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:cityfood/colorsConstrain/colorsHex.dart';
 import 'package:cityfood/util/responsive.dart';
 import 'package:cityfood/widgets/appbarname.dart';
@@ -5,7 +8,9 @@ import 'package:cityfood/widgets/snackBarRes.dart';
 import 'package:cityfood/widgets/textField_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -35,6 +40,10 @@ class _UserProfilePageState extends State<UserProfilePage> {
   String firstname = '';
   String lastname = '';
   String address = '';
+  List<Map<String, dynamic>> images = [];
+  List<File> images1 = [];
+  String path = '';
+  late Uint8List bytes;
   @override
   void initState() {
     // TODO: implement initState
@@ -101,6 +110,26 @@ class _UserProfilePageState extends State<UserProfilePage> {
     }
   }
 
+  Future<void> _imagesPicker() async {
+    try {
+      final ImagePicker imagePicker = ImagePicker();
+      final pickedFile =
+          await imagePicker.pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        String path = pickedFile.name;
+        Uint8List bytes = await pickedFile.readAsBytes();
+        images.add({"bytes": bytes, "path": path});
+        images1.add(File(pickedFile.path));
+        setState(() {
+          path = pickedFile.name;
+          bytes = bytes;
+        });
+      }
+    } on PlatformException catch (e) {
+      print("Failed to pick image: $e");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -118,8 +147,10 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     width: 150,
                     height: 150,
                     circleZize: 100,
-                    image: AssetImage('assets/images/Image.png'),
-                    onTap: () {},
+                    image: MemoryImage(bytes),
+                    onTap: () {
+                      _imagesPicker();
+                    },
                     firstname: "$firstname",
                     lastname: "$lastname",
                     address: "Idimu ,Lagos State",
@@ -277,7 +308,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
                     height: 130,
                     circleZize: 100,
                     image: AssetImage('assets/images/Image.png'),
-                    onTap: () {},
+                    onTap: () {
+                      _imagesPicker();
+                    },
                     firstname: "$firstname",
                     lastname: "$lastname",
                     address: "Idimu ,Lagos State",
@@ -433,7 +466,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   height: 135,
                   circleZize: 100,
                   image: AssetImage('assets/images/Image.png'),
-                  onTap: () {},
+                  onTap: () {
+                    _imagesPicker();
+                  },
                   firstname: "$firstname",
                   lastname: "$lastname",
                   address: "Idimu ,Lagos State",
