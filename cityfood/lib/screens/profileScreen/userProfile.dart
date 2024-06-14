@@ -265,7 +265,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              InkWell(
+              GestureDetector(
                 onTap: () {
                   print({
                     "mobile": numberController.text,
@@ -425,7 +425,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              InkWell(
+              GestureDetector(
                 onTap: () {
                   print({
                     "mobile": numberController.text,
@@ -545,7 +545,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 SizedBox(
                   height: 30,
                 ),
-                InkWell(
+                GestureDetector(
                   onTap: () {
                     print({
                       "mobile": numberController.text,
@@ -614,7 +614,7 @@ class EditProfilePic extends StatelessWidget {
                 Positioned(
                   right: 5,
                   bottom: 5,
-                  child: InkWell(
+                  child: GestureDetector(
                     onTap: onTap,
                     child: Container(
                       margin: const EdgeInsets.all(5),
@@ -666,7 +666,7 @@ class EditProfilePic extends StatelessWidget {
                 Positioned(
                   right: 5,
                   bottom: 5,
-                  child: InkWell(
+                  child: GestureDetector(
                     onTap: onTap,
                     child: Container(
                       margin: const EdgeInsets.all(5),

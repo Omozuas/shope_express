@@ -9,6 +9,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -153,11 +154,10 @@ class _UploadProductPageState extends State<UploadProductPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Flexible(
-                    child: InkWell(
+                    child: GestureDetector(
                         onTap: () {
                           _imagesPicker();
                         },
-                        splashColor: Colors.white,
                         child: DottedBorder(
                           strokeWidth: 2,
                           radius: const Radius.circular(19),
@@ -720,7 +720,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
                           SizedBox(
                             height: 30,
                           ),
-                          InkWell(
+                          GestureDetector(
                             onTap: () {
                               uploadProducts();
                             },
@@ -836,7 +836,6 @@ class _UploadProductPageState extends State<UploadProductPage> {
                       icon: Icon(Icons.keyboard_arrow_down),
                       iconSize: 36,
                       elevation: 0,
-                      validator: (v) {},
                       isExpanded: true,
                       focusColor: Colors.black54,
                       dropdownColor: Colors.grey[200],
@@ -1190,11 +1189,10 @@ class _UploadProductPageState extends State<UploadProductPage> {
                   SizedBox(
                     height: 30,
                   ),
-                  InkWell(
+                  GestureDetector(
                       onTap: () {
                         _imagesPicker();
                       },
-                      splashColor: Colors.white,
                       child: DottedBorder(
                         strokeWidth: 2,
                         radius: const Radius.circular(19),
@@ -1276,7 +1274,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
                   SizedBox(
                     height: 30,
                   ),
-                  InkWell(
+                  GestureDetector(
                     onTap: () {
                       uploadProducts();
                     },
@@ -1742,11 +1740,10 @@ class _UploadProductPageState extends State<UploadProductPage> {
                   SizedBox(
                     height: 30,
                   ),
-                  InkWell(
+                  GestureDetector(
                       onTap: () {
                         _imagesPicker();
                       },
-                      splashColor: Colors.white,
                       child: DottedBorder(
                         strokeWidth: 2,
                         radius: const Radius.circular(19),
@@ -1828,7 +1825,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
                   SizedBox(
                     height: 30,
                   ),
-                  InkWell(
+                  GestureDetector(
                     onTap: () {
                       uploadProducts();
                     },
