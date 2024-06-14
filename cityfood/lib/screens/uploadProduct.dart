@@ -9,6 +9,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -39,13 +40,12 @@ class _UploadProductPageState extends State<UploadProductPage> {
   TextEditingController confirmpasswordController = TextEditingController();
   TextEditingController numberController = TextEditingController();
   String? dropdown = 'Select Cartegory';
-  final ImagePicker imagePicker = ImagePicker();
   List<Map<String, dynamic>> images = [];
   List<File> images1 = [];
   String path = '';
   late Uint8List bytes;
 
-  void _imagesPicker() async {
+  Future<void> _imagesPicker() async {
     if (Responsive.isDesktop(context)) {
       print("web");
       FilePickerResult? filePickerResult = await FilePicker.platform.pickFiles(
@@ -68,7 +68,8 @@ class _UploadProductPageState extends State<UploadProductPage> {
       }
     } else {
       try {
-        final XFile? pickedFile =
+        final ImagePicker imagePicker = ImagePicker();
+        final pickedFile =
             await imagePicker.pickImage(source: ImageSource.gallery);
         if (pickedFile != null) {
           String path = pickedFile.name;
@@ -1280,7 +1281,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
                   SizedBox(
                     height: 30,
                   ),
-                  InkWell(
+                  GestureDetector(
                     onTap: () {
                       uploadProducts();
                     },
