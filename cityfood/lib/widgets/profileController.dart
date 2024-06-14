@@ -8,7 +8,6 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 class ProfileController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
   final screen = [
-    const UploadProductPage(),
     UserProfilePage(),
     const UploadProductPage(),
     const NotificationPage(),

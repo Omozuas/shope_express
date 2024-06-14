@@ -7,7 +7,7 @@ class ProductresopnsModel {
   });
 
   late final success;
-  late final String message;
+  late final message;
 
   ProductresopnsModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];

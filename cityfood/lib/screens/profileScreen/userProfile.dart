@@ -39,7 +39,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // getaUser();
+    getaUser();
   }
 
   void getaUser() async {

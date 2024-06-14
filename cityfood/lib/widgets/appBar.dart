@@ -39,7 +39,6 @@ class _FlexAppBarState extends State<FlexAppBar> {
   _scrollListener() {
     setState(() {
       scrollPosition = _scrollController.position.pixels;
-      print(scrollPosition);
     });
   }
 

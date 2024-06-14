@@ -11,7 +11,13 @@ class ProductController{
         if(req.body.title){
             req.body.slug=slugify(req.body.title)
         }
-        if(req.files.isEmpty) throw new Error('no image found');
+       
+        if (!req.files || req.files.length === 0) {
+            throw new Error('No image found');
+          }
+          if (req.files.length > 4) {
+            throw new Error('Cannot upload more than 4 images');
+          }
         const uploader= async(path) => await cloudinary.uploads(path,"Images")
         const urls=[];
         const files=req.files

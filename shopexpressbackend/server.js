@@ -14,7 +14,7 @@ const cuponRoter=require('./routes/couponRoutes');
 const cookieParser = require('cookie-parser')
 const morgan=require('morgan');
 const cron = require("node-cron");
-const shell=require('shelljs')
+const axios=require('axios');
 dbConnect();
 
 
@@ -40,10 +40,17 @@ app.use('/api/brand',brandRoter);
 app.use('/api/blog-category',blogCategoryRoter);
 app.use('/api/cupon',cuponRoter);
 
-cron.schedule("*/10 * * * * ",()=>{
- const currentTime = new Date();
- console.log(`Current time: ${currentTime}`);
-    })
+cron.schedule("*/3 * * * * ", async () => {
+    try {
+      const currentTime = new Date();
+      console.log(`Current time: ${currentTime}`);
+      
+      const response = await axios.get('https://shope-express.onrender.com/');
+      console.log('API Response:', response.data);
+    } catch (error) {
+      console.error('Error fetching API:', error);
+    }
+  });
 
 
 //start server

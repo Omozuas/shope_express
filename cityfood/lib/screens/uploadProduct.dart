@@ -2,12 +2,20 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:cityfood/colorsConstrain/colorsHex.dart';
+import 'package:cityfood/services/Apis/product_api/productApi.dart';
 import 'package:cityfood/util/responsive.dart';
+import 'package:cityfood/widgets/snackBarRes.dart';
 import 'package:cityfood/widgets/textField_widget.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get_connect/http/src/multipart/form_data.dart';
+import 'package:get/get_connect/http/src/multipart/multipart_file.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UploadProductPage extends StatefulWidget {
   const UploadProductPage({super.key});
@@ -35,17 +43,66 @@ class _UploadProductPageState extends State<UploadProductPage> {
   String? dropdown = 'Select Cartegory';
   final ImagePicker imagePicker = ImagePicker();
   List<Map<String, dynamic>> images = [];
+  List<File> images1 = [];
+  String path = '';
+  late Uint8List bytes;
 
   void _imagesPicker() async {
-    final List<XFile>? pickedImages = await imagePicker.pickMultiImage();
-    if (pickedImages != null && pickedImages.isNotEmpty) {
-      for (var image in pickedImages) {
-        Uint8List bytes = await image.readAsBytes();
-        String path = image.path;
-        images.add({'bytes': bytes, 'path': path});
+    FilePickerResult? filePickerResult = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+      type: FileType.image,
+    );
+
+    if (filePickerResult != null) {
+      for (var image in filePickerResult.files) {
+        path = image.name;
+        bytes = image.bytes!;
+        images.add({"bytes": image.bytes, "path": path});
+        images1.add(File(image.name));
+        setState(() {
+          path = filePickerResult.files.first.name;
+          bytes = filePickerResult.files.first.bytes!;
+        });
+        print(images1);
       }
     }
-    setState(() {});
+  }
+
+  void uploadProducts() async {
+    if (dropdown == 'Select Cartegory') {
+      error(context: context, message: "Select Cartegory");
+    } else if (images1.isEmpty) {
+      error(context: context, message: "Select product images");
+    } else if (formKey.currentState!.validate() &&
+        formKey1.currentState!.validate() &&
+        formKey2.currentState!.validate() &&
+        formKey3.currentState!.validate() &&
+        formKey4.currentState!.validate()) {
+      final creatPrpduct =
+          Provider.of<ProductProviderApi>(context, listen: false);
+      final preferences = await SharedPreferences.getInstance();
+
+      List<MapEntry<String, String>> formData = FormData({
+        "title": titlecontroller.text,
+        "description": describecontroller.text,
+        "price": priceController.text,
+        "brand": brandontroller.text,
+        "quantity": quantityController.text,
+        "category": dropdown!
+      }).fields;
+
+      creatPrpduct
+          .createUser(preferences.getString('token')!, formData, images)
+          .then((value) {
+        if (value.success == true) {
+          success(context: context, message: value.message);
+        } else {
+          error(context: context, message: value.message);
+        }
+      });
+    } else {
+      error(context: context, message: "complete details");
+    }
   }
 
   @override
@@ -165,7 +222,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
                                       if (value!.isEmpty ||
                                           !RegExp(r'^[a-z A-Z]+$')
                                               .hasMatch(value!)) {
-                                        return "Enter Your First Name";
+                                        return "Enter Your Name Of Product";
                                       } else {
                                         return null;
                                       }
@@ -177,7 +234,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
                               SizedBox(
                                 width: 250,
                                 child: textFiledProfile(
-                                    keys: formKey2,
+                                    keys: formKey1,
                                     label: "price of product".toUpperCase(),
                                     hintText: "price of product".toLowerCase(),
                                     suffixIcon2: Icon(Icons.people_alt_outlined,
@@ -186,9 +243,9 @@ class _UploadProductPageState extends State<UploadProductPage> {
                                     keyboardType4: TextInputType.number,
                                     validate: (value) {
                                       if (value!.isEmpty ||
-                                          !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}')
+                                          !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]+$')
                                               .hasMatch(value!)) {
-                                        return "Enter Your email";
+                                        return "Enter price of product";
                                       } else {
                                         return null;
                                       }
@@ -206,7 +263,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
                               SizedBox(
                                 width: 250,
                                 child: textFiledProfile(
-                                    keys: formKey5,
+                                    keys: formKey2,
                                     label: "number of product".toUpperCase(),
                                     hintText: "number of product".toLowerCase(),
                                     suffixIcon2: Icon(Icons.people_alt_outlined,
@@ -215,9 +272,9 @@ class _UploadProductPageState extends State<UploadProductPage> {
                                     keyboardType4: TextInputType.number,
                                     validate: (value) {
                                       if (value!.isEmpty ||
-                                          !RegExp(r'^[a-z A-Z]+$')
+                                          !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]+$')
                                               .hasMatch(value!)) {
-                                        return "Enter Your Last Name";
+                                        return "Enter Your number of product";
                                       } else {
                                         return null;
                                       }
@@ -238,9 +295,9 @@ class _UploadProductPageState extends State<UploadProductPage> {
                                     keyboardType4: TextInputType.name,
                                     validate: (value) {
                                       if (value!.isEmpty ||
-                                          !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]+$')
+                                          !RegExp(r'^[a-z A-Z]+$')
                                               .hasMatch(value!)) {
-                                        return "Enter Your Number";
+                                        return "Enter Your brand of product";
                                       } else {
                                         return null;
                                       }
@@ -268,7 +325,6 @@ class _UploadProductPageState extends State<UploadProductPage> {
                                   onChanged: (String? nwvalue) {
                                     setState(() {
                                       dropdown = nwvalue;
-                                      print(nwvalue);
                                     });
                                   },
                                   value: dropdown,
@@ -623,10 +679,10 @@ class _UploadProductPageState extends State<UploadProductPage> {
                           SizedBox(
                             width: 900,
                             child: textFiledProfile(
-                                keys: formKey1,
+                                keys: formKey4,
                                 maxLines: 15,
-                                label: "discription".toUpperCase(),
-                                hintText: "discription".toLowerCase(),
+                                label: "description".toUpperCase(),
+                                hintText: "description".toLowerCase(),
                                 suffixIcon2: Icon(Icons.people_alt_outlined,
                                     color: GlobalColors.orange),
                                 controller2: describecontroller,
@@ -635,7 +691,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
                                   if (value!.isEmpty ||
                                       !RegExp(r'^[a-z A-Z]+$')
                                           .hasMatch(value!)) {
-                                    return "Enter Your Last Name";
+                                    return "Enter Your product description";
                                   } else {
                                     return null;
                                   }
@@ -646,13 +702,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
                           ),
                           InkWell(
                             onTap: () {
-                              // print({
-                              //   "mobile": numberController.text,
-                              //   "email": emailcontroller.text,
-                              //   "firstnmae": firstnameController.text,
-                              //   "lastname": lastnameController.text
-                              // });
-                              // updateAUser();
+                              uploadProducts();
                             },
                             child: Container(
                               alignment: Alignment.center,
@@ -698,13 +748,13 @@ class _UploadProductPageState extends State<UploadProductPage> {
                       validate: (value) {
                         if (value!.isEmpty ||
                             !RegExp(r'^[a-z A-Z]+$').hasMatch(value!)) {
-                          return "Enter Your First Name";
+                          return "Enter Your Name Of Product";
                         } else {
                           return null;
                         }
                       }),
                   textFiledProfile(
-                      keys: formKey2,
+                      keys: formKey1,
                       label: "price of product".toUpperCase(),
                       hintText: "price of product".toLowerCase(),
                       suffixIcon2: Icon(Icons.people_alt_outlined,
@@ -713,15 +763,15 @@ class _UploadProductPageState extends State<UploadProductPage> {
                       keyboardType4: TextInputType.number,
                       validate: (value) {
                         if (value!.isEmpty ||
-                            !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}')
+                            !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]+$')
                                 .hasMatch(value!)) {
-                          return "Enter Your email";
+                          return "price of product";
                         } else {
                           return null;
                         }
                       }),
                   textFiledProfile(
-                      keys: formKey5,
+                      keys: formKey2,
                       label: "number of product".toUpperCase(),
                       hintText: "number of product".toLowerCase(),
                       suffixIcon2: Icon(Icons.people_alt_outlined,
@@ -730,8 +780,9 @@ class _UploadProductPageState extends State<UploadProductPage> {
                       keyboardType4: TextInputType.number,
                       validate: (value) {
                         if (value!.isEmpty ||
-                            !RegExp(r'^[a-z A-Z]+$').hasMatch(value!)) {
-                          return "Enter Your Last Name";
+                            !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]+$')
+                                .hasMatch(value!)) {
+                          return "Enter the number of product";
                         } else {
                           return null;
                         }
@@ -749,9 +800,8 @@ class _UploadProductPageState extends State<UploadProductPage> {
                       keyboardType4: TextInputType.name,
                       validate: (value) {
                         if (value!.isEmpty ||
-                            !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]+$')
-                                .hasMatch(value!)) {
-                          return "Enter Your Number";
+                            !RegExp(r'^[a-z A-Z]+$').hasMatch(value!)) {
+                          return "Enter brand of product";
                         } else {
                           return null;
                         }
@@ -766,6 +816,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
                       icon: Icon(Icons.keyboard_arrow_down),
                       iconSize: 36,
                       elevation: 0,
+                      validator: (v) {},
                       isExpanded: true,
                       focusColor: Colors.black54,
                       dropdownColor: Colors.grey[200],
@@ -1190,10 +1241,10 @@ class _UploadProductPageState extends State<UploadProductPage> {
                     height: 30,
                   ),
                   textFiledProfile(
-                      keys: formKey1,
+                      keys: formKey4,
                       maxLines: 15,
-                      label: "discription".toUpperCase(),
-                      hintText: "discription".toLowerCase(),
+                      label: "description".toUpperCase(),
+                      hintText: "description".toLowerCase(),
                       suffixIcon2: Icon(Icons.people_alt_outlined,
                           color: GlobalColors.orange),
                       controller2: describecontroller,
@@ -1201,7 +1252,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
                       validate: (value) {
                         if (value!.isEmpty ||
                             !RegExp(r'^[a-z A-Z]+$').hasMatch(value!)) {
-                          return "Enter Your Last Name";
+                          return "Enter Your product description";
                         } else {
                           return null;
                         }
@@ -1211,13 +1262,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
                   ),
                   InkWell(
                     onTap: () {
-                      // print({
-                      //   "mobile": numberController.text,
-                      //   "email": emailcontroller.text,
-                      //   "firstnmae": firstnameController.text,
-                      //   "lastname": lastnameController.text
-                      // });
-                      // updateAUser();
+                      uploadProducts();
                     },
                     child: Container(
                       alignment: Alignment.center,
@@ -1260,7 +1305,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
                       validate: (value) {
                         if (value!.isEmpty ||
                             !RegExp(r'^[a-z A-Z]+$').hasMatch(value!)) {
-                          return "Enter Your First Name";
+                          return "Enter Your Name Of Product";
                         } else {
                           return null;
                         }
@@ -1275,15 +1320,15 @@ class _UploadProductPageState extends State<UploadProductPage> {
                       keyboardType4: TextInputType.number,
                       validate: (value) {
                         if (value!.isEmpty ||
-                            !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}')
+                            !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]+$')
                                 .hasMatch(value!)) {
-                          return "Enter Your email";
+                          return "Enter Your price of product";
                         } else {
                           return null;
                         }
                       }),
                   textFiledProfile(
-                      keys: formKey5,
+                      keys: formKey3,
                       label: "number of product".toUpperCase(),
                       hintText: "number of product".toLowerCase(),
                       suffixIcon2: Icon(Icons.people_alt_outlined,
@@ -1292,8 +1337,9 @@ class _UploadProductPageState extends State<UploadProductPage> {
                       keyboardType4: TextInputType.number,
                       validate: (value) {
                         if (value!.isEmpty ||
-                            !RegExp(r'^[a-z A-Z]+$').hasMatch(value!)) {
-                          return "Enter Your Last Name";
+                            !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]+$')
+                                .hasMatch(value!)) {
+                          return "Enter Your number of product";
                         } else {
                           return null;
                         }
@@ -1302,7 +1348,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
                     width: 50,
                   ),
                   textFiledProfile(
-                      keys: formKey3,
+                      keys: formKey4,
                       label: "brand of product",
                       hintText: "brand of product",
                       suffixIcon2: Icon(Icons.people_alt_outlined,
@@ -1311,9 +1357,8 @@ class _UploadProductPageState extends State<UploadProductPage> {
                       keyboardType4: TextInputType.name,
                       validate: (value) {
                         if (value!.isEmpty ||
-                            !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]+$')
-                                .hasMatch(value!)) {
-                          return "Enter Your Number";
+                            !!RegExp(r'^[a-z A-Z]+$').hasMatch(value!)) {
+                          return "Enter Your brand of product";
                         } else {
                           return null;
                         }
@@ -1754,8 +1799,8 @@ class _UploadProductPageState extends State<UploadProductPage> {
                   textFiledProfile(
                       keys: formKey1,
                       maxLines: 15,
-                      label: "discription".toUpperCase(),
-                      hintText: "discription".toLowerCase(),
+                      label: "description".toUpperCase(),
+                      hintText: "description".toLowerCase(),
                       suffixIcon2: Icon(Icons.people_alt_outlined,
                           color: GlobalColors.orange),
                       controller2: describecontroller,
@@ -1763,7 +1808,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
                       validate: (value) {
                         if (value!.isEmpty ||
                             !RegExp(r'^[a-z A-Z]+$').hasMatch(value!)) {
-                          return "Enter Your Last Name";
+                          return "Enter Your product description";
                         } else {
                           return null;
                         }
@@ -1773,13 +1818,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
                   ),
                   InkWell(
                     onTap: () {
-                      // print({
-                      //   "mobile": numberController.text,
-                      //   "email": emailcontroller.text,
-                      //   "firstnmae": firstnameController.text,
-                      //   "lastname": lastnameController.text
-                      // });
-                      // updateAUser();
+                      uploadProducts();
                     },
                     child: Container(
                       alignment: Alignment.center,
