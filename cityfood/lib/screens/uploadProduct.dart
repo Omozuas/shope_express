@@ -1,6 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:cityfood/colorsConstrain/colorsHex.dart';
 import 'package:cityfood/services/Apis/product_api/productApi.dart';
 import 'package:cityfood/util/responsive.dart';
@@ -9,13 +7,10 @@ import 'package:cityfood/widgets/snackBarRes.dart';
 import 'package:cityfood/widgets/textField_widget.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/multipart/form_data.dart';
-import 'package:get/get_connect/http/src/multipart/multipart_file.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -72,20 +67,21 @@ class _UploadProductPageState extends State<UploadProductPage> {
         }
       }
     } else {
-      print("mobile");
-      final XFile? pickedFile =
-          await imagePicker.pickImage(source: ImageSource.gallery);
-      if (pickedFile != null) {
-        String path = pickedFile.name;
-        Uint8List bytes = await pickedFile.readAsBytes();
-        images.add({"bytes": bytes, "path": path});
-        images1.add(File(pickedFile.path));
-        setState(() {
-          path = pickedFile.name;
-          bytes = bytes;
-        });
-        // print("File Name: $path");
-        // print("Bytes: $bytes");
+      try {
+        final XFile? pickedFile =
+            await imagePicker.pickImage(source: ImageSource.gallery);
+        if (pickedFile != null) {
+          String path = pickedFile.name;
+          Uint8List bytes = await pickedFile.readAsBytes();
+          images.add({"bytes": bytes, "path": path});
+          images1.add(File(pickedFile.path));
+          setState(() {
+            path = pickedFile.name;
+            bytes = bytes;
+          });
+        }
+      } on PlatformException catch (e) {
+        print("Failed to pick image: $e");
       }
     }
   }
