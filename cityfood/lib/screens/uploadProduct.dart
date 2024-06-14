@@ -84,7 +84,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
           path = pickedFile.name;
           bytes = bytes;
         });
-        print("File Name: $path");
+        // print("File Name: $path");
         // print("Bytes: $bytes");
       }
     }
