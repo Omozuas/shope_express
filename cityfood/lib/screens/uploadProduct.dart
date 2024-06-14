@@ -9,7 +9,6 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -154,71 +153,71 @@ class _UploadProductPageState extends State<UploadProductPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Flexible(
-                    child: Container(
-                  child: InkWell(
-                      onTap: () {
-                        _imagesPicker();
-                      },
-                      splashColor: Colors.white,
-                      child: DottedBorder(
-                        strokeWidth: 2,
-                        radius: const Radius.circular(19),
-                        padding: const EdgeInsets.all(1),
-                        dashPattern: const [13, 8, 13],
-                        borderType: BorderType.RRect,
-                        child: images.isEmpty
-                            ? Container(
-                                width: 322,
-                                height: 183,
-                                decoration: BoxDecoration(
-                                    border: Border.all(
-                                      width: 1,
-                                      color: GlobalColors.orange,
+                    child: InkWell(
+                        onTap: () {
+                          _imagesPicker();
+                        },
+                        splashColor: Colors.white,
+                        child: DottedBorder(
+                          strokeWidth: 2,
+                          radius: const Radius.circular(19),
+                          padding: const EdgeInsets.all(1),
+                          dashPattern: const [13, 8, 13],
+                          borderType: BorderType.RRect,
+                          child: images.isEmpty
+                              ? Container(
+                                  width: 322,
+                                  height: 183,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                        width: 1,
+                                        color: GlobalColors.orange,
+                                      ),
+                                      color: Colors.lightBlue.shade100,
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        FaIcon(
+                                          FontAwesomeIcons.cloudArrowUp,
+                                          color: GlobalColors.ropeBrown,
+                                          size: 86,
+                                        ),
+                                        const SizedBox(
+                                          height: 15,
+                                        ),
+                                        Text(
+                                          "Browse file",
+                                          style: TextStyle(
+                                              color: GlobalColors.orange,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                      ],
                                     ),
-                                    color: Colors.lightBlue.shade100,
-                                    borderRadius: BorderRadius.circular(20)),
-                                child: Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      FaIcon(
-                                        FontAwesomeIcons.cloudArrowUp,
-                                        color: GlobalColors.ropeBrown,
-                                        size: 86,
-                                      ),
-                                      const SizedBox(
-                                        height: 15,
-                                      ),
-                                      Text(
-                                        "Browse file",
-                                        style: TextStyle(
-                                            color: GlobalColors.orange,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w500),
-                                      ),
-                                    ],
                                   ),
+                                )
+                              : GridView.builder(
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 4,
+                                          crossAxisSpacing: 3),
+                                  itemCount: images.length,
+                                  shrinkWrap: true,
+                                  itemBuilder: (BuildContext context, index) {
+                                    return SizedBox(
+                                      height: 50,
+                                      width: 50,
+                                      child: Image.memory(
+                                        images[index]['bytes'],
+                                        fit: BoxFit.cover,
+                                      ),
+                                    );
+                                  },
                                 ),
-                              )
-                            : GridView.builder(
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 4, crossAxisSpacing: 3),
-                                itemCount: images.length,
-                                shrinkWrap: true,
-                                itemBuilder: (BuildContext context, index) {
-                                  return SizedBox(
-                                    height: 50,
-                                    width: 50,
-                                    child: Image.memory(
-                                      images[index]['bytes'],
-                                      fit: BoxFit.cover,
-                                    ),
-                                  );
-                                },
-                              ),
-                      )),
-                )),
+                        ))),
                 Flexible(
                     flex: 2,
                     child: Padding(
@@ -1191,73 +1190,69 @@ class _UploadProductPageState extends State<UploadProductPage> {
                   SizedBox(
                     height: 30,
                   ),
-                  Container(
-                    child: InkWell(
-                        onTap: () {
-                          _imagesPicker();
-                        },
-                        splashColor: Colors.white,
-                        child: DottedBorder(
-                          strokeWidth: 2,
-                          radius: const Radius.circular(19),
-                          padding: const EdgeInsets.all(1),
-                          dashPattern: const [13, 8, 13],
-                          borderType: BorderType.RRect,
-                          child: images.isEmpty
-                              ? Container(
-                                  // width: 322,
-                                  // height: 183,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                        width: 1,
-                                        color: GlobalColors.orange,
-                                      ),
-                                      color: Colors.lightBlue.shade100,
-                                      borderRadius: BorderRadius.circular(20)),
-                                  child: Center(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        FaIcon(
-                                          FontAwesomeIcons.cloudArrowUp,
-                                          color: GlobalColors.ropeBrown,
-                                          size: 86,
-                                        ),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        Text(
-                                          "Browse file",
-                                          style: TextStyle(
-                                              color: GlobalColors.orange,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                      ],
+                  InkWell(
+                      onTap: () {
+                        _imagesPicker();
+                      },
+                      splashColor: Colors.white,
+                      child: DottedBorder(
+                        strokeWidth: 2,
+                        radius: const Radius.circular(19),
+                        padding: const EdgeInsets.all(1),
+                        dashPattern: const [13, 8, 13],
+                        borderType: BorderType.RRect,
+                        child: images.isEmpty
+                            ? Container(
+                                // width: 322,
+                                // height: 183,
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                      width: 1,
+                                      color: GlobalColors.orange,
                                     ),
-                                  ),
-                                )
-                              : GridView.builder(
-                                  gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 4,
-                                          crossAxisSpacing: 3),
-                                  itemCount: images.length,
-                                  shrinkWrap: true,
-                                  itemBuilder: (BuildContext context, index) {
-                                    return SizedBox(
-                                      height: 50,
-                                      width: 50,
-                                      child: Image.memory(
-                                        images[index]['bytes'],
-                                        fit: BoxFit.cover,
+                                    color: Colors.lightBlue.shade100,
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      FaIcon(
+                                        FontAwesomeIcons.cloudArrowUp,
+                                        color: GlobalColors.ropeBrown,
+                                        size: 86,
                                       ),
-                                    );
-                                  },
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      Text(
+                                        "Browse file",
+                                        style: TextStyle(
+                                            color: GlobalColors.orange,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                        )),
-                  ),
+                              )
+                            : GridView.builder(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 4, crossAxisSpacing: 3),
+                                itemCount: images.length,
+                                shrinkWrap: true,
+                                itemBuilder: (BuildContext context, index) {
+                                  return SizedBox(
+                                    height: 50,
+                                    width: 50,
+                                    child: Image.memory(
+                                      images[index]['bytes'],
+                                      fit: BoxFit.cover,
+                                    ),
+                                  );
+                                },
+                              ),
+                      )),
                   SizedBox(
                     height: 30,
                   ),
@@ -1281,7 +1276,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
                   SizedBox(
                     height: 30,
                   ),
-                  GestureDetector(
+                  InkWell(
                     onTap: () {
                       uploadProducts();
                     },
@@ -1747,73 +1742,69 @@ class _UploadProductPageState extends State<UploadProductPage> {
                   SizedBox(
                     height: 30,
                   ),
-                  Container(
-                    child: InkWell(
-                        onTap: () {
-                          _imagesPicker();
-                        },
-                        splashColor: Colors.white,
-                        child: DottedBorder(
-                          strokeWidth: 2,
-                          radius: const Radius.circular(19),
-                          padding: const EdgeInsets.all(1),
-                          dashPattern: const [13, 8, 13],
-                          borderType: BorderType.RRect,
-                          child: images.isEmpty
-                              ? Container(
-                                  // width: 322,
-                                  // height: 183,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                        width: 1,
-                                        color: GlobalColors.orange,
-                                      ),
-                                      color: Colors.lightBlue.shade100,
-                                      borderRadius: BorderRadius.circular(20)),
-                                  child: Center(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        FaIcon(
-                                          FontAwesomeIcons.cloudArrowUp,
-                                          color: GlobalColors.ropeBrown,
-                                          size: 86,
-                                        ),
-                                        const SizedBox(
-                                          height: 15,
-                                        ),
-                                        Text(
-                                          "Browse file",
-                                          style: TextStyle(
-                                              color: GlobalColors.orange,
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                      ],
+                  InkWell(
+                      onTap: () {
+                        _imagesPicker();
+                      },
+                      splashColor: Colors.white,
+                      child: DottedBorder(
+                        strokeWidth: 2,
+                        radius: const Radius.circular(19),
+                        padding: const EdgeInsets.all(1),
+                        dashPattern: const [13, 8, 13],
+                        borderType: BorderType.RRect,
+                        child: images.isEmpty
+                            ? Container(
+                                // width: 322,
+                                // height: 183,
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                      width: 1,
+                                      color: GlobalColors.orange,
                                     ),
-                                  ),
-                                )
-                              : GridView.builder(
-                                  gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 4,
-                                          crossAxisSpacing: 3),
-                                  itemCount: images.length,
-                                  shrinkWrap: true,
-                                  itemBuilder: (BuildContext context, index) {
-                                    return SizedBox(
-                                      height: 50,
-                                      width: 50,
-                                      child: Image.memory(
-                                        images[index]['bytes'],
-                                        fit: BoxFit.cover,
+                                    color: Colors.lightBlue.shade100,
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      FaIcon(
+                                        FontAwesomeIcons.cloudArrowUp,
+                                        color: GlobalColors.ropeBrown,
+                                        size: 86,
                                       ),
-                                    );
-                                  },
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      Text(
+                                        "Browse file",
+                                        style: TextStyle(
+                                            color: GlobalColors.orange,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                        )),
-                  ),
+                              )
+                            : GridView.builder(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 4, crossAxisSpacing: 3),
+                                itemCount: images.length,
+                                shrinkWrap: true,
+                                itemBuilder: (BuildContext context, index) {
+                                  return SizedBox(
+                                    height: 50,
+                                    width: 50,
+                                    child: Image.memory(
+                                      images[index]['bytes'],
+                                      fit: BoxFit.cover,
+                                    ),
+                                  );
+                                },
+                              ),
+                      )),
                   SizedBox(
                     height: 30,
                   ),
