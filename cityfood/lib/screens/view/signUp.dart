@@ -25,6 +25,20 @@ class _SignUpPageState extends State<SignUpPage> {
   final formKey3 = GlobalKey<FormState>();
   final formKey4 = GlobalKey<FormState>();
   final formKey5 = GlobalKey<FormState>();
+
+  final formKey6 = GlobalKey<FormState>();
+  final formKey7 = GlobalKey<FormState>();
+  final formKey8 = GlobalKey<FormState>();
+  final formKey9 = GlobalKey<FormState>();
+  final formKey10 = GlobalKey<FormState>();
+  final formKey11 = GlobalKey<FormState>();
+
+  final formKey12 = GlobalKey<FormState>();
+  final formKey13 = GlobalKey<FormState>();
+  final formKey14 = GlobalKey<FormState>();
+  final formKey15 = GlobalKey<FormState>();
+  final formKey16 = GlobalKey<FormState>();
+  final formKey17 = GlobalKey<FormState>();
   TextEditingController emailcontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
   TextEditingController firstnameController = TextEditingController();
@@ -39,7 +53,6 @@ class _SignUpPageState extends State<SignUpPage> {
         formKey1.currentState!.validate() &&
         formKey2.currentState!.validate() &&
         formKey3.currentState!.validate() &&
-        formKey4.currentState!.validate() &&
         formKey4.currentState!.validate()) {
       final registerAuth = Provider.of<UserProviderApi>(context, listen: false);
       final controller = Get.put(NavigationController());

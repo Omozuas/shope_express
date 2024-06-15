@@ -7,10 +7,11 @@ import 'package:cityfood/widgets/side_menu_widget.dart';
 import 'package:cityfood/widgets/snackBarRes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:cooky/cooky.dart' as cookie;
+// import 'package:cooky/cooky.dart' as cookie;
 
 class FlexAppBar extends StatefulWidget {
   FlexAppBar({
@@ -53,7 +54,7 @@ class _FlexAppBarState extends State<FlexAppBar> {
       final getInfo = Provider.of<UserProviderApi>(context, listen: false);
       getInfo.getUser(prefs.getString('token')!).then((value) {
         prefs.setString('refreshToken', value.refreshToken);
-        cookie.set("refreshToken", value.refreshToken);
+        // cookie.set("refreshToken", value.refreshToken);
         setState(() {
           isLogin = value.isLogin;
         });
@@ -72,7 +73,7 @@ class _FlexAppBarState extends State<FlexAppBar> {
           isLogin = false;
         });
         await prefs.clear();
-        cookie.remove('refreshToken');
+        // cookie.remove('refreshToken');
         success(context: context, message: value.message);
       } else {
         error(context: context, message: value.message);

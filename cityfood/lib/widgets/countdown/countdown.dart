@@ -192,7 +192,6 @@ class _Countdown2State extends State<Countdown2> {
   Duration duration = Duration();
   @override
   void initState() {
-    calculateTimeleft(widget.dateTime);
     timer = Timer.periodic(
         Duration(seconds: 1), (_) => calculateTimeleft(widget.dateTime));
     super.initState();

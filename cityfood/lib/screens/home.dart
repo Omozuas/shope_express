@@ -18,22 +18,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final ScrollController _scrollController = ScrollController();
-  double scrollPosition = 0;
-  double opacity = 0;
-  double ratingValue = 0.0;
-  @override
-  void initState() {
-    _scrollController.addListener(_scrollListener);
-    super.initState();
-  }
-
-  _scrollListener() {
-    setState(() {
-      scrollPosition = _scrollController.position.pixels;
-    });
-  }
-
   final List _isHovering = [
     false,
     false,
