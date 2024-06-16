@@ -3,6 +3,7 @@ const Route=express.Router();
 const authRoter=require('../controller/userController')
 const errorHandler=require('../middlewares/errorhandler')
 const Auth=require('../middlewares/Auth');
+const { upload } = require('../middlewares/multer');
 
 Route.post('/signup',authRoter.createUser);
 Route.post('/logIn',authRoter.loginUser);
@@ -17,7 +18,7 @@ Route.get('/:id',Auth.authmiddleware
 Route.put('/password',Auth.authmiddleware
 ,authRoter.updateUserPasswordbyId);
 Route.delete('/:id',Auth.authmiddleware,authRoter.deleteaUserbyId);
-Route.put('/edit-user',Auth.authmiddleware,authRoter.updateUserbyId);
+Route.put('/edit-user',Auth.authmiddleware,upload.single('image'),authRoter.updateUserbyId);
 Route.put('/block-user/:id',Auth.authmiddleware,Auth.authIsAdmin,authRoter.blockUserbyId);
 Route.put('/unblock-user/:id',Auth.authmiddleware,Auth.authIsAdmin,authRoter.unblockUserbyId);
 

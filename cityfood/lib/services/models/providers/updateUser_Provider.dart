@@ -8,6 +8,7 @@ class UpdateUsermodel {
   late final message;
   late final lastname;
   late final user;
+  late final profileImg;
 
   UpdateUsermodel(
       {required this.firstname,
@@ -16,11 +17,13 @@ class UpdateUsermodel {
       required this.success,
       required this.lastname,
       required this.message,
+      required this.profileImg,
       required this.user});
   UpdateUsermodel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     message = json['message'];
     user = json['user'];
+    profileImg = json['profileImg'];
     firstname = user['firstname'];
     email = user['email'];
     mobile = user['mobile'];

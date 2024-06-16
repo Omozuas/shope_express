@@ -37,7 +37,6 @@ class _LoginPageState extends State<LoginPage> {
               passwordcontroller.text.toString())
           .then((value) {
         if (value.success == true) {
-          Get.to(() => FlexAppBar());
           controller.selectedIndex.value = 0;
           success(context: context, message: value.message);
         } else {

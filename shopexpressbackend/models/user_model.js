@@ -51,6 +51,7 @@ var userSchema = new mongoose.Schema({
     refreshToken:{
         type:String,
     },
+    profileImg:String,
     passwordChanged:Date,
     passwordResetExpires:Date,
     passwordResetToken:String

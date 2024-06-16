@@ -43,7 +43,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
   List<Map<String, dynamic>> images = [];
   List<File> images1 = [];
   String path = '';
-  late Uint8List bytes;
+  String profileImg = '';
+  Uint8List? bytes;
   @override
   void initState() {
     // TODO: implement initState
@@ -67,45 +68,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
         setState(() {
           firstname = value.firstname;
           lastname = value.lastname;
-          // address = value.address;
+          profileImg = value.profileImg;
         });
-      });
-    }
-  }
-
-  void updateAUser() async {
-    final controller = Get.put(NavigationController());
-    WidgetsFlutterBinding.ensureInitialized();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (prefs.getString('token') == null) {
-      controller.selectedIndex.value = 3;
-    } else {
-      final getInfo = Provider.of<UserProviderApi>(context, listen: false);
-      getInfo
-          .updateUser(
-              firstnameController.text,
-              lastnameController.text,
-              emailcontroller.text,
-              numberController.text,
-              prefs.getString('token')!)
-          .then((value) {
-        if (value.success == true) {
-          firstnameController.text = value.firstname;
-          lastnameController.text = value.lastname;
-          numberController.text = value.mobile;
-          emailcontroller.text = value.email;
-          setState(() {
-            firstname = value.firstname;
-            lastname = value.lastname;
-            // address = value.address;
-          });
-          success(
-            context: context,
-            message: value.message,
-          );
-        } else {
-          error(context: context, message: value.message);
-        }
       });
     }
   }
@@ -116,10 +80,10 @@ class _UserProfilePageState extends State<UserProfilePage> {
       final pickedFile =
           await imagePicker.pickImage(source: ImageSource.gallery);
       if (pickedFile != null) {
-        String path = pickedFile.name;
-        Uint8List bytes = await pickedFile.readAsBytes();
+        path = pickedFile.name;
+        bytes = await pickedFile.readAsBytes();
         images.add({"bytes": bytes, "path": path});
-        images1.add(File(pickedFile.path));
+        // images1.add(File(pickedFile.path));
         setState(() {
           path = pickedFile.name;
           bytes = bytes;
@@ -127,6 +91,45 @@ class _UserProfilePageState extends State<UserProfilePage> {
       }
     } on PlatformException catch (e) {
       print("Failed to pick image: $e");
+    }
+  }
+
+  Future<void> updateAUser() async {
+    final controller = Get.put(NavigationController());
+    WidgetsFlutterBinding.ensureInitialized();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('token') == null) {
+      controller.selectedIndex.value = 3;
+    } else {
+      final getInfo = Provider.of<UserProviderApi>(context, listen: false);
+      List<MapEntry<String, String>> formData = FormData({
+        "firstname": firstnameController.text,
+        "lastname": lastnameController.text,
+        "mobile": numberController.text,
+        "email": emailcontroller.text,
+      }).fields;
+
+      getInfo
+          .updateUser(formData, prefs.getString('token')!, images)
+          .then((value) {
+        if (value.success == true) {
+          firstnameController.text = value.firstname;
+          lastnameController.text = value.lastname;
+          numberController.text = value.mobile;
+          emailcontroller.text = value.email;
+          setState(() {
+            firstname = value.firstname;
+            lastname = value.lastname;
+            profileImg = value.profileImg;
+          });
+          success(
+            context: context,
+            message: value.message,
+          );
+        } else {
+          error(context: context, message: value.message);
+        }
+      });
     }
   }
 
@@ -142,19 +145,28 @@ class _UserProfilePageState extends State<UserProfilePage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  EditProfilePic(
-                    width: 150,
-                    height: 150,
-                    circleZize: 100,
-                    image: MemoryImage(bytes),
-                    onTap: () {
-                      _imagesPicker();
-                    },
-                    firstname: "$firstname",
-                    lastname: "$lastname",
-                    address: "Idimu ,Lagos State",
-                  ),
+                children: <Widget>[
+                  profileImg.isEmpty
+                      ? EditProfilePic(
+                          width: 150,
+                          height: 150,
+                          circleZize: 100,
+                          image: AssetImage('assets/images/Image.png'),
+                          onTap: _imagesPicker,
+                          firstname: firstname,
+                          lastname: lastname,
+                          address: "Idimu, Lagos State",
+                        )
+                      : EditProfilePic(
+                          width: 150,
+                          height: 150,
+                          circleZize: 100,
+                          image: NetworkImage(profileImg),
+                          onTap: _imagesPicker,
+                          firstname: firstname,
+                          lastname: lastname,
+                          address: "Idimu, Lagos State",
+                        ),
                   SizedBox(
                     height: 40,
                   ),
@@ -302,19 +314,28 @@ class _UserProfilePageState extends State<UserProfilePage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  EditProfilePic(
-                    width: 130,
-                    height: 130,
-                    circleZize: 100,
-                    image: AssetImage('assets/images/Image.png'),
-                    onTap: () {
-                      _imagesPicker();
-                    },
-                    firstname: "$firstname",
-                    lastname: "$lastname",
-                    address: "Idimu ,Lagos State",
-                  ),
+                children: <Widget>[
+                  bytes == null || bytes!.isEmpty
+                      ? EditProfilePic(
+                          width: 130,
+                          height: 130,
+                          circleZize: 100,
+                          image: AssetImage('assets/images/Image.png'),
+                          onTap: _imagesPicker,
+                          firstname: firstname,
+                          lastname: lastname,
+                          address: "Idimu, Lagos State",
+                        )
+                      : EditProfilePic(
+                          width: 130,
+                          height: 130,
+                          circleZize: 100,
+                          image: MemoryImage(bytes!),
+                          onTap: _imagesPicker,
+                          firstname: firstname,
+                          lastname: lastname,
+                          address: "Idimu, Lagos State",
+                        ),
                   SizedBox(
                     height: 40,
                   ),
@@ -461,18 +482,27 @@ class _UserProfilePageState extends State<UserProfilePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                EditProfilePic(
-                  width: 135,
-                  height: 135,
-                  circleZize: 100,
-                  image: AssetImage('assets/images/Image.png'),
-                  onTap: () {
-                    _imagesPicker();
-                  },
-                  firstname: "$firstname",
-                  lastname: "$lastname",
-                  address: "Idimu ,Lagos State",
-                ),
+                bytes == null || bytes!.isEmpty
+                    ? EditProfilePic(
+                        width: 135,
+                        height: 135,
+                        circleZize: 100,
+                        image: AssetImage('assets/images/Image.png'),
+                        onTap: _imagesPicker,
+                        firstname: firstname,
+                        lastname: lastname,
+                        address: "Idimu, Lagos State",
+                      )
+                    : EditProfilePic(
+                        width: 135,
+                        height: 135,
+                        circleZize: 100,
+                        image: MemoryImage(bytes!),
+                        onTap: _imagesPicker,
+                        firstname: firstname,
+                        lastname: lastname,
+                        address: "Idimu, Lagos State",
+                      ),
                 SizedBox(
                   height: 40,
                 ),

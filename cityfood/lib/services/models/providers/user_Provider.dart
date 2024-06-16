@@ -13,6 +13,7 @@ class Clientmodel {
   late final wishlist;
   late final address;
   late final refreshToken;
+  late final profileImg;
 
   Clientmodel(
       {required this.firstname,
@@ -25,6 +26,7 @@ class Clientmodel {
       required this.isLogin,
       required this.refreshToken,
       required this.id,
+      required this.profileImg,
       required this.address,
       required this.cart});
   Clientmodel.fromJson(Map<String, dynamic> json) {
@@ -34,6 +36,7 @@ class Clientmodel {
     isLogin = json['isLogin'];
     firstname = json['firstname'];
     email = json['email'];
+    profileImg = json['profileImg'];
     mobile = json['mobile'];
     refreshToken = json['refreshToken'];
     isBlocked = json['isBlocked'];

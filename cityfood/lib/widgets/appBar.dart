@@ -1,6 +1,7 @@
 import 'package:cityfood/colorsConstrain/colorsHex.dart';
 import 'package:cityfood/controller/controller.dart';
 import 'package:cityfood/services/Apis/auth_api/user_controller.dart';
+import 'package:cityfood/services/models/providers/user_Provider.dart';
 import 'package:cityfood/util/responsive.dart';
 import 'package:cityfood/widgets/appbarname.dart';
 import 'package:cityfood/widgets/side_menu_widget.dart';
@@ -35,6 +36,16 @@ class _FlexAppBarState extends State<FlexAppBar> {
     _scrollController.addListener(_scrollListener);
     super.initState();
     getaUser();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      final userProvider = Provider.of<UserProviderApi>(context, listen: false);
+      userProvider.checkLoginStatus();
+      if (userProvider.loggedin == true) {
+        if (userProvider.isTokenValid() == true) {
+          final controller = Get.put(NavigationController());
+          controller.selectedIndex.value = 3;
+        }
+      }
+    });
   }
 
   _scrollListener() {
@@ -101,6 +112,7 @@ class _FlexAppBarState extends State<FlexAppBar> {
     opacity = scrollPosition < MediaQuery.of(context).size.height * 0.40
         ? scrollPosition / (MediaQuery.of(context).size.height * 0.40)
         : 1;
+    final userProvider = context.watch<UserProviderApi>();
     return Scaffold(
       key: context.read<MenuAppController>().scaffoldKey,
       backgroundColor: Colors.grey[200],
@@ -320,13 +332,15 @@ class _FlexAppBarState extends State<FlexAppBar> {
                                       : _isHovering[7] = false;
                                 });
                               },
-                              onTap: () => isLogin == false
+                              onTap: () => userProvider.loggedin == false
                                   ? controller.selectedIndex.value = 3
                                   : {logoutuser()},
                               child: Row(
                                 children: [
                                   Text(
-                                    isLogin == false ? 'Login' : 'Logout',
+                                    userProvider.loggedin == false
+                                        ? 'Login'
+                                        : 'Logout',
                                     style: TextStyle(
                                         fontSize: 15,
                                         color: _isHovering[7]
@@ -338,7 +352,7 @@ class _FlexAppBarState extends State<FlexAppBar> {
                                         fontWeight: FontWeight.w500),
                                   ),
                                   Icon(
-                                    isLogin == false
+                                    userProvider.loggedin == false
                                         ? Icons.login_outlined
                                         : Icons.logout,
                                     color: _isHovering[7]
@@ -459,13 +473,15 @@ class _FlexAppBarState extends State<FlexAppBar> {
                                       : _isHovering[7] = false;
                                 });
                               },
-                              onTap: () => isLogin == false
+                              onTap: () => userProvider.loggedin == false
                                   ? controller.selectedIndex.value = 3
                                   : {logoutuser()},
                               child: Row(
                                 children: [
                                   Text(
-                                    isLogin == false ? 'Login' : 'Logout',
+                                    userProvider.loggedin == false
+                                        ? 'Login'
+                                        : 'Logout',
                                     style: TextStyle(
                                         fontSize: 15,
                                         color: _isHovering[7]
@@ -477,7 +493,7 @@ class _FlexAppBarState extends State<FlexAppBar> {
                                         fontWeight: FontWeight.w500),
                                   ),
                                   Icon(
-                                    isLogin == false
+                                    userProvider.loggedin == false
                                         ? Icons.login_outlined
                                         : Icons.logout,
                                     color: _isHovering[7]

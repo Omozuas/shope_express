@@ -3,10 +3,12 @@ const bcrypt = require('bcrypt');
 const asynchandler=require('express-async-handler');
 const jwtToken = require('../config/jwtToken');
 const jwt = require("jsonwebtoken");
+const cloudinary=require("../config/cloudnary");
 const { validateMongodbId } = require('../utils/validatemongodb');
 const crypto=require('crypto');
 const Email=require('../controller/emailController');
 const otpgen= require('otp-generator');
+const fs=require('fs');
 
 class UserController{
     static  createUser = asynchandler(async (req,res)=>{
@@ -129,14 +131,28 @@ class UserController{
       res.status(200).json({message:'User deleted'});
     });
     static updateUserbyId = asynchandler(async(req,res)=>{
-
+      console.log(req.file);
         const { id } = req.user;
+        if (req.file.length > 1) {
+          throw new Error('Cannot upload more than 1 image');
+        }
+        const uploader= async(path) => await cloudinary.uploads(path,"ProfileImages")
+        
+        const files=req.file
+ 
+        const{path}=files
+      
+        const newPath=await uploader(path)
+        const url=newPath.url;
+    
+        fs.unlinkSync(path)
        validateMongodbId(id);
         const user = await User.findByIdAndUpdate(id,{
             firstname:req?.body?.firstname,
             lastname:req?.body?.lastname,
             mobile:req?.body?.mobile,
-            email:req?.body?.email
+            email:req?.body?.email,
+            profileImg: url
         },{new:true});
    
       if (!user) {
