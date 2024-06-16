@@ -243,9 +243,7 @@ class _LoginPageState extends State<LoginPage> {
                             height: 15,
                           ),
                           InkWell(
-                            onTap: () {
-                              loginUser();
-                            },
+                            onTap: () {},
                             child: Container(
                               width: 270,
                               padding: EdgeInsets.all(10),

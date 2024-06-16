@@ -69,6 +69,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
           firstname = value.firstname;
           lastname = value.lastname;
           profileImg = value.profileImg;
+          print(profileImg);
         });
       });
     }
@@ -121,6 +122,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
             firstname = value.firstname;
             lastname = value.lastname;
             profileImg = value.profileImg;
+            print(profileImg);
           });
           success(
             context: context,
@@ -315,7 +317,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  bytes == null || bytes!.isEmpty
+                  profileImg.isEmpty
                       ? EditProfilePic(
                           width: 130,
                           height: 130,
@@ -330,7 +332,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           width: 130,
                           height: 130,
                           circleZize: 100,
-                          image: MemoryImage(bytes!),
+                          image: NetworkImage(profileImg),
                           onTap: _imagesPicker,
                           firstname: firstname,
                           lastname: lastname,
@@ -482,7 +484,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                bytes == null || bytes!.isEmpty
+                profileImg.isEmpty
                     ? EditProfilePic(
                         width: 135,
                         height: 135,
@@ -497,7 +499,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         width: 135,
                         height: 135,
                         circleZize: 100,
-                        image: MemoryImage(bytes!),
+                        image: NetworkImage(profileImg),
                         onTap: _imagesPicker,
                         firstname: firstname,
                         lastname: lastname,
