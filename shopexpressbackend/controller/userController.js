@@ -25,7 +25,8 @@ class UserController{
         lastname:req.body.lastname,
         mobile:req.body.mobile,
         email:req.body.email,
-        password:hashedPassword
+        password:hashedPassword,
+        profileImg:req?.body.profileImg
        });
        await newUser.save();
        return res.status(200).json({newUser,message:'SigUp successful',success:true});
