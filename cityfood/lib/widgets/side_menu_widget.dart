@@ -36,7 +36,10 @@ class SideMenuWidget extends StatelessWidget {
                     DrawerListTile(
                       title: "Home",
                       iconData: Icons.home,
-                      press: () => controller.selectedIndex.value = 0,
+                      press: () {
+                        controller.selectedIndex.value = 0;
+                        Navigator.pop(context);
+                      },
                       size: 20,
                       textColor: controller.selectedIndex.value == 0
                           ? Colors.white
@@ -64,7 +67,10 @@ class SideMenuWidget extends StatelessWidget {
                     DrawerListTile(
                       title: "Get a Store",
                       iconData: Icons.store,
-                      press: () => controller.selectedIndex.value = 1,
+                      press: () {
+                        controller.selectedIndex.value = 1;
+                        Navigator.pop(context);
+                      },
                       size: 20,
                       textColor: controller.selectedIndex.value == 1
                           ? Colors.white
@@ -76,7 +82,10 @@ class SideMenuWidget extends StatelessWidget {
                     DrawerListTile(
                       title: "SignUp",
                       iconData: Icons.app_registration_sharp,
-                      press: () => controller.selectedIndex.value = 2,
+                      press: () {
+                        controller.selectedIndex.value = 2;
+                        Navigator.pop(context);
+                      },
                       size: 20,
                       textColor: controller.selectedIndex.value == 2
                           ? Colors.white
