@@ -148,22 +148,65 @@ class _UserProfilePageState extends State<UserProfilePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  profileImg.isEmpty
-                      ? EditProfilePic(
-                          width: 150,
-                          height: 150,
-                          circleZize: 100,
-                          image: AssetImage('assets/images/Image.png'),
-                          onTap: _imagesPicker,
-                          firstname: firstname,
-                          lastname: lastname,
-                          address: "Idimu, Lagos State",
-                        )
+                  // profileImg.isEmpty
+                  //     ? bytes == null || bytes!.isEmpty
+                  //         ? EditProfilePic(
+                  //             width: 150,
+                  //             height: 150,
+                  //             circleZize: 100,
+                  //             image: AssetImage('assets/images/Image.png'),
+                  //             onTap: _imagesPicker,
+                  //             firstname: firstname,
+                  //             lastname: lastname,
+                  //             address: "Idimu, Lagos State",
+                  //           )
+                  //         : EditProfilePic(
+                  //             width: 150,
+                  //             height: 150,
+                  //             circleZize: 100,
+                  //             image: MemoryImage(bytes!),
+                  //             onTap: _imagesPicker,
+                  //             firstname: firstname,
+                  //             lastname: lastname,
+                  //             address: "Idimu, Lagos State",
+                  //           )
+                  //     : EditProfilePic(
+                  //         width: 150,
+                  //         height: 150,
+                  //         circleZize: 100,
+                  //         image: NetworkImage(profileImg),
+                  //         onTap: _imagesPicker,
+                  //         firstname: firstname,
+                  //         lastname: lastname,
+                  //         address: "Idimu, Lagos State",
+                  //       ),
+                  (bytes == null || bytes!.isEmpty)
+                      ? profileImg.isEmpty
+                          ? EditProfilePic(
+                              width: 150,
+                              height: 150,
+                              circleZize: 100,
+                              image: AssetImage('assets/images/Image.png'),
+                              onTap: _imagesPicker,
+                              firstname: firstname,
+                              lastname: lastname,
+                              address: "Idimu, Lagos State",
+                            )
+                          : EditProfilePic(
+                              width: 150,
+                              height: 150,
+                              circleZize: 100,
+                              image: NetworkImage(profileImg),
+                              onTap: _imagesPicker,
+                              firstname: firstname,
+                              lastname: lastname,
+                              address: "Idimu, Lagos State",
+                            )
                       : EditProfilePic(
                           width: 150,
                           height: 150,
                           circleZize: 100,
-                          image: NetworkImage(profileImg),
+                          image: MemoryImage(bytes!),
                           onTap: _imagesPicker,
                           firstname: firstname,
                           lastname: lastname,

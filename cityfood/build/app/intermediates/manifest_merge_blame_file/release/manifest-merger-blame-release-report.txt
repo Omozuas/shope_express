@@ -1,0 +1,246 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.cityfood"
+4    android:versionCode="1"
+5    android:versionName="shopexpress" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="19"
+8-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="33" />
+9-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml
+10
+11    <uses-feature
+11-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:3:5-5:36
+12        android:name="android.hardware.camera"
+12-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:4:9-47
+13        android:required="false" />
+13-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:5:9-33
+14
+15    <uses-permission android:name="android.permission.CAMERA" />
+15-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:7:5-65
+15-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:7:22-62
+16    <uses-permission
+16-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:8:6-80
+17        android:name="android.permission.READ_EXTERNAL_STORAGE"
+17-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:8:23-78
+18        android:maxSdkVersion="32" />
+18-->[:file_picker] C:\flutter\foodCity\cityfood\build\file_picker\intermediates\merged_manifest\release\AndroidManifest.xml:11:9-35
+19    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+19-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:9:5-80
+19-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:9:22-78
+20    <uses-permission android:name="android.permission.CAMERA" />
+20-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:7:5-65
+20-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:7:22-62
+21    <!--
+22         Required to query activities that can process text, see:
+23         https://developer.android.com/training/package-visibility?hl=en and
+24         https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.
+25
+26         In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin.
+27    -->
+28    <queries>
+28-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:48:5-53:15
+29        <intent>
+29-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:49:9-52:18
+30            <action android:name="android.intent.action.PROCESS_TEXT" />
+30-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:50:13-72
+30-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:50:21-70
+31
+32            <data android:mimeType="text/plain" />
+32-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:51:13-50
+32-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:51:19-48
+33        </intent>
+34        <intent>
+34-->[:file_picker] C:\flutter\foodCity\cityfood\build\file_picker\intermediates\merged_manifest\release\AndroidManifest.xml:14:9-18:18
+35            <action android:name="android.intent.action.GET_CONTENT" />
+35-->[:file_picker] C:\flutter\foodCity\cityfood\build\file_picker\intermediates\merged_manifest\release\AndroidManifest.xml:15:13-72
+35-->[:file_picker] C:\flutter\foodCity\cityfood\build\file_picker\intermediates\merged_manifest\release\AndroidManifest.xml:15:21-69
+36
+37            <data android:mimeType="*/*" />
+37-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:51:13-50
+37-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:51:19-48
+38        </intent>
+39    </queries>
+40
+41    <permission
+41-->[androidx.core:core:1.10.1] C:\Users\omozua judah\.gradle\caches\transforms-4\317f58f87082ae725dd7377b2cab1431\transformed\core-1.10.1\AndroidManifest.xml:22:5-24:47
+42        android:name="com.example.cityfood.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+42-->[androidx.core:core:1.10.1] C:\Users\omozua judah\.gradle\caches\transforms-4\317f58f87082ae725dd7377b2cab1431\transformed\core-1.10.1\AndroidManifest.xml:23:9-81
+43        android:protectionLevel="signature" />
+43-->[androidx.core:core:1.10.1] C:\Users\omozua judah\.gradle\caches\transforms-4\317f58f87082ae725dd7377b2cab1431\transformed\core-1.10.1\AndroidManifest.xml:24:9-44
+44
+45    <uses-permission android:name="com.example.cityfood.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+45-->[androidx.core:core:1.10.1] C:\Users\omozua judah\.gradle\caches\transforms-4\317f58f87082ae725dd7377b2cab1431\transformed\core-1.10.1\AndroidManifest.xml:26:5-97
+45-->[androidx.core:core:1.10.1] C:\Users\omozua judah\.gradle\caches\transforms-4\317f58f87082ae725dd7377b2cab1431\transformed\core-1.10.1\AndroidManifest.xml:26:22-94
+46
+47    <application
+48        android:name="android.app.Application"
+48-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:14:9-42
+49        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+49-->[androidx.core:core:1.10.1] C:\Users\omozua judah\.gradle\caches\transforms-4\317f58f87082ae725dd7377b2cab1431\transformed\core-1.10.1\AndroidManifest.xml:28:18-86
+50        android:icon="@mipmap/ic_launcher"
+50-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:15:9-43
+51        android:label="cityfood" >
+51-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:13:9-33
+52        <activity
+52-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:16:9-36:20
+53            android:name="com.example.cityfood.MainActivity"
+53-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:17:13-41
+54            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+54-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:21:13-163
+55            android:exported="true"
+55-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:18:13-36
+56            android:hardwareAccelerated="true"
+56-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:22:13-47
+57            android:launchMode="singleTop"
+57-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:19:13-43
+58            android:theme="@style/LaunchTheme"
+58-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:20:13-47
+59            android:windowSoftInputMode="adjustResize" >
+59-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:23:13-55
+60
+61            <!--
+62                 Specifies an Android theme to apply to this Activity as soon as
+63                 the Android process has started. This theme is visible to the user
+64                 while the Flutter UI initializes. After that, this theme continues
+65                 to determine the Window background behind the Flutter UI.
+66            -->
+67            <meta-data
+67-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:28:13-31:17
+68                android:name="io.flutter.embedding.android.NormalTheme"
+68-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:29:15-70
+69                android:resource="@style/NormalTheme" />
+69-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:30:15-52
+70
+71            <intent-filter>
+71-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:32:13-35:29
+72                <action android:name="android.intent.action.MAIN" />
+72-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:33:17-68
+72-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:33:25-66
+73
+74                <category android:name="android.intent.category.LAUNCHER" />
+74-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:34:17-76
+74-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:34:27-74
+75            </intent-filter>
+76        </activity>
+77        <!--
+78             Don't delete the meta-data below.
+79             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+80        -->
+81        <meta-data
+81-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:39:9-41:33
+82            android:name="flutterEmbedding"
+82-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:40:13-44
+83            android:value="2" />
+83-->C:\flutter\foodCity\cityfood\android\app\src\main\AndroidManifest.xml:41:13-30
+84
+85        <provider
+85-->[:image_picker_android] C:\flutter\foodCity\cityfood\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:11:9-19:20
+86            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+86-->[:image_picker_android] C:\flutter\foodCity\cityfood\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:12:13-82
+87            android:authorities="com.example.cityfood.flutter.image_provider"
+87-->[:image_picker_android] C:\flutter\foodCity\cityfood\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:13:13-74
+88            android:exported="false"
+88-->[:image_picker_android] C:\flutter\foodCity\cityfood\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:14:13-37
+89            android:grantUriPermissions="true" >
+89-->[:image_picker_android] C:\flutter\foodCity\cityfood\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:15:13-47
+90            <meta-data
+90-->[:image_picker_android] C:\flutter\foodCity\cityfood\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:16:13-18:75
+91                android:name="android.support.FILE_PROVIDER_PATHS"
+91-->[:image_picker_android] C:\flutter\foodCity\cityfood\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:17:17-67
+92                android:resource="@xml/flutter_image_picker_file_paths" />
+92-->[:image_picker_android] C:\flutter\foodCity\cityfood\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:18:17-72
+93        </provider> <!-- Trigger Google Play services to install the backported photo picker module. -->
+94        <service
+94-->[:image_picker_android] C:\flutter\foodCity\cityfood\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:21:9-33:19
+95            android:name="com.google.android.gms.metadata.ModuleDependencies"
+95-->[:image_picker_android] C:\flutter\foodCity\cityfood\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:22:13-78
+96            android:enabled="false"
+96-->[:image_picker_android] C:\flutter\foodCity\cityfood\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:23:13-36
+97            android:exported="false" >
+97-->[:image_picker_android] C:\flutter\foodCity\cityfood\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:24:13-37
+98            <intent-filter>
+98-->[:image_picker_android] C:\flutter\foodCity\cityfood\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:26:13-28:29
+99                <action android:name="com.google.android.gms.metadata.MODULE_DEPENDENCIES" />
+99-->[:image_picker_android] C:\flutter\foodCity\cityfood\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:27:17-94
+99-->[:image_picker_android] C:\flutter\foodCity\cityfood\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:27:25-91
+100            </intent-filter>
+101
+102            <meta-data
+102-->[:image_picker_android] C:\flutter\foodCity\cityfood\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:30:13-32:36
+103                android:name="photopicker_activity:0:required"
+103-->[:image_picker_android] C:\flutter\foodCity\cityfood\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:31:17-63
+104                android:value="" />
+104-->[:image_picker_android] C:\flutter\foodCity\cityfood\build\image_picker_android\intermediates\merged_manifest\release\AndroidManifest.xml:32:17-33
+105        </service>
+106
+107        <uses-library
+107-->[androidx.window:window:1.0.0-beta04] C:\Users\omozua judah\.gradle\caches\transforms-4\ed762f4995642d6306c07f86bb75fe11\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
+108            android:name="androidx.window.extensions"
+108-->[androidx.window:window:1.0.0-beta04] C:\Users\omozua judah\.gradle\caches\transforms-4\ed762f4995642d6306c07f86bb75fe11\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
+109            android:required="false" />
+109-->[androidx.window:window:1.0.0-beta04] C:\Users\omozua judah\.gradle\caches\transforms-4\ed762f4995642d6306c07f86bb75fe11\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
+110        <uses-library
+110-->[androidx.window:window:1.0.0-beta04] C:\Users\omozua judah\.gradle\caches\transforms-4\ed762f4995642d6306c07f86bb75fe11\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
+111            android:name="androidx.window.sidecar"
+111-->[androidx.window:window:1.0.0-beta04] C:\Users\omozua judah\.gradle\caches\transforms-4\ed762f4995642d6306c07f86bb75fe11\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
+112            android:required="false" />
+112-->[androidx.window:window:1.0.0-beta04] C:\Users\omozua judah\.gradle\caches\transforms-4\ed762f4995642d6306c07f86bb75fe11\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
+113
+114        <provider
+114-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:24:9-32:20
+115            android:name="androidx.startup.InitializationProvider"
+115-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:25:13-67
+116            android:authorities="com.example.cityfood.androidx-startup"
+116-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:26:13-68
+117            android:exported="false" >
+117-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:27:13-37
+118            <meta-data
+118-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
+119                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+119-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
+120                android:value="androidx.startup" />
+120-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
+121        </provider>
+122
+123        <receiver
+123-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
+124            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+124-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
+125            android:directBootAware="false"
+125-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
+126            android:enabled="true"
+126-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
+127            android:exported="true"
+127-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
+128            android:permission="android.permission.DUMP" >
+128-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
+129            <intent-filter>
+129-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
+130                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+130-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
+130-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
+131            </intent-filter>
+132            <intent-filter>
+132-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
+133                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+133-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
+133-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
+134            </intent-filter>
+135            <intent-filter>
+135-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
+136                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+136-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
+136-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
+137            </intent-filter>
+138            <intent-filter>
+138-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
+139                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+139-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
+139-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
+140            </intent-filter>
+141        </receiver>
+142    </application>
+143
+144</manifest>
