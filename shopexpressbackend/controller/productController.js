@@ -9,10 +9,11 @@ const {deleteuPloads}=require("../config/cloudnary")
 class ProductController{
     static createProduct = asynchandler(async (req,res)=>{
       try{ 
+        console.log(req.body);
         if(req.body.title){
             req.body.slug=slugify(req.body.title)
         }
-       
+      
         if (!req.files || req.files.length === 0) {
             throw new Error('No image found');
           }
