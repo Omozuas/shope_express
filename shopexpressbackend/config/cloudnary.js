@@ -19,8 +19,9 @@ module.exports.uploads = (file, folder) => {
                     reject(error);
                 } else {
                     resolve({
-                        url: result.url
-                        // id: result.public_id
+                        url: result.url,
+                        asset_id:result.asset_id,
+                        id: result.public_id
                     });
                 }
             }
@@ -28,3 +29,25 @@ module.exports.uploads = (file, folder) => {
     });
 };
 
+module.exports.deleteuPloads = (fileToDelete, folder) => {
+    return new Promise((resolve, reject) => {
+        cloudinary.uploader.destroy(
+            fileToDelete,
+            {
+                resource_type: 'auto',
+                folder: folder
+            },
+            (error, result) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve({
+                        url: result.url,
+                        asset_id:result.asset_id,
+                        id: result.public_id
+                    });
+                }
+            }
+        );
+    });
+};

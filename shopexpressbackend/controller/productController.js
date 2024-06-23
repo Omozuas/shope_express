@@ -5,6 +5,7 @@ const cloudinary=require("../config/cloudnary");
 const fs=require('fs');
 const User = require("../models/user_model");
 const { validateMongodbId } = require("../utils/validatemongodb");
+const {deleteuPloads}=require("../config/cloudnary")
 class ProductController{
     static createProduct = asynchandler(async (req,res)=>{
       try{ 
@@ -25,6 +26,7 @@ class ProductController{
         const{path}=file
         const newPath=await uploader(path)
         urls.push(newPath);
+        console.log(urls)
         fs.unlinkSync(path)}
           const newProduct= await Product.create({
             title:req.body.title,
@@ -48,7 +50,7 @@ class ProductController{
     static getAProduct= asynchandler(async(req,res)=>{
         const {id}=req.params
         try {
-            const findProduct=await Product.findById(id)
+            const findProduct=await Product.findById(id).populate('category subCategory.category  ratings.postedBy')
             res.json(findProduct);
         } catch (error) {
             throw new Error(error);
@@ -74,9 +76,11 @@ class ProductController{
     });
     static deleteProduct = asynchandler(async(req,res)=>{
         const { id }= req.params;
+        const deleteImagess=req.body;
         try {
+            const deletImages=deleteuPloads(deleteImagess,"Images")
             const deleteProducts =await Product.findOneAndDelete({_id:id});
-            res.json({deleteProducts,message:"product deleted",success:true});
+            res.json({deleteProducts,message:"product deleted",success:true,deletImages});
         } catch (error) {
             throw new Error(error);
         }
@@ -96,7 +100,7 @@ class ProductController{
             let query=Product.find (JSON.parse(querStr))
 
             //sorting
-
+ 
             if(req.query.sort){
                 const sortBy=req.query.sort.split(',').join(' ')
                query=query.sort(sortBy)

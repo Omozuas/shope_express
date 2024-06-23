@@ -10,6 +10,7 @@ const authRoter=require('./routes/authRoutes');
 const categoryRoter=require('./routes/categoryRoutes');
 const brandRoter=require('./routes/brandCategoryRoutes');
 const blogCategoryRoter=require('./routes/blogcartegoryRoutes');
+const subCategoryRoter=require('./routes/subcartegoryRoutes');
 const cuponRoter=require('./routes/couponRoutes');
 const cookieParser = require('cookie-parser')
 const morgan=require('morgan');
@@ -39,6 +40,7 @@ app.use('/api/category',categoryRoter);
 app.use('/api/brand',brandRoter);
 app.use('/api/blog-category',blogCategoryRoter);
 app.use('/api/cupon',cuponRoter);
+app.use('/api/subcategory',subCategoryRoter);
 
 cron.schedule("*/3 * * * * ", async () => {
     try {

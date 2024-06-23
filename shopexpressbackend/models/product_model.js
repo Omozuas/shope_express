@@ -32,9 +32,15 @@ var productSchema = new mongoose.Schema({
         type:Number,
     },
     category:{
-        type:String,
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Category",
         require:true
        
+    },
+    subCategory:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Subcategory",
+        require:true
     },
     images:{
         type:Array,
