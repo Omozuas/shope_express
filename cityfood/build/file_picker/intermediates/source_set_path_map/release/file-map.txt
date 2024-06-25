@@ -1,0 +1,13 @@
+com.mr.flutter.plugin.filepicker.file_picker-jetified-annotation-experimental-1.1.0-0 C:\Users\omozua judah\.gradle\caches\transforms-4\51f8de656c96c499e5eb99d87773997f\transformed\jetified-annotation-experimental-1.1.0\res
+com.mr.flutter.plugin.filepicker.file_picker-jetified-window-java-1.0.0-beta04-1 C:\Users\omozua judah\.gradle\caches\transforms-4\7cf6dbdc9df7522c31d78dca324f6297\transformed\jetified-window-java-1.0.0-beta04\res
+com.mr.flutter.plugin.filepicker.file_picker-core-1.6.0-2 C:\Users\omozua judah\.gradle\caches\transforms-4\e7a31d069a151b07596160337ee486d1\transformed\core-1.6.0\res
+com.mr.flutter.plugin.filepicker.file_picker-jetified-window-1.0.0-beta04-3 C:\Users\omozua judah\.gradle\caches\transforms-4\ed762f4995642d6306c07f86bb75fe11\transformed\jetified-window-1.0.0-beta04\res
+com.mr.flutter.plugin.filepicker.file_picker-main-4 C:\Users\omozua judah\AppData\Local\Pub\Cache\hosted\pub.dev\file_picker-8.0.5\android\src\main\res
+com.mr.flutter.plugin.filepicker.file_picker-release-5 C:\Users\omozua judah\AppData\Local\Pub\Cache\hosted\pub.dev\file_picker-8.0.5\android\src\release\res
+com.mr.flutter.plugin.filepicker.file_picker-pngs-6 C:\flutter\foodCity\cityfood\build\file_picker\generated\res\pngs\release
+com.mr.flutter.plugin.filepicker.file_picker-resValues-7 C:\flutter\foodCity\cityfood\build\file_picker\generated\res\resValues\release
+com.mr.flutter.plugin.filepicker.file_picker-rs-8 C:\flutter\foodCity\cityfood\build\file_picker\generated\res\rs\release
+com.mr.flutter.plugin.filepicker.file_picker-mergeReleaseResources-9 C:\flutter\foodCity\cityfood\build\file_picker\intermediates\incremental\release\mergeReleaseResources\merged.dir
+com.mr.flutter.plugin.filepicker.file_picker-mergeReleaseResources-10 C:\flutter\foodCity\cityfood\build\file_picker\intermediates\incremental\release\mergeReleaseResources\stripped.dir
+com.mr.flutter.plugin.filepicker.file_picker-merged_res-11 C:\flutter\foodCity\cityfood\build\file_picker\intermediates\merged_res\release
+com.mr.flutter.plugin.filepicker.file_picker-packaged_res-12 C:\flutter\foodCity\cityfood\build\flutter_plugin_android_lifecycle\intermediates\packaged_res\release
