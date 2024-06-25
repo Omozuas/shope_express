@@ -38,6 +38,7 @@ class ProductController{
             sold:req?.body?.sold,
             quantity:req?.body?.quantity,
             category:req?.body?.category,
+            subCategory:req?.body?.subCategory,
             images:urls,
             color:req?.body?.color,
             ratings:req.body?.ratings
@@ -127,7 +128,7 @@ class ProductController{
             }
             console.log(page,limit,skip)
             const getallProducts =await query
-            res.json(getallProducts);
+            res.json({Products:getallProducts});
         } catch (error) {
             throw new Error(error);
         }
