@@ -49,7 +49,7 @@ var productSchema = new mongoose.Schema({
         type:String,
     },
     totalrating:{
-        type:String,
+        type:Number,
         default:0
     },
     ratings:[{
