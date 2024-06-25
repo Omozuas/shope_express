@@ -2,7 +2,9 @@ import 'dart:io';
 import 'package:cityfood/colorsConstrain/colorsHex.dart';
 import 'package:cityfood/services/Apis/category_api/categoryApi.dart';
 import 'package:cityfood/services/Apis/product_api/productApi.dart';
+import 'package:cityfood/services/Apis/sub_category_api/sub_category_api.dart';
 import 'package:cityfood/services/models/providers/category_provider.dart';
+import 'package:cityfood/services/models/providers/sub_category_provider.dart';
 import 'package:cityfood/util/responsive.dart';
 import 'package:cityfood/widgets/profileController.dart';
 import 'package:cityfood/widgets/snackBarRes.dart';
@@ -41,11 +43,13 @@ class _UploadProductPageState extends State<UploadProductPage> {
   TextEditingController confirmpasswordController = TextEditingController();
   TextEditingController numberController = TextEditingController();
   Categorymodel? dropdown;
+  SubCategorymodel? dropdown2;
   List<Map<String, dynamic>> images = [];
   List<File> images1 = [];
   String path = '';
   late Uint8List bytes;
   List<Categorymodel> _categoryModel = [];
+  List<SubCategorymodel> _subCategoryModel = [];
 
   Future<void> _imagesPicker() async {
     if (Responsive.isDesktop(context)) {
@@ -142,6 +146,16 @@ class _UploadProductPageState extends State<UploadProductPage> {
     get.getAllCategory(preferences.getString('token')!).then((value) {
       setState(() {
         _categoryModel = value;
+      });
+    });
+  }
+
+  void getAllSubCategory() async {
+    final preferences = await SharedPreferences.getInstance();
+    final get = Provider.of<SubCategoryProviderApi>(context, listen: false);
+    get.getAllSubCategory(preferences.getString('token')!).then((value) {
+      setState(() {
+        _subCategoryModel = value;
       });
     });
   }
@@ -358,6 +372,10 @@ class _UploadProductPageState extends State<UploadProductPage> {
                                     borderRadius: BorderRadius.circular(10),
                                     icon: Icon(Icons.keyboard_arrow_down),
                                     iconSize: 36,
+                                    hint: const Text(
+                                      'Select Category',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
                                     elevation: 0,
                                     isExpanded: true,
                                     focusColor: Colors.black54,

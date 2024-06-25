@@ -1,12 +1,13 @@
 import 'dart:convert';
 
 import 'package:cityfood/services/Apis/urlcConnection/auth_api/connectioUrl.dart';
-import 'package:cityfood/services/models/category_repons/category_respons.dart';
 import 'package:cityfood/services/models/providers/category_provider.dart';
+import 'package:cityfood/services/models/providers/sub_category_provider.dart';
+import 'package:cityfood/services/models/sub_cartegory_respons/subCategory_respons.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class CategoryProviderApi with ChangeNotifier {
+class SubCategoryProviderApi with ChangeNotifier {
   bool _isLoading = false;
   bool get loading => _isLoading;
   setLoading(bool value) {
@@ -14,17 +15,16 @@ class CategoryProviderApi with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<CategoryResopnsModel> createCategory(String title, token) async {
+  Future<SubCategoryResopnsModel> createCategory(
+      String title, category, token) async {
     setLoading(true);
-    var createACategory = "${ApiUrl.categoryUrl}create-category";
-    var res = await http.post(Uri.parse(createACategory),
+    var createASubcategory = "${ApiUrl.subCategoryUrl}create-subcategory";
+    var res = await http.post(Uri.parse(createASubcategory),
         headers: {
           'Content-Type': "application/json",
-          "Authorization": "Bearer $token"
+          "Authorization": "Bearer $token",
         },
-        body: jsonEncode({
-          "title": title,
-        }));
+        body: jsonEncode({"title": title, "category": category}));
     if (res.statusCode == 200) {
       setLoading(false);
     } else if (res.statusCode == 404) {
@@ -33,14 +33,14 @@ class CategoryProviderApi with ChangeNotifier {
       setLoading(false);
     }
 
-    return categoryResopnsModel(res.body);
+    return subCategoryResopnsModel(res.body);
   }
 
-  Future<List<Categorymodel>> getAllCategory(token) async {
+  Future<List<SubCategorymodel>> getAllSubCategory(token) async {
     setLoading(true);
-    var getAllcategory = "${ApiUrl.categoryUrl}";
+    var getAllSubcategory = "${ApiUrl.subCategoryUrl}";
     var res = await http.get(
-      Uri.parse(getAllcategory),
+      Uri.parse(getAllSubcategory),
       headers: {
         'Content-Type': "application/json",
         "Authorization": "Bearer $token",
@@ -49,12 +49,15 @@ class CategoryProviderApi with ChangeNotifier {
     if (res.statusCode == 200) {
       final Map<String, dynamic> responseData = jsonDecode(res.body);
 
-      final results = responseData['getAllCategory'] as List<dynamic>;
-      final categoryModel = results.map((e) {
-        return Categorymodel(id: e["_id"], title: e['title']);
+      final results = responseData['getSubCategory'] as List<dynamic>;
+      final subCategoryModel = results.map((e) {
+        final category = Categorymodel(
+            id: e['category']["_id"], title: e['category']['title']);
+        return SubCategorymodel(
+            id: e["_id"], title: e['title'], categorymodel: category);
       }).toList();
       setLoading(false);
-      return categoryModel;
+      return subCategoryModel;
     } else if (res.statusCode == 404) {
       setLoading(false);
       return [];

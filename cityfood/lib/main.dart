@@ -2,6 +2,7 @@ import 'package:cityfood/controller/controller.dart';
 import 'package:cityfood/services/Apis/auth_api/user_controller.dart';
 import 'package:cityfood/services/Apis/category_api/categoryApi.dart';
 import 'package:cityfood/services/Apis/product_api/productApi.dart';
+import 'package:cityfood/services/Apis/sub_category_api/sub_category_api.dart';
 import 'package:cityfood/theme/darkTheme.dart';
 import 'package:cityfood/theme/lightTheme.dart';
 import 'package:cityfood/widgets/appBar.dart';
@@ -31,6 +32,9 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider(
             create: (_) => CategoryProviderApi(),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => SubCategoryProviderApi(),
           ),
           ChangeNotifierProvider(
             create: (_) => MenuAppController(),
