@@ -48,7 +48,7 @@ class SubCategoryProviderApi with ChangeNotifier {
     );
     if (res.statusCode == 200) {
       final Map<String, dynamic> responseData = jsonDecode(res.body);
-
+      print(responseData);
       final results = responseData['getSubCategory'] as List<dynamic>;
       final subCategoryModel = results.map((e) {
         final category = Categorymodel(

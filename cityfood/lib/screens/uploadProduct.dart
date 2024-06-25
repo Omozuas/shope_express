@@ -138,6 +138,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
     super.initState();
 
     getAllCategory();
+    getAllSubCategory();
   }
 
   void getAllCategory() async {
@@ -367,7 +368,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               SizedBox(
-                                width: 450,
+                                width: 250,
                                 child: DropdownButtonFormField<Categorymodel>(
                                     borderRadius: BorderRadius.circular(10),
                                     icon: Icon(Icons.keyboard_arrow_down),
@@ -398,7 +399,39 @@ class _UploadProductPageState extends State<UploadProductPage> {
                                     }).toList()),
                               ),
                               SizedBox(
-                                width: 100,
+                                width: 20,
+                              ),
+                              SizedBox(
+                                width: 250,
+                                child: DropdownButtonFormField<
+                                        SubCategorymodel>(
+                                    borderRadius: BorderRadius.circular(10),
+                                    icon: Icon(Icons.keyboard_arrow_down),
+                                    iconSize: 36,
+                                    hint: const Text(
+                                      'Select SubCategory',
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                    elevation: 0,
+                                    isExpanded: true,
+                                    focusColor: Colors.black54,
+                                    dropdownColor: Colors.grey[200],
+                                    onChanged: (SubCategorymodel? nwvalue) {
+                                      setState(() {
+                                        dropdown2 = nwvalue;
+                                      });
+                                    },
+                                    value: dropdown2,
+                                    items: _subCategoryModel.map((item) {
+                                      return DropdownMenuItem<SubCategorymodel>(
+                                          alignment: Alignment.center,
+                                          value: item,
+                                          child: Text(item.title,
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Colors.black)));
+                                    }).toList()),
                               ),
                             ],
                           ),
