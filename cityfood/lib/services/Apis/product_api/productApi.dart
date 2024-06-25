@@ -18,8 +18,9 @@ class ProductProviderApi with ChangeNotifier {
       List<MapEntry<String, dynamic>> data,
       List<Map<String, dynamic>> images1) async {
     setLoading(true);
-
     var registerUser = "${ApiUrl.productUrl}add-new-product";
+    // var registerUser =
+    //     "http://localhost:4000/api/product/add-new-product?image";
     var res = http.MultipartRequest('POST', Uri.parse(registerUser))
       ..headers.addAll({
         'Authorization': 'Bearer $token',
@@ -32,7 +33,6 @@ class ProductProviderApi with ChangeNotifier {
     }
 
     List<http.MultipartFile> files = images1.map((file) {
-      print(file["path"]);
       return http.MultipartFile.fromBytes(
         'image',
         file["bytes"],
@@ -43,7 +43,6 @@ class ProductProviderApi with ChangeNotifier {
     var res1 = await res.send();
     var response = await http.Response.fromStream(res1);
     var dd = jsonDecode(response.body);
-    print(dd);
     if (response.statusCode == 200) {
       print(response.body);
       setLoading(false);

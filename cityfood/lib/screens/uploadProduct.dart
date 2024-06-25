@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:cityfood/colorsConstrain/colorsHex.dart';
+import 'package:cityfood/services/Apis/category_api/categoryApi.dart';
 import 'package:cityfood/services/Apis/product_api/productApi.dart';
+import 'package:cityfood/services/models/providers/category_provider.dart';
 import 'package:cityfood/util/responsive.dart';
 import 'package:cityfood/widgets/profileController.dart';
 import 'package:cityfood/widgets/snackBarRes.dart';
@@ -38,11 +40,12 @@ class _UploadProductPageState extends State<UploadProductPage> {
   TextEditingController quantityController = TextEditingController();
   TextEditingController confirmpasswordController = TextEditingController();
   TextEditingController numberController = TextEditingController();
-  String? dropdown = 'Select Cartegory';
+  Categorymodel? dropdown;
   List<Map<String, dynamic>> images = [];
   List<File> images1 = [];
   String path = '';
   late Uint8List bytes;
+  List<Categorymodel> _categoryModel = [];
 
   Future<void> _imagesPicker() async {
     if (Responsive.isDesktop(context)) {
@@ -106,7 +109,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
         "price": priceController.text,
         "brand": brandontroller.text,
         "quantity": quantityController.text,
-        "category": dropdown!
+        "category": dropdown!.id
       }).fields;
 
       creatPrpduct
@@ -123,6 +126,24 @@ class _UploadProductPageState extends State<UploadProductPage> {
     } else {
       error(context: context, message: "complete details");
     }
+  }
+
+  @override
+  initState() {
+    // TODO: implement initState
+    super.initState();
+
+    getAllCategory();
+  }
+
+  void getAllCategory() async {
+    final preferences = await SharedPreferences.getInstance();
+    final get = Provider.of<CategoryProviderApi>(context, listen: false);
+    get.getAllCategory(preferences.getString('token')!).then((value) {
+      setState(() {
+        _categoryModel = value;
+      });
+    });
   }
 
   @override
@@ -333,359 +354,30 @@ class _UploadProductPageState extends State<UploadProductPage> {
                             children: [
                               SizedBox(
                                 width: 450,
-                                child: DropdownButtonFormField(
-                                  borderRadius: BorderRadius.circular(10),
-                                  icon: Icon(Icons.keyboard_arrow_down),
-                                  iconSize: 36,
-                                  elevation: 0,
-                                  isExpanded: true,
-                                  focusColor: Colors.black54,
-                                  dropdownColor: Colors.grey[200],
-                                  onChanged: (String? nwvalue) {
-                                    setState(() {
-                                      dropdown = nwvalue;
-                                    });
-                                  },
-                                  value: dropdown,
-                                  items: const [
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Select Cartegory',
-                                        child: Text('Select Cartegory',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Electronics',
-                                        child: Text('Electronics',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Mobile Phones',
-                                        child: Text('Mobile Phones',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Computers & Tablets',
-                                        child: Text('Computers & Tablets',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Audio',
-                                        child: Text('Audio',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Cameras & Photography',
-                                        child: Text('Cameras & Photography',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Televisions',
-                                        child: Text('Televisions',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Fashion',
-                                        child: Text('Fashion',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: "Men's Fashion",
-                                        child: Text("Men's Fashion",
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: "Women's Fashion",
-                                        child: Text("Women's Fashion",
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: "Kids' Fashion",
-                                        child: Text("Kids' Fashion",
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Home & Kitchen',
-                                        child: Text('Home & Kitchen',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Furniture',
-                                        child: Text('Furniture',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Kitchen Appliances',
-                                        child: Text('Kitchen Appliances',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Cookware & Dining',
-                                        child: Text('Cookware & Dining',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Skincare',
-                                        child: Text('Skincare',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Haircare',
-                                        child: Text('Haircare',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Makeup',
-                                        child: Text('Makeup',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Supplements',
-                                        child: Text('Supplements',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Fitness Equipment',
-                                        child: Text('Fitness Equipment',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Personal Care',
-                                        child: Text('Personal Care',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Sports Equipment',
-                                        child: Text('Sports Equipment',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Outdoor Gear',
-                                        child: Text('Outdoor Gear',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Toys',
-                                        child: Text('Toys',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Games',
-                                        child: Text('Games',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Action Figures',
-                                        child: Text('Action Figures',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Educational Toys',
-                                        child: Text('Educational Toys',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Board Games',
-                                        child: Text('Board Games',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Video Games',
-                                        child: Text('Video Games',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Books',
-                                        child: Text('Books',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Music',
-                                        child: Text('Music',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Movies',
-                                        child: Text('Movies',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Car Electronics',
-                                        child: Text('Car Electronics',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Car Accessories',
-                                        child: Text('Car Accessories',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Motorcycle Accessories',
-                                        child: Text('Motorcycle Accessories',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Office Supplies',
-                                        child: Text('Office Supplies',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Office Electronics',
-                                        child: Text('Office Electronics',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Pet Supplies',
-                                        child: Text('Pet Supplies',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Baby Products',
-                                        child: Text('Baby Products',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Grocery',
-                                        child: Text('Grocery',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Holiday Specials',
-                                        child: Text('Holiday Specials',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                    DropdownMenuItem<String>(
-                                        alignment: Alignment.center,
-                                        value: 'Sales & Discounts',
-                                        child: Text('Sales & Discounts',
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400,
-                                                color: Colors.black))),
-                                  ],
-                                ),
+                                child: DropdownButtonFormField<Categorymodel>(
+                                    borderRadius: BorderRadius.circular(10),
+                                    icon: Icon(Icons.keyboard_arrow_down),
+                                    iconSize: 36,
+                                    elevation: 0,
+                                    isExpanded: true,
+                                    focusColor: Colors.black54,
+                                    dropdownColor: Colors.grey[200],
+                                    onChanged: (Categorymodel? nwvalue) {
+                                      setState(() {
+                                        dropdown = nwvalue;
+                                      });
+                                    },
+                                    value: dropdown,
+                                    items: _categoryModel.map((item) {
+                                      return DropdownMenuItem<Categorymodel>(
+                                          alignment: Alignment.center,
+                                          value: item,
+                                          child: Text(item.title,
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Colors.black)));
+                                    }).toList()),
                               ),
                               SizedBox(
                                 width: 100,
@@ -830,360 +522,30 @@ class _UploadProductPageState extends State<UploadProductPage> {
                   ),
                   SizedBox(
                     width: 450,
-                    child: DropdownButtonFormField(
-                      borderRadius: BorderRadius.circular(10),
-                      icon: Icon(Icons.keyboard_arrow_down),
-                      iconSize: 36,
-                      elevation: 0,
-                      isExpanded: true,
-                      focusColor: Colors.black54,
-                      dropdownColor: Colors.grey[200],
-                      onChanged: (String? nwvalue) {
-                        setState(() {
-                          dropdown = nwvalue;
-                          print(nwvalue);
-                        });
-                      },
-                      value: dropdown,
-                      items: const [
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Select Cartegory',
-                            child: Text('Select Cartegory',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Electronics',
-                            child: Text('Electronics',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Mobile Phones',
-                            child: Text('Mobile Phones',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Computers & Tablets',
-                            child: Text('Computers & Tablets',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Audio',
-                            child: Text('Audio',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Cameras & Photography',
-                            child: Text('Cameras & Photography',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Televisions',
-                            child: Text('Televisions',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Fashion',
-                            child: Text('Fashion',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: "Men's Fashion",
-                            child: Text("Men's Fashion",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: "Women's Fashion",
-                            child: Text("Women's Fashion",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: "Kids' Fashion",
-                            child: Text("Kids' Fashion",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Home & Kitchen',
-                            child: Text('Home & Kitchen',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Furniture',
-                            child: Text('Furniture',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Kitchen Appliances',
-                            child: Text('Kitchen Appliances',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Cookware & Dining',
-                            child: Text('Cookware & Dining',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Skincare',
-                            child: Text('Skincare',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Haircare',
-                            child: Text('Haircare',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Makeup',
-                            child: Text('Makeup',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Supplements',
-                            child: Text('Supplements',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Fitness Equipment',
-                            child: Text('Fitness Equipment',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Personal Care',
-                            child: Text('Personal Care',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Sports Equipment',
-                            child: Text('Sports Equipment',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Outdoor Gear',
-                            child: Text('Outdoor Gear',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Toys',
-                            child: Text('Toys',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Games',
-                            child: Text('Games',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Action Figures',
-                            child: Text('Action Figures',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Educational Toys',
-                            child: Text('Educational Toys',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Board Games',
-                            child: Text('Board Games',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Video Games',
-                            child: Text('Video Games',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Books',
-                            child: Text('Books',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Music',
-                            child: Text('Music',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Movies',
-                            child: Text('Movies',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Car Electronics',
-                            child: Text('Car Electronics',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Car Accessories',
-                            child: Text('Car Accessories',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Motorcycle Accessories',
-                            child: Text('Motorcycle Accessories',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Office Supplies',
-                            child: Text('Office Supplies',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Office Electronics',
-                            child: Text('Office Electronics',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Pet Supplies',
-                            child: Text('Pet Supplies',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Baby Products',
-                            child: Text('Baby Products',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Grocery',
-                            child: Text('Grocery',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Holiday Specials',
-                            child: Text('Holiday Specials',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Sales & Discounts',
-                            child: Text('Sales & Discounts',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                      ],
-                    ),
+                    child: DropdownButtonFormField<Categorymodel>(
+                        borderRadius: BorderRadius.circular(10),
+                        icon: Icon(Icons.keyboard_arrow_down),
+                        iconSize: 36,
+                        elevation: 0,
+                        isExpanded: true,
+                        focusColor: Colors.black54,
+                        dropdownColor: Colors.grey[200],
+                        onChanged: (Categorymodel? nwvalue) {
+                          setState(() {
+                            dropdown = nwvalue;
+                          });
+                        },
+                        value: dropdown,
+                        items: _categoryModel.map((item) {
+                          return DropdownMenuItem<Categorymodel>(
+                              alignment: Alignment.center,
+                              value: item,
+                              child: Text('${item.title}',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.black)));
+                        }).toList()),
                   ),
                   SizedBox(
                     height: 30,
@@ -1381,360 +743,30 @@ class _UploadProductPageState extends State<UploadProductPage> {
                   ),
                   SizedBox(
                     width: 450,
-                    child: DropdownButtonFormField(
-                      borderRadius: BorderRadius.circular(10),
-                      icon: Icon(Icons.keyboard_arrow_down),
-                      iconSize: 36,
-                      elevation: 0,
-                      isExpanded: true,
-                      focusColor: Colors.black54,
-                      dropdownColor: Colors.grey[200],
-                      onChanged: (String? nwvalue) {
-                        setState(() {
-                          dropdown = nwvalue;
-                          print(nwvalue);
-                        });
-                      },
-                      value: dropdown,
-                      items: const [
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Select Cartegory',
-                            child: Text('Select Cartegory',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Electronics',
-                            child: Text('Electronics',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Mobile Phones',
-                            child: Text('Mobile Phones',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Computers & Tablets',
-                            child: Text('Computers & Tablets',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Audio',
-                            child: Text('Audio',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Cameras & Photography',
-                            child: Text('Cameras & Photography',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Televisions',
-                            child: Text('Televisions',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Fashion',
-                            child: Text('Fashion',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: "Men's Fashion",
-                            child: Text("Men's Fashion",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: "Women's Fashion",
-                            child: Text("Women's Fashion",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: "Kids' Fashion",
-                            child: Text("Kids' Fashion",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Home & Kitchen',
-                            child: Text('Home & Kitchen',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Furniture',
-                            child: Text('Furniture',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Kitchen Appliances',
-                            child: Text('Kitchen Appliances',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Cookware & Dining',
-                            child: Text('Cookware & Dining',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Skincare',
-                            child: Text('Skincare',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Haircare',
-                            child: Text('Haircare',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Makeup',
-                            child: Text('Makeup',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Supplements',
-                            child: Text('Supplements',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Fitness Equipment',
-                            child: Text('Fitness Equipment',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Personal Care',
-                            child: Text('Personal Care',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Sports Equipment',
-                            child: Text('Sports Equipment',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Outdoor Gear',
-                            child: Text('Outdoor Gear',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Toys',
-                            child: Text('Toys',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Games',
-                            child: Text('Games',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Action Figures',
-                            child: Text('Action Figures',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Educational Toys',
-                            child: Text('Educational Toys',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Board Games',
-                            child: Text('Board Games',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Video Games',
-                            child: Text('Video Games',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Books',
-                            child: Text('Books',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Music',
-                            child: Text('Music',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Movies',
-                            child: Text('Movies',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Car Electronics',
-                            child: Text('Car Electronics',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Car Accessories',
-                            child: Text('Car Accessories',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Motorcycle Accessories',
-                            child: Text('Motorcycle Accessories',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Office Supplies',
-                            child: Text('Office Supplies',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Office Electronics',
-                            child: Text('Office Electronics',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Pet Supplies',
-                            child: Text('Pet Supplies',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Baby Products',
-                            child: Text('Baby Products',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Grocery',
-                            child: Text('Grocery',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Holiday Specials',
-                            child: Text('Holiday Specials',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                        DropdownMenuItem<String>(
-                            alignment: Alignment.center,
-                            value: 'Sales & Discounts',
-                            child: Text('Sales & Discounts',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black))),
-                      ],
-                    ),
+                    child: DropdownButtonFormField<Categorymodel>(
+                        borderRadius: BorderRadius.circular(10),
+                        icon: Icon(Icons.keyboard_arrow_down),
+                        iconSize: 36,
+                        elevation: 0,
+                        isExpanded: true,
+                        focusColor: Colors.black54,
+                        dropdownColor: Colors.grey[200],
+                        onChanged: (Categorymodel? nwvalue) {
+                          setState(() {
+                            dropdown = nwvalue;
+                          });
+                        },
+                        value: dropdown,
+                        items: _categoryModel.map((item) {
+                          return DropdownMenuItem<Categorymodel>(
+                              alignment: Alignment.center,
+                              value: item,
+                              child: Text('${item.title}',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.black)));
+                        }).toList()),
                   ),
                   SizedBox(
                     height: 30,

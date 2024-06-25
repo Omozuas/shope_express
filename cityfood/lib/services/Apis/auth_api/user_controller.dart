@@ -86,9 +86,9 @@ class UserProviderApi with ChangeNotifier {
     return loginresopnsModel(res.body);
   }
 
-  Future<Clientmodel> getUser(String token) async {
+  Future<Clientmodel> getUser(token) async {
     setLoading(true);
-    var getuser = "${ApiUrl.baseUrl}:id";
+    var getuser = "${ApiUrl.baseUrl}get-user-byId";
     var res = await http.get(
       Uri.parse(getuser),
       headers: {
