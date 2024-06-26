@@ -53,7 +53,7 @@ class ProductController{
         const {id}=req.params
         try {
             const findProduct=await Product.findById(id).populate('category subCategory.category  ratings.postedBy')
-            res.json(findProduct);
+            res.json({finalProduct:findProduct});
         } catch (error) {
             throw new Error(error);
         }
@@ -99,7 +99,7 @@ class ProductController{
             let querStr=JSON.stringify(querObj)
             querStr=querStr.replace(/\b(gte|gt|lt)\b/g, match =>`$${match}`);
 
-            let query=Product.find (JSON.parse(querStr))
+            let query=Product.find (JSON.parse(querStr)).populate('category subCategory')
 
             //sorting
  
