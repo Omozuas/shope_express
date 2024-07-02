@@ -108,7 +108,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                       textAlign: TextAlign.center,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline5!
+                                          .headlineLarge!
                                           .copyWith(
                                               fontWeight: FontWeight.w500,
                                               color: Colors.black),
@@ -394,7 +394,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                       textAlign: TextAlign.center,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline5!
+                                          .headlineLarge!
                                           .copyWith(
                                               fontWeight: FontWeight.w500,
                                               color: Colors.black),
@@ -693,7 +693,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     textAlign: TextAlign.center,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline5!
+                                        .headlineLarge!
                                         .copyWith(
                                             fontWeight: FontWeight.w500,
                                             color: Colors.black,

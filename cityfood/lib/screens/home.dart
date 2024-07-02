@@ -2,12 +2,18 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cityfood/colorsConstrain/colorsHex.dart';
 import 'package:cityfood/model/cards/cardcategory.dart';
 import 'package:cityfood/model/homeSlide_Model.dart';
+import 'package:cityfood/services/Apis/product_api/productApi.dart';
+import 'package:cityfood/services/models/providers/Listproduct_Provider/product_Provider.dart';
 import 'package:cityfood/util/responsive.dart';
+import 'package:cityfood/widgets/appbarname.dart';
 import 'package:cityfood/widgets/cards/cartegoryCard.dart';
 import 'package:cityfood/widgets/countdown/countdown.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:get/get.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/circlerImage.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -38,9 +44,26 @@ class _MyHomePageState extends State<MyHomePage> {
     false,
     false,
   ];
+  List<ProductModel> _productModel = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getAllProduct();
+  }
+
+  void getAllProduct() async {
+    final get = Provider.of<ProductProviderApi>(context, listen: false);
+    get.getAllProduct().then((value) {
+      _productModel = value.products;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(NavigationController());
+    final get = context.watch<ProductProviderApi>();
     return Column(
       children: [
         Container(
@@ -1008,194 +1031,215 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                 ),
-                GridView.builder(
-                  shrinkWrap: true,
-                  padding: EdgeInsets.zero,
-                  physics: NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 5,
-                      mainAxisSpacing: 16,
-                      crossAxisSpacing: 16,
-                      mainAxisExtent: 340),
-                  itemCount: 12,
-                  itemBuilder: (BuildContext context, int index) {
-                    return InkWell(
-                      onTap: () {},
-                      onHover: (value) {},
-                      child: Container(
-                        width: 280,
-                        child: Card(
-                          elevation: 0,
-                          color: Colors.white.withOpacity(0.9),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 5.0, right: 5, bottom: 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Container(
-                                  width: 280,
-                                  height: 180,
-                                  child: Stack(
+                get.loading
+                    ? CircularProgressIndicator()
+                    : GridView.builder(
+                        shrinkWrap: true,
+                        padding: EdgeInsets.zero,
+                        physics: NeverScrollableScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 5,
+                            mainAxisSpacing: 16,
+                            crossAxisSpacing: 16,
+                            mainAxisExtent: 340),
+                        itemCount: _productModel.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          var eachList = _productModel[index];
+                          return InkWell(
+                            onTap: () async {
+                              final preferences =
+                                  await SharedPreferences.getInstance();
+                              print(eachList.id);
+                              await preferences.setString(
+                                  'productId', eachList.id);
+                              controller.selectedIndex.value = 7;
+                            },
+                            onHover: (value) {},
+                            child: Container(
+                              width: 280,
+                              child: Card(
+                                elevation: 0,
+                                color: Colors.white.withOpacity(0.9),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 5.0, right: 5, bottom: 10),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Center(
-                                          child: Image.asset(
-                                        "assets/images/wristwatch1.png",
-                                        height: 160,
-                                        width: 130,
-                                      )),
-                                      Positioned(
-                                          left: 5,
-                                          top: 10,
-                                          child: Container(
-                                              width: 40,
-                                              height: 20,
-                                              child: Center(
-                                                child: Text(
-                                                  "-10%",
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 13,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                ),
-                                              ),
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.rectangle,
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(3)),
-                                                  color: GlobalColors.orange))),
-                                      Positioned(
-                                          right: 10,
-                                          top: 10,
-                                          child: InkWell(
-                                            onTap: () {},
-                                            child: Container(
-                                                width: 25,
-                                                height: 25,
-                                                child: Center(
-                                                  child: Icon(
-                                                    CupertinoIcons.heart,
-                                                    color: Colors.white,
-                                                    size: 20,
-                                                  ),
-                                                ),
-                                                decoration: BoxDecoration(
-                                                    shape: BoxShape.rectangle,
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                15)),
-                                                    color: GlobalColors.orange
-                                                        .withOpacity(0.4))),
-                                          ))
-                                    ],
-                                  ),
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.rectangle,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(13)),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  "hupsin watch".toUpperCase(),
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 11,
-                                      overflow: TextOverflow.ellipsis,
-                                      fontWeight: FontWeight.w800),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  "wristwatch".toUpperCase(),
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w800),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                RatingBarIndicator(
-                                  rating: 2.75,
-                                  itemBuilder: (context, index) => Icon(
-                                    Icons.star_border_outlined,
-                                    color: GlobalColors.orange,
-                                  ),
-                                  unratedColor: Colors.black,
-                                  itemCount: 5,
-                                  itemSize: 20.0,
-                                  direction: Axis.horizontal,
-                                ),
-                                // RatingBar.builder(
-                                //     itemSize: 20,
-                                //     initialRating: 3.4,
-                                //     minRating: 1,
-                                //     direction: Axis.horizontal,
-                                //     allowHalfRating: true,
-                                //     itemCount: 4,
-                                //     itemPadding: const EdgeInsets.symmetric(
-                                //         horizontal: 3),
-                                //     itemBuilder: (context, _) => Icon(
-                                //           Icons.star,
-                                //           color: GlobalColors.orange,
-                                //           size: 20,
-                                //         ),
-                                //     onRatingUpdate: (rating) {
-                                //       // ratingValue = rating;
-                                //       // print(rating);
-                                //     }
-                                //     ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  '\$5000',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w800),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Center(
-                                  child: InkWell(
-                                    onTap: () {},
-                                    child: Container(
-                                      width: 220,
-                                      height: 40,
-                                      child: Center(
-                                        child: Text("add to cart".toUpperCase(),
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w800)),
-                                      ),
-                                      decoration: BoxDecoration(
-                                          color: GlobalColors.orange,
+                                      Container(
+                                        width: 280,
+                                        height: 180,
+                                        child: Stack(
+                                          children: [
+                                            Center(
+                                                child: Image.network(
+                                              "${eachList.images[index = 0].url}",
+                                              height: 160,
+                                              width: 130,
+                                            )),
+                                            Positioned(
+                                                left: 5,
+                                                top: 10,
+                                                child: Container(
+                                                    width: 40,
+                                                    height: 20,
+                                                    child: Center(
+                                                      child: Text(
+                                                        "-10%",
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 13,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    decoration: BoxDecoration(
+                                                        shape:
+                                                            BoxShape.rectangle,
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    3)),
+                                                        color: GlobalColors
+                                                            .orange))),
+                                            Positioned(
+                                                right: 10,
+                                                top: 10,
+                                                child: InkWell(
+                                                  onTap: () {},
+                                                  child: Container(
+                                                      width: 25,
+                                                      height: 25,
+                                                      child: Center(
+                                                        child: Icon(
+                                                          CupertinoIcons.heart,
+                                                          color: Colors.white,
+                                                          size: 20,
+                                                        ),
+                                                      ),
+                                                      decoration: BoxDecoration(
+                                                          shape: BoxShape
+                                                              .rectangle,
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          15)),
+                                                          color: GlobalColors
+                                                              .orange
+                                                              .withOpacity(
+                                                                  0.4))),
+                                                ))
+                                          ],
+                                        ),
+                                        decoration: BoxDecoration(
                                           shape: BoxShape.rectangle,
                                           borderRadius: BorderRadius.all(
-                                              Radius.circular(7))),
-                                    ),
+                                              Radius.circular(13)),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        "${eachList.title}".toUpperCase(),
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 11,
+                                            overflow: TextOverflow.ellipsis,
+                                            fontWeight: FontWeight.w800),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        "${eachList.brand}".toUpperCase(),
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.w800),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      RatingBarIndicator(
+                                        rating: eachList.totalrating.toDouble(),
+                                        itemBuilder: (context, index) => Icon(
+                                          Icons.star_border_outlined,
+                                          color: GlobalColors.orange,
+                                        ),
+                                        unratedColor: Colors.black,
+                                        itemCount: 5,
+                                        itemSize: 20.0,
+                                        direction: Axis.horizontal,
+                                      ),
+                                      // RatingBar.builder(
+                                      //     itemSize: 20,
+                                      //     initialRating: 3.4,
+                                      //     minRating: 1,
+                                      //     direction: Axis.horizontal,
+                                      //     allowHalfRating: true,
+                                      //     itemCount: 4,
+                                      //     itemPadding: const EdgeInsets.symmetric(
+                                      //         horizontal: 3),
+                                      //     itemBuilder: (context, _) => Icon(
+                                      //           Icons.star,
+                                      //           color: GlobalColors.orange,
+                                      //           size: 20,
+                                      //         ),
+                                      //     onRatingUpdate: (rating) {
+                                      //       // ratingValue = rating;
+                                      //       // print(rating);
+                                      //     }
+                                      //     ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        '\N ${eachList.price}',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w800),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Center(
+                                        child: InkWell(
+                                          onTap: () {},
+                                          child: Container(
+                                            width: 220,
+                                            height: 40,
+                                            child: Center(
+                                              child: Text(
+                                                  "add to cart".toUpperCase(),
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 13,
+                                                      fontWeight:
+                                                          FontWeight.w800)),
+                                            ),
+                                            decoration: BoxDecoration(
+                                                color: GlobalColors.orange,
+                                                shape: BoxShape.rectangle,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(7))),
+                                          ),
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                )
-                              ],
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
               ],
             ),
           ),
@@ -1419,194 +1463,215 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                 ),
-                GridView.builder(
-                  shrinkWrap: true,
-                  padding: EdgeInsets.zero,
-                  physics: NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 16,
-                      crossAxisSpacing: 16,
-                      mainAxisExtent: 340),
-                  itemCount: 12,
-                  itemBuilder: (BuildContext context, int index) {
-                    return InkWell(
-                      onTap: () {},
-                      onHover: (value) {},
-                      child: Container(
-                        width: 280,
-                        child: Card(
-                          elevation: 0,
-                          color: Colors.white.withOpacity(0.9),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 5.0, right: 5, bottom: 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Container(
-                                  width: 280,
-                                  height: 180,
-                                  child: Stack(
+                get.loading
+                    ? CircularProgressIndicator()
+                    : GridView.builder(
+                        shrinkWrap: true,
+                        padding: EdgeInsets.zero,
+                        physics: NeverScrollableScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            mainAxisSpacing: 16,
+                            crossAxisSpacing: 16,
+                            mainAxisExtent: 340),
+                        itemCount: _productModel.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          var eachList = _productModel[index];
+                          return InkWell(
+                            onTap: () async {
+                              final preferences =
+                                  await SharedPreferences.getInstance();
+                              print(eachList.id);
+                              await preferences.setString(
+                                  'productId', eachList.id);
+                              controller.selectedIndex.value = 7;
+                            },
+                            onHover: (value) {},
+                            child: Container(
+                              width: 280,
+                              child: Card(
+                                elevation: 0,
+                                color: Colors.white.withOpacity(0.9),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 5.0, right: 5, bottom: 10),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Center(
-                                          child: Image.asset(
-                                        "assets/images/wristwatch1.png",
-                                        height: 160,
-                                        width: 130,
-                                      )),
-                                      Positioned(
-                                          left: 5,
-                                          top: 10,
-                                          child: Container(
-                                              width: 40,
-                                              height: 20,
-                                              child: Center(
-                                                child: Text(
-                                                  "-10%",
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 13,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                ),
-                                              ),
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.rectangle,
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(3)),
-                                                  color: GlobalColors.orange))),
-                                      Positioned(
-                                          right: 10,
-                                          top: 10,
-                                          child: InkWell(
-                                            onTap: () {},
-                                            child: Container(
-                                                width: 25,
-                                                height: 25,
-                                                child: Center(
-                                                  child: Icon(
-                                                    CupertinoIcons.heart,
-                                                    color: Colors.white,
-                                                    size: 20,
-                                                  ),
-                                                ),
-                                                decoration: BoxDecoration(
-                                                    shape: BoxShape.rectangle,
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                15)),
-                                                    color: GlobalColors.orange
-                                                        .withOpacity(0.4))),
-                                          ))
-                                    ],
-                                  ),
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.rectangle,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(13)),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  "hupsin watch".toUpperCase(),
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 11,
-                                      overflow: TextOverflow.ellipsis,
-                                      fontWeight: FontWeight.w800),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  "wristwatch".toUpperCase(),
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w800),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                RatingBarIndicator(
-                                  rating: 2.75,
-                                  itemBuilder: (context, index) => Icon(
-                                    Icons.star_border_outlined,
-                                    color: GlobalColors.orange,
-                                  ),
-                                  unratedColor: Colors.black,
-                                  itemCount: 5,
-                                  itemSize: 20.0,
-                                  direction: Axis.horizontal,
-                                ),
-                                // RatingBar.builder(
-                                //     itemSize: 20,
-                                //     initialRating: 3.4,
-                                //     minRating: 1,
-                                //     direction: Axis.horizontal,
-                                //     allowHalfRating: true,
-                                //     itemCount: 4,
-                                //     itemPadding: const EdgeInsets.symmetric(
-                                //         horizontal: 3),
-                                //     itemBuilder: (context, _) => Icon(
-                                //           Icons.star,
-                                //           color: GlobalColors.orange,
-                                //           size: 20,
-                                //         ),
-                                //     onRatingUpdate: (rating) {
-                                //       // ratingValue = rating;
-                                //       // print(rating);
-                                //     }
-                                //     ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  '\$5000',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w800),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Center(
-                                  child: InkWell(
-                                    onTap: () {},
-                                    child: Container(
-                                      width: 220,
-                                      height: 40,
-                                      child: Center(
-                                        child: Text("add to cart".toUpperCase(),
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w800)),
-                                      ),
-                                      decoration: BoxDecoration(
-                                          color: GlobalColors.orange,
+                                      Container(
+                                        width: 280,
+                                        height: 180,
+                                        child: Stack(
+                                          children: [
+                                            Center(
+                                                child: Image.network(
+                                              '${eachList.images[index = 0].url}',
+                                              height: 160,
+                                              width: 130,
+                                            )),
+                                            Positioned(
+                                                left: 5,
+                                                top: 10,
+                                                child: Container(
+                                                    width: 40,
+                                                    height: 20,
+                                                    child: Center(
+                                                      child: Text(
+                                                        "-10%",
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 13,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    decoration: BoxDecoration(
+                                                        shape:
+                                                            BoxShape.rectangle,
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    3)),
+                                                        color: GlobalColors
+                                                            .orange))),
+                                            Positioned(
+                                                right: 10,
+                                                top: 10,
+                                                child: InkWell(
+                                                  onTap: () {},
+                                                  child: Container(
+                                                      width: 25,
+                                                      height: 25,
+                                                      child: Center(
+                                                        child: Icon(
+                                                          CupertinoIcons.heart,
+                                                          color: Colors.white,
+                                                          size: 20,
+                                                        ),
+                                                      ),
+                                                      decoration: BoxDecoration(
+                                                          shape: BoxShape
+                                                              .rectangle,
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          15)),
+                                                          color: GlobalColors
+                                                              .orange
+                                                              .withOpacity(
+                                                                  0.4))),
+                                                ))
+                                          ],
+                                        ),
+                                        decoration: BoxDecoration(
                                           shape: BoxShape.rectangle,
                                           borderRadius: BorderRadius.all(
-                                              Radius.circular(7))),
-                                    ),
+                                              Radius.circular(13)),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        "${eachList.title}".toUpperCase(),
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 11,
+                                            overflow: TextOverflow.ellipsis,
+                                            fontWeight: FontWeight.w800),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        "${eachList.slug}".toUpperCase(),
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.w800),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      RatingBarIndicator(
+                                        rating: eachList.totalrating.toDouble(),
+                                        itemBuilder: (context, index) => Icon(
+                                          Icons.star_border_outlined,
+                                          color: GlobalColors.orange,
+                                        ),
+                                        unratedColor: Colors.black,
+                                        itemCount: 5,
+                                        itemSize: 20.0,
+                                        direction: Axis.horizontal,
+                                      ),
+                                      // RatingBar.builder(
+                                      //     itemSize: 20,
+                                      //     initialRating: 3.4,
+                                      //     minRating: 1,
+                                      //     direction: Axis.horizontal,
+                                      //     allowHalfRating: true,
+                                      //     itemCount: 4,
+                                      //     itemPadding: const EdgeInsets.symmetric(
+                                      //         horizontal: 3),
+                                      //     itemBuilder: (context, _) => Icon(
+                                      //           Icons.star,
+                                      //           color: GlobalColors.orange,
+                                      //           size: 20,
+                                      //         ),
+                                      //     onRatingUpdate: (rating) {
+                                      //       // ratingValue = rating;
+                                      //       // print(rating);
+                                      //     }
+                                      //     ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        '\N ${eachList.price}',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w800),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Center(
+                                        child: InkWell(
+                                          onTap: () {},
+                                          child: Container(
+                                            width: 220,
+                                            height: 40,
+                                            child: Center(
+                                              child: Text(
+                                                  "add to cart".toUpperCase(),
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 13,
+                                                      fontWeight:
+                                                          FontWeight.w800)),
+                                            ),
+                                            decoration: BoxDecoration(
+                                                color: GlobalColors.orange,
+                                                shape: BoxShape.rectangle,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(7))),
+                                          ),
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                )
-                              ],
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
               ],
             ),
           ),
@@ -1834,194 +1899,235 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                 ),
-                GridView.builder(
-                  shrinkWrap: true,
-                  padding: EdgeInsets.zero,
-                  physics: NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 16,
-                      crossAxisSpacing: 16,
-                      mainAxisExtent: 340),
-                  itemCount: 12,
-                  itemBuilder: (BuildContext context, int index) {
-                    return InkWell(
-                      onTap: () {},
-                      onHover: (value) {},
-                      child: Container(
-                        width: 280,
-                        child: Card(
-                          elevation: 0,
-                          color: Colors.white.withOpacity(0.9),
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 5.0, right: 5, bottom: 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Container(
-                                  width: 280,
-                                  height: 180,
-                                  child: Stack(
+                get.loading
+                    ? CircularProgressIndicator()
+                    : GridView.builder(
+                        shrinkWrap: true,
+                        padding: EdgeInsets.zero,
+                        physics: NeverScrollableScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 16,
+                            crossAxisSpacing: 16,
+                            mainAxisExtent: 340),
+                        itemCount: _productModel.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final eachList = _productModel[index];
+                          return InkWell(
+                            onTap: () async {
+                              final preferences =
+                                  await SharedPreferences.getInstance();
+                              print(_productModel[index].id);
+                              await preferences.setString(
+                                  'productId', _productModel[index].id);
+                              controller.selectedIndex.value = 7;
+                            },
+                            onHover: (value) {},
+                            child: Container(
+                              width: 280,
+                              child: Card(
+                                elevation: 0,
+                                color: Colors.white.withOpacity(0.9),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 5.0, right: 5, bottom: 10),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Center(
-                                          child: Image.asset(
-                                        "assets/images/wristwatch1.png",
-                                        height: 160,
-                                        width: 130,
-                                      )),
-                                      Positioned(
-                                          left: 5,
-                                          top: 10,
-                                          child: Container(
-                                              width: 40,
-                                              height: 20,
-                                              child: Center(
-                                                child: Text(
-                                                  "-10%",
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 13,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                ),
+                                      Container(
+                                        width: 280,
+                                        height: 180,
+                                        child: Stack(
+                                          children: [
+                                            Center(
+                                              child:
+                                                  // ListView.builder(
+                                                  //     shrinkWrap: true,
+                                                  //     scrollDirection:
+                                                  //         Axis.horizontal,
+                                                  //     itemExtent: 160,
+                                                  //     itemCount:
+                                                  //         eachList.images.length,
+                                                  //     itemBuilder:
+                                                  //         (context, position) {
+                                                  //       return Padding(
+                                                  //         padding:
+                                                  //             const EdgeInsets.only(
+                                                  //                 left: 12,
+                                                  //                 right: 12),
+                                                  //         child:
+                                                  Image.network(
+                                                "${eachList.images[index = 0].url}",
+                                                height: 160,
+                                                width: 130,
                                               ),
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.rectangle,
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(3)),
-                                                  color: GlobalColors.orange))),
-                                      Positioned(
-                                          right: 10,
-                                          top: 10,
-                                          child: InkWell(
-                                            onTap: () {},
-                                            child: Container(
-                                                width: 25,
-                                                height: 25,
-                                                child: Center(
-                                                  child: Icon(
-                                                    CupertinoIcons.heart,
-                                                    color: Colors.white,
-                                                    size: 20,
-                                                  ),
-                                                ),
-                                                decoration: BoxDecoration(
-                                                    shape: BoxShape.rectangle,
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                15)),
-                                                    color: GlobalColors.orange
-                                                        .withOpacity(0.4))),
-                                          ))
-                                    ],
-                                  ),
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.rectangle,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(13)),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  "hupsin watch".toUpperCase(),
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 11,
-                                      overflow: TextOverflow.ellipsis,
-                                      fontWeight: FontWeight.w800),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  "wristwatch".toUpperCase(),
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 11,
-                                      fontWeight: FontWeight.w800),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                RatingBarIndicator(
-                                  rating: 2.75,
-                                  itemBuilder: (context, index) => Icon(
-                                    Icons.star_border_outlined,
-                                    color: GlobalColors.orange,
-                                  ),
-                                  unratedColor: Colors.black,
-                                  itemCount: 5,
-                                  itemSize: 20.0,
-                                  direction: Axis.horizontal,
-                                ),
-                                // RatingBar.builder(
-                                //     itemSize: 20,
-                                //     initialRating: 3.4,
-                                //     minRating: 1,
-                                //     direction: Axis.horizontal,
-                                //     allowHalfRating: true,
-                                //     itemCount: 4,
-                                //     itemPadding: const EdgeInsets.symmetric(
-                                //         horizontal: 3),
-                                //     itemBuilder: (context, _) => Icon(
-                                //           Icons.star,
-                                //           color: GlobalColors.orange,
-                                //           size: 20,
-                                //         ),
-                                //     onRatingUpdate: (rating) {
-                                //       // ratingValue = rating;
-                                //       // print(rating);
-                                //     }
-                                //     ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  '\$5000',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w800),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Center(
-                                  child: InkWell(
-                                    onTap: () {},
-                                    child: Container(
-                                      width: 220,
-                                      height: 40,
-                                      child: Center(
-                                        child: Text("add to cart".toUpperCase(),
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w800)),
-                                      ),
-                                      decoration: BoxDecoration(
-                                          color: GlobalColors.orange,
+                                              //   );
+                                              // }
+                                              // ),
+                                            ),
+                                            Positioned(
+                                                left: 5,
+                                                top: 10,
+                                                child: Container(
+                                                    width: 40,
+                                                    height: 20,
+                                                    child: Center(
+                                                      child: Text(
+                                                        "-10%",
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 13,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    decoration: BoxDecoration(
+                                                        shape:
+                                                            BoxShape.rectangle,
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    3)),
+                                                        color: GlobalColors
+                                                            .orange))),
+                                            Positioned(
+                                                right: 10,
+                                                top: 10,
+                                                child: InkWell(
+                                                  onTap: () {},
+                                                  child: Container(
+                                                      width: 25,
+                                                      height: 25,
+                                                      child: Center(
+                                                        child: Icon(
+                                                          CupertinoIcons.heart,
+                                                          color: Colors.white,
+                                                          size: 20,
+                                                        ),
+                                                      ),
+                                                      decoration: BoxDecoration(
+                                                          shape: BoxShape
+                                                              .rectangle,
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          15)),
+                                                          color: GlobalColors
+                                                              .orange
+                                                              .withOpacity(
+                                                                  0.4))),
+                                                ))
+                                          ],
+                                        ),
+                                        decoration: BoxDecoration(
                                           shape: BoxShape.rectangle,
                                           borderRadius: BorderRadius.all(
-                                              Radius.circular(7))),
-                                    ),
+                                              Radius.circular(13)),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        "${eachList.title}".toUpperCase(),
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 11,
+                                            overflow: TextOverflow.ellipsis,
+                                            fontWeight: FontWeight.w800),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        "${eachList.slug}".toUpperCase(),
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 11,
+                                            fontWeight: FontWeight.w800),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      RatingBarIndicator(
+                                        rating: eachList.totalrating.toDouble(),
+                                        itemBuilder: (context, index) => Icon(
+                                          Icons.star_border_outlined,
+                                          color: GlobalColors.orange,
+                                        ),
+                                        unratedColor: Colors.black,
+                                        itemCount: 5,
+                                        itemSize: 20.0,
+                                        direction: Axis.horizontal,
+                                      ),
+                                      // RatingBar.builder(
+                                      //     itemSize: 20,
+                                      //     initialRating: 3.4,
+                                      //     minRating: 1,
+                                      //     direction: Axis.horizontal,
+                                      //     allowHalfRating: true,
+                                      //     itemCount: 4,
+                                      //     itemPadding: const EdgeInsets.symmetric(
+                                      //         horizontal: 3),
+                                      //     itemBuilder: (context, _) => Icon(
+                                      //           Icons.star,
+                                      //           color: GlobalColors.orange,
+                                      //           size: 20,
+                                      //         ),
+                                      //     onRatingUpdate: (rating) {
+                                      //       // ratingValue = rating;
+                                      //       // print(rating);
+                                      //     }
+                                      //     ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        '\N${eachList.price}',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w800),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Center(
+                                        child: InkWell(
+                                          onTap: () {},
+                                          child: Container(
+                                            width: 220,
+                                            height: 40,
+                                            child: Center(
+                                              child: Text(
+                                                  "add to cart".toUpperCase(),
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 13,
+                                                      fontWeight:
+                                                          FontWeight.w800)),
+                                            ),
+                                            decoration: BoxDecoration(
+                                                color: GlobalColors.orange,
+                                                shape: BoxShape.rectangle,
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(7))),
+                                          ),
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                )
-                              ],
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
               ],
             ),
           ),

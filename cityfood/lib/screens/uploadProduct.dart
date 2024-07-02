@@ -94,8 +94,10 @@ class _UploadProductPageState extends State<UploadProductPage> {
   }
 
   void uploadProducts() async {
-    if (dropdown == 'Select Cartegory') {
+    if (dropdown == null) {
       error(context: context, message: "Select Cartegory");
+    } else if (dropdown2 == null) {
+      error(context: context, message: "Select Subcartegory");
     } else if (images1.isEmpty) {
       error(context: context, message: "Select product images");
     } else if (formKey.currentState!.validate() &&
@@ -113,7 +115,8 @@ class _UploadProductPageState extends State<UploadProductPage> {
         "price": priceController.text,
         "brand": brandontroller.text,
         "quantity": quantityController.text,
-        "category": dropdown!.id
+        "category": dropdown!.id,
+        "subCategory": dropdown2!.id
       }).fields;
 
       creatPrpduct
@@ -136,7 +139,6 @@ class _UploadProductPageState extends State<UploadProductPage> {
   initState() {
     // TODO: implement initState
     super.initState();
-
     getAllCategory();
     getAllSubCategory();
   }
@@ -146,7 +148,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
     final get = Provider.of<CategoryProviderApi>(context, listen: false);
     get.getAllCategory(preferences.getString('token')!).then((value) {
       setState(() {
-        _categoryModel = value;
+        _categoryModel = value.products;
       });
     });
   }
@@ -156,13 +158,16 @@ class _UploadProductPageState extends State<UploadProductPage> {
     final get = Provider.of<SubCategoryProviderApi>(context, listen: false);
     get.getAllSubCategory(preferences.getString('token')!).then((value) {
       setState(() {
-        _subCategoryModel = value;
+        _subCategoryModel = value.products;
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final creatPrpduct = context.watch<ProductProviderApi>();
+    final subCat = context.watch<SubCategoryProviderApi>();
+    final getCat = context.watch<CategoryProviderApi>();
     return SafeArea(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -373,10 +378,13 @@ class _UploadProductPageState extends State<UploadProductPage> {
                                     borderRadius: BorderRadius.circular(10),
                                     icon: Icon(Icons.keyboard_arrow_down),
                                     iconSize: 36,
-                                    hint: const Text(
-                                      'Select Category',
-                                      style: TextStyle(color: Colors.black),
-                                    ),
+                                    hint: getCat.loading
+                                        ? CircularProgressIndicator()
+                                        : Text(
+                                            'Select Category',
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
                                     elevation: 0,
                                     isExpanded: true,
                                     focusColor: Colors.black54,
@@ -391,7 +399,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
                                       return DropdownMenuItem<Categorymodel>(
                                           alignment: Alignment.center,
                                           value: item,
-                                          child: Text(item.title,
+                                          child: Text('${item.title}',
                                               style: TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.w400,
@@ -408,10 +416,13 @@ class _UploadProductPageState extends State<UploadProductPage> {
                                     borderRadius: BorderRadius.circular(10),
                                     icon: Icon(Icons.keyboard_arrow_down),
                                     iconSize: 36,
-                                    hint: const Text(
-                                      'Select SubCategory',
-                                      style: TextStyle(color: Colors.black),
-                                    ),
+                                    hint: subCat.loading
+                                        ? CircularProgressIndicator()
+                                        : Text(
+                                            'Select SubCategory',
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                          ),
                                     elevation: 0,
                                     isExpanded: true,
                                     focusColor: Colors.black54,
@@ -426,7 +437,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
                                       return DropdownMenuItem<SubCategorymodel>(
                                           alignment: Alignment.center,
                                           value: item,
-                                          child: Text(item.title,
+                                          child: Text('${item.title}',
                                               style: TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.w400,
@@ -470,13 +481,17 @@ class _UploadProductPageState extends State<UploadProductPage> {
                               alignment: Alignment.center,
                               width: 250,
                               height: 50,
-                              child: Text(
-                                "Upload",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400),
-                              ),
+                              child: creatPrpduct.loading
+                                  ? CircularProgressIndicator(
+                                      color: Colors.white,
+                                    )
+                                  : Text(
+                                      "Upload",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w400),
+                                    ),
                               decoration: BoxDecoration(
                                   color: GlobalColors.orange,
                                   shape: BoxShape.rectangle,
@@ -586,9 +601,51 @@ class _UploadProductPageState extends State<UploadProductPage> {
                             dropdown = nwvalue;
                           });
                         },
+                        hint: getCat.loading
+                            ? CircularProgressIndicator()
+                            : Text(
+                                'Select Category',
+                                style: TextStyle(color: Colors.black),
+                              ),
                         value: dropdown,
                         items: _categoryModel.map((item) {
                           return DropdownMenuItem<Categorymodel>(
+                              alignment: Alignment.center,
+                              value: item,
+                              child: Text('${item.title}',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.black)));
+                        }).toList()),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  SizedBox(
+                    width: 450,
+                    child: DropdownButtonFormField<SubCategorymodel>(
+                        borderRadius: BorderRadius.circular(10),
+                        icon: Icon(Icons.keyboard_arrow_down),
+                        iconSize: 36,
+                        elevation: 0,
+                        isExpanded: true,
+                        focusColor: Colors.black54,
+                        dropdownColor: Colors.grey[200],
+                        onChanged: (SubCategorymodel? nwvalue) {
+                          setState(() {
+                            dropdown2 = nwvalue;
+                          });
+                        },
+                        hint: subCat.loading
+                            ? CircularProgressIndicator()
+                            : Text(
+                                'Select SubCategory',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                        value: dropdown2,
+                        items: _subCategoryModel.map((item) {
+                          return DropdownMenuItem<SubCategorymodel>(
                               alignment: Alignment.center,
                               value: item,
                               child: Text('${item.title}',
@@ -694,13 +751,17 @@ class _UploadProductPageState extends State<UploadProductPage> {
                       alignment: Alignment.center,
                       width: 250,
                       height: 50,
-                      child: Text(
-                        "Upload",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400),
-                      ),
+                      child: creatPrpduct.loading
+                          ? CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : Text(
+                              "Upload",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400),
+                            ),
                       decoration: BoxDecoration(
                           color: GlobalColors.orange,
                           shape: BoxShape.rectangle,
@@ -807,9 +868,51 @@ class _UploadProductPageState extends State<UploadProductPage> {
                             dropdown = nwvalue;
                           });
                         },
+                        hint: getCat.loading
+                            ? CircularProgressIndicator()
+                            : Text(
+                                'Select Category',
+                                style: TextStyle(color: Colors.black),
+                              ),
                         value: dropdown,
                         items: _categoryModel.map((item) {
                           return DropdownMenuItem<Categorymodel>(
+                              alignment: Alignment.center,
+                              value: item,
+                              child: Text('${item.title}',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.black)));
+                        }).toList()),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  SizedBox(
+                    width: 450,
+                    child: DropdownButtonFormField<SubCategorymodel>(
+                        borderRadius: BorderRadius.circular(10),
+                        icon: Icon(Icons.keyboard_arrow_down),
+                        iconSize: 36,
+                        elevation: 0,
+                        isExpanded: true,
+                        focusColor: Colors.black54,
+                        dropdownColor: Colors.grey[200],
+                        onChanged: (SubCategorymodel? nwvalue) {
+                          setState(() {
+                            dropdown2 = nwvalue;
+                          });
+                        },
+                        hint: subCat.loading
+                            ? CircularProgressIndicator()
+                            : Text(
+                                'Select SubCategory',
+                                style: TextStyle(color: Colors.black),
+                              ),
+                        value: dropdown2,
+                        items: _subCategoryModel.map((item) {
+                          return DropdownMenuItem<SubCategorymodel>(
                               alignment: Alignment.center,
                               value: item,
                               child: Text('${item.title}',
@@ -915,13 +1018,17 @@ class _UploadProductPageState extends State<UploadProductPage> {
                       alignment: Alignment.center,
                       width: 250,
                       height: 50,
-                      child: Text(
-                        "Upload",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400),
-                      ),
+                      child: creatPrpduct.loading
+                          ? CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : Text(
+                              "Upload",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400),
+                            ),
                       decoration: BoxDecoration(
                           color: GlobalColors.orange,
                           shape: BoxShape.rectangle,

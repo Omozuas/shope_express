@@ -1,14 +1,12 @@
 import 'package:cityfood/colorsConstrain/colorsHex.dart';
 import 'package:cityfood/controller/controller.dart';
 import 'package:cityfood/services/Apis/auth_api/user_controller.dart';
-import 'package:cityfood/services/models/providers/user_Provider.dart';
 import 'package:cityfood/util/responsive.dart';
 import 'package:cityfood/widgets/appbarname.dart';
 import 'package:cityfood/widgets/side_menu_widget.dart';
 import 'package:cityfood/widgets/snackBarRes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';

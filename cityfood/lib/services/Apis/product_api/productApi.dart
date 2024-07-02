@@ -2,6 +2,9 @@ import 'dart:convert';
 
 import 'package:cityfood/services/Apis/urlcConnection/auth_api/connectioUrl.dart';
 import 'package:cityfood/services/models/product_respons/product_respons.dart';
+import 'package:cityfood/services/models/providers/singleProduct_provider/getSingleProduct_provider.dart';
+import 'package:cityfood/services/models/providers/Listproduct_Provider/mainProduct_providrt.dart';
+import 'package:cityfood/services/models/providers/singleProduct_provider/singleProduct_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,14 +13,17 @@ class ProductProviderApi with ChangeNotifier {
   bool get loading => _isLoading;
   setLoading(bool value) {
     _isLoading = value;
-    notifyListeners();
+    // notifyListeners();
   }
 
+  late final ProductModelById _productModel;
+  ProductModelById get productModel => _productModel;
   Future<ProductresopnsModel> createUser(
       token,
       List<MapEntry<String, dynamic>> data,
       List<Map<String, dynamic>> images1) async {
     setLoading(true);
+    notifyListeners();
     var registerUser = "${ApiUrl.productUrl}add-new-product";
     // var registerUser =
     //     "http://localhost:4000/api/product/add-new-product?image";
@@ -46,12 +52,77 @@ class ProductProviderApi with ChangeNotifier {
     if (response.statusCode == 200) {
       print(response.body);
       setLoading(false);
+      notifyListeners();
     } else if (response.statusCode == 404) {
       print(response.body);
       setLoading(false);
+      notifyListeners();
     } else if (response.statusCode == 500) {
       setLoading(false);
+      notifyListeners();
     }
     return ProductresopnsModel.fromJson(dd);
+  }
+
+  Future<MainProduct> getAllProduct() async {
+    setLoading(true);
+
+    var getAllproduct = "${ApiUrl.productUrl}search-for-product";
+    var res = await http.get(
+      Uri.parse(getAllproduct),
+      headers: {
+        'Content-Type': "application/json",
+      },
+    );
+    // print(res.body);
+    if (res.statusCode == 200) {
+      final Map<String, dynamic> responseData = jsonDecode(res.body);
+      // print(responseData);
+      setLoading(false);
+      notifyListeners();
+      return mainProductFromJson(res.body);
+    } else if (res.statusCode == 404) {
+      setLoading(false);
+      notifyListeners();
+      return mainProductFromJson(res.body);
+    } else if (res.statusCode == 500) {
+      setLoading(false);
+      notifyListeners();
+      return mainProductFromJson(res.body);
+    } else {
+      setLoading(false);
+      notifyListeners();
+      return mainProductFromJson(res.body);
+    }
+  }
+
+  Future<SingleProduct> getAProduct(token, id) async {
+    setLoading(true);
+    notifyListeners();
+    var getAllproduct = "${ApiUrl.productUrl}get-a-product/$id";
+    var res = await http.get(
+      Uri.parse(getAllproduct),
+      headers: {
+        'Content-Type': "application/json",
+        "Authorization": "Bearer $token",
+      },
+    );
+    // print(res.body);
+    if (res.statusCode == 200) {
+      final Map<String, dynamic> responseData = jsonDecode(res.body);
+      print(responseData);
+      setLoading(false);
+      notifyListeners();
+      return singleProductFromJson(res.body);
+    } else if (res.statusCode == 404) {
+      setLoading(false);
+      return singleProductFromJson(res.body);
+    } else if (res.statusCode == 500) {
+      setLoading(false);
+      return singleProductFromJson(res.body);
+    } else {
+      setLoading(false);
+      return singleProductFromJson(res.body);
+    }
   }
 }

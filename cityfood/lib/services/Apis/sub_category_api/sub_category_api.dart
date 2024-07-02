@@ -36,7 +36,7 @@ class SubCategoryProviderApi with ChangeNotifier {
     return subCategoryResopnsModel(res.body);
   }
 
-  Future<List<SubCategorymodel>> getAllSubCategory(token) async {
+  Future<ListOfSubCategory> getAllSubCategory(token) async {
     setLoading(true);
     var getAllSubcategory = "${ApiUrl.subCategoryUrl}";
     var res = await http.get(
@@ -49,24 +49,18 @@ class SubCategoryProviderApi with ChangeNotifier {
     if (res.statusCode == 200) {
       final Map<String, dynamic> responseData = jsonDecode(res.body);
       print(responseData);
-      final results = responseData['getSubCategory'] as List<dynamic>;
-      final subCategoryModel = results.map((e) {
-        final category = Categorymodel(
-            id: e['category']["_id"], title: e['category']['title']);
-        return SubCategorymodel(
-            id: e["_id"], title: e['title'], categorymodel: category);
-      }).toList();
+
       setLoading(false);
-      return subCategoryModel;
+      return listOfSubCategoryFromJson(res.body);
     } else if (res.statusCode == 404) {
       setLoading(false);
-      return [];
+      return listOfSubCategoryFromJson(res.body);
     } else if (res.statusCode == 500) {
       setLoading(false);
-      return [];
+      return listOfSubCategoryFromJson(res.body);
     } else {
       setLoading(false);
-      return [];
+      return listOfSubCategoryFromJson(res.body);
     }
   }
 }

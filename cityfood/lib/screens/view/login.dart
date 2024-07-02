@@ -80,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                                       textAlign: TextAlign.center,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline5!
+                                          .headlineLarge!
                                           .copyWith(
                                               fontWeight: FontWeight.w500,
                                               color: Colors.black),
@@ -299,7 +299,7 @@ class _LoginPageState extends State<LoginPage> {
                                       textAlign: TextAlign.center,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .headline5!
+                                          .headlineLarge!
                                           .copyWith(
                                               fontWeight: FontWeight.w500,
                                               color: Colors.black),
@@ -516,7 +516,7 @@ class _LoginPageState extends State<LoginPage> {
                                     textAlign: TextAlign.center,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .headline5!
+                                        .headlineLarge!
                                         .copyWith(
                                             fontWeight: FontWeight.w500,
                                             color: Colors.black,

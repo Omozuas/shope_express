@@ -36,7 +36,7 @@ class CategoryProviderApi with ChangeNotifier {
     return categoryResopnsModel(res.body);
   }
 
-  Future<List<Categorymodel>> getAllCategory(token) async {
+  Future<ListOfCategory> getAllCategory(token) async {
     setLoading(true);
     var getAllcategory = "${ApiUrl.categoryUrl}";
     var res = await http.get(
@@ -49,21 +49,17 @@ class CategoryProviderApi with ChangeNotifier {
     if (res.statusCode == 200) {
       final Map<String, dynamic> responseData = jsonDecode(res.body);
 
-      final results = responseData['getAllCategory'] as List<dynamic>;
-      final categoryModel = results.map((e) {
-        return Categorymodel(id: e["_id"], title: e['title']);
-      }).toList();
       setLoading(false);
-      return categoryModel;
+      return listOfCategoryFromJson(res.body);
     } else if (res.statusCode == 404) {
       setLoading(false);
-      return [];
+      return listOfCategoryFromJson(res.body);
     } else if (res.statusCode == 500) {
       setLoading(false);
-      return [];
+      return listOfCategoryFromJson(res.body);
     } else {
       setLoading(false);
-      return [];
+      return listOfCategoryFromJson(res.body);
     }
   }
 }
