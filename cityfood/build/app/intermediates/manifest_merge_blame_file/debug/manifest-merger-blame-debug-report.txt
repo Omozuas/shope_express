@@ -5,8 +5,8 @@
 5    android:versionName="1.0.0" >
 6
 7    <uses-sdk
-8        android:minSdkVersion="19"
-9        android:targetSdkVersion="33" />
+8        android:minSdkVersion="21"
+9        android:targetSdkVersion="34" />
 10    <!--
 11         The INTERNET permission is required for development. Specifically,
 12         the Flutter tool needs it to communicate with the running application
@@ -69,20 +69,20 @@
 44    </queries>
 45
 46    <permission
-46-->[androidx.core:core:1.10.1] C:\Users\omozua judah\.gradle\caches\transforms-4\317f58f87082ae725dd7377b2cab1431\transformed\core-1.10.1\AndroidManifest.xml:22:5-24:47
+46-->[androidx.core:core:1.10.1] C:\Users\omozua judah\.gradle\caches\transforms-4\5f48cc834a68fe476f0549a2bf878f1e\transformed\core-1.10.1\AndroidManifest.xml:22:5-24:47
 47        android:name="com.example.cityfood.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-47-->[androidx.core:core:1.10.1] C:\Users\omozua judah\.gradle\caches\transforms-4\317f58f87082ae725dd7377b2cab1431\transformed\core-1.10.1\AndroidManifest.xml:23:9-81
+47-->[androidx.core:core:1.10.1] C:\Users\omozua judah\.gradle\caches\transforms-4\5f48cc834a68fe476f0549a2bf878f1e\transformed\core-1.10.1\AndroidManifest.xml:23:9-81
 48        android:protectionLevel="signature" />
-48-->[androidx.core:core:1.10.1] C:\Users\omozua judah\.gradle\caches\transforms-4\317f58f87082ae725dd7377b2cab1431\transformed\core-1.10.1\AndroidManifest.xml:24:9-44
+48-->[androidx.core:core:1.10.1] C:\Users\omozua judah\.gradle\caches\transforms-4\5f48cc834a68fe476f0549a2bf878f1e\transformed\core-1.10.1\AndroidManifest.xml:24:9-44
 49
 50    <uses-permission android:name="com.example.cityfood.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-50-->[androidx.core:core:1.10.1] C:\Users\omozua judah\.gradle\caches\transforms-4\317f58f87082ae725dd7377b2cab1431\transformed\core-1.10.1\AndroidManifest.xml:26:5-97
-50-->[androidx.core:core:1.10.1] C:\Users\omozua judah\.gradle\caches\transforms-4\317f58f87082ae725dd7377b2cab1431\transformed\core-1.10.1\AndroidManifest.xml:26:22-94
+50-->[androidx.core:core:1.10.1] C:\Users\omozua judah\.gradle\caches\transforms-4\5f48cc834a68fe476f0549a2bf878f1e\transformed\core-1.10.1\AndroidManifest.xml:26:5-97
+50-->[androidx.core:core:1.10.1] C:\Users\omozua judah\.gradle\caches\transforms-4\5f48cc834a68fe476f0549a2bf878f1e\transformed\core-1.10.1\AndroidManifest.xml:26:22-94
 51
 52    <application
 53        android:name="android.app.Application"
 54        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-54-->[androidx.core:core:1.10.1] C:\Users\omozua judah\.gradle\caches\transforms-4\317f58f87082ae725dd7377b2cab1431\transformed\core-1.10.1\AndroidManifest.xml:28:18-86
+54-->[androidx.core:core:1.10.1] C:\Users\omozua judah\.gradle\caches\transforms-4\5f48cc834a68fe476f0549a2bf878f1e\transformed\core-1.10.1\AndroidManifest.xml:28:18-86
 55        android:debuggable="true"
 56        android:icon="@mipmap/ic_launcher"
 57        android:label="cityfood" >
@@ -160,69 +160,69 @@
 111        </service>
 112
 113        <uses-library
-113-->[androidx.window:window:1.0.0-beta04] C:\Users\omozua judah\.gradle\caches\transforms-4\ed762f4995642d6306c07f86bb75fe11\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
+113-->[androidx.window:window:1.0.0-beta04] C:\Users\omozua judah\.gradle\caches\transforms-4\35c4293b90c3ba430ae9dfd92b94b51f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
 114            android:name="androidx.window.extensions"
-114-->[androidx.window:window:1.0.0-beta04] C:\Users\omozua judah\.gradle\caches\transforms-4\ed762f4995642d6306c07f86bb75fe11\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
+114-->[androidx.window:window:1.0.0-beta04] C:\Users\omozua judah\.gradle\caches\transforms-4\35c4293b90c3ba430ae9dfd92b94b51f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
 115            android:required="false" />
-115-->[androidx.window:window:1.0.0-beta04] C:\Users\omozua judah\.gradle\caches\transforms-4\ed762f4995642d6306c07f86bb75fe11\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
+115-->[androidx.window:window:1.0.0-beta04] C:\Users\omozua judah\.gradle\caches\transforms-4\35c4293b90c3ba430ae9dfd92b94b51f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
 116        <uses-library
-116-->[androidx.window:window:1.0.0-beta04] C:\Users\omozua judah\.gradle\caches\transforms-4\ed762f4995642d6306c07f86bb75fe11\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
+116-->[androidx.window:window:1.0.0-beta04] C:\Users\omozua judah\.gradle\caches\transforms-4\35c4293b90c3ba430ae9dfd92b94b51f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
 117            android:name="androidx.window.sidecar"
-117-->[androidx.window:window:1.0.0-beta04] C:\Users\omozua judah\.gradle\caches\transforms-4\ed762f4995642d6306c07f86bb75fe11\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
+117-->[androidx.window:window:1.0.0-beta04] C:\Users\omozua judah\.gradle\caches\transforms-4\35c4293b90c3ba430ae9dfd92b94b51f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
 118            android:required="false" />
-118-->[androidx.window:window:1.0.0-beta04] C:\Users\omozua judah\.gradle\caches\transforms-4\ed762f4995642d6306c07f86bb75fe11\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
+118-->[androidx.window:window:1.0.0-beta04] C:\Users\omozua judah\.gradle\caches\transforms-4\35c4293b90c3ba430ae9dfd92b94b51f\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
 119
 120        <provider
-120-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:24:9-32:20
+120-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\3707a0b7b15ace4ecd9298a73b2be1ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:24:9-32:20
 121            android:name="androidx.startup.InitializationProvider"
-121-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:25:13-67
+121-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\3707a0b7b15ace4ecd9298a73b2be1ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:25:13-67
 122            android:authorities="com.example.cityfood.androidx-startup"
-122-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:26:13-68
+122-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\3707a0b7b15ace4ecd9298a73b2be1ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:26:13-68
 123            android:exported="false" >
-123-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:27:13-37
+123-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\3707a0b7b15ace4ecd9298a73b2be1ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:27:13-37
 124            <meta-data
-124-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
+124-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\3707a0b7b15ace4ecd9298a73b2be1ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
 125                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-125-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
+125-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\3707a0b7b15ace4ecd9298a73b2be1ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
 126                android:value="androidx.startup" />
-126-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
+126-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\3707a0b7b15ace4ecd9298a73b2be1ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
 127        </provider>
 128
 129        <receiver
-129-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
+129-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\3707a0b7b15ace4ecd9298a73b2be1ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
 130            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-130-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
+130-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\3707a0b7b15ace4ecd9298a73b2be1ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
 131            android:directBootAware="false"
-131-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
+131-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\3707a0b7b15ace4ecd9298a73b2be1ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
 132            android:enabled="true"
-132-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
+132-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\3707a0b7b15ace4ecd9298a73b2be1ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
 133            android:exported="true"
-133-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
+133-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\3707a0b7b15ace4ecd9298a73b2be1ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
 134            android:permission="android.permission.DUMP" >
-134-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
+134-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\3707a0b7b15ace4ecd9298a73b2be1ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
 135            <intent-filter>
-135-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
+135-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\3707a0b7b15ace4ecd9298a73b2be1ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
 136                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-136-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
-136-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
+136-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\3707a0b7b15ace4ecd9298a73b2be1ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
+136-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\3707a0b7b15ace4ecd9298a73b2be1ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
 137            </intent-filter>
 138            <intent-filter>
-138-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
+138-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\3707a0b7b15ace4ecd9298a73b2be1ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
 139                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-139-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
-139-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
+139-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\3707a0b7b15ace4ecd9298a73b2be1ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
+139-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\3707a0b7b15ace4ecd9298a73b2be1ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
 140            </intent-filter>
 141            <intent-filter>
-141-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
+141-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\3707a0b7b15ace4ecd9298a73b2be1ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
 142                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-142-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
-142-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
+142-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\3707a0b7b15ace4ecd9298a73b2be1ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
+142-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\3707a0b7b15ace4ecd9298a73b2be1ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
 143            </intent-filter>
 144            <intent-filter>
-144-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
+144-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\3707a0b7b15ace4ecd9298a73b2be1ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
 145                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-145-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
-145-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\10b7820a72254211e735d8cefe57a561\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
+145-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\3707a0b7b15ace4ecd9298a73b2be1ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
+145-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\omozua judah\.gradle\caches\transforms-4\3707a0b7b15ace4ecd9298a73b2be1ca\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
 146            </intent-filter>
 147        </receiver>
 148    </application>

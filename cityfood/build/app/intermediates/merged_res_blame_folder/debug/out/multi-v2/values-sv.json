@@ -4,7 +4,7 @@
             "outputFile": "com.example.cityfood.app-mergeDebugResources-20:/values-sv/values-sv.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\omozua judah\\.gradle\\caches\\transforms-4\\317f58f87082ae725dd7377b2cab1431\\transformed\\core-1.10.1\\res\\values-sv\\values-sv.xml",
+                    "source": "C:\\Users\\omozua judah\\.gradle\\caches\\transforms-4\\5f48cc834a68fe476f0549a2bf878f1e\\transformed\\core-1.10.1\\res\\values-sv\\values-sv.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
