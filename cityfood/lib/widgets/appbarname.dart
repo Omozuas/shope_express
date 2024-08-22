@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
   final screen = [
+    ViewProductPage(),
     MyHomePage(),
     GetAStore(),
     SignUpPage(),
@@ -18,6 +19,6 @@ class NavigationController extends GetxController {
     ProfilePage(),
     CartPage(),
     WishListPage(),
-    ViewProductPage()
+    // ViewProductPage()
   ];
 }

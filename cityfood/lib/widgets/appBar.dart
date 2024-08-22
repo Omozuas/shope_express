@@ -113,7 +113,7 @@ class _FlexAppBarState extends State<FlexAppBar> {
     final userProvider = context.watch<UserProviderApi>();
     return Scaffold(
       key: context.read<MenuAppController>().scaffoldKey,
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.white,
       drawer: SideMenuWidget(),
       extendBodyBehindAppBar: true,
       appBar: PreferredSize(

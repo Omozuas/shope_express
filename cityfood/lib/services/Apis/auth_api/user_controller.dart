@@ -18,7 +18,6 @@ class UserProviderApi with ChangeNotifier {
 
   setLoading(bool value) {
     _isLoading = value;
-
     notifyListeners();
   }
 

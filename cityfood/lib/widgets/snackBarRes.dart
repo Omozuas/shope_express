@@ -1,7 +1,7 @@
 import 'package:another_flushbar/flushbar.dart';
-import 'package:cityfood/util/responsive.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cityfood/util/responsive.dart';
 
 void success({String? message, required BuildContext context}) {
   Flushbar(

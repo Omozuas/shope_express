@@ -16,7 +16,7 @@ class _ViewProductPageState extends State<ViewProductPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getProduct();
+    // getProduct();
   }
 
   ProductModelById? _productModel;
@@ -41,25 +41,165 @@ class _ViewProductPageState extends State<ViewProductPage> {
   Widget build(BuildContext context) {
     final get = context.watch<ProductProviderApi>();
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 300,
-        ),
-        get.loading
-            ? CircularProgressIndicator()
-            : Container(
-                child: Text(id),
+    return SafeArea(
+      child: Padding(
+        padding:
+            const EdgeInsets.only(left: 15.0, right: 15, bottom: 15, top: 15),
+        child: Row(
+          children: [
+            Flexible(
+              child: Container(
+                width: 650,
+                child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  // crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 650,
+                      height: 450,
+                      // color: Colors.grey[200],
+                      child: Center(
+                          child: Image.asset(
+                        'assets/images/clothes1.png',
+                        width: 400,
+                        height: 400,
+                      )),
+                      decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Center(
+                      child: Row(
+                        // crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Flexible(
+                            child: InkWell(
+                              onTap: () {},
+                              child: Container(
+                                  width: 160,
+                                  height: 160,
+                                  child: Center(
+                                      child: Image.asset(
+                                    'assets/images/clothes1.png',
+                                    width: 120,
+                                    height: 120,
+                                  )),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.rectangle,
+                                      color: Colors.grey[200],
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10)))),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Flexible(
+                            child: InkWell(
+                              onTap: () {},
+                              child: Container(
+                                  width: 160,
+                                  height: 160,
+                                  child: Center(
+                                      child: Image.asset(
+                                    'assets/images/clothes1.png',
+                                    width: 120,
+                                    height: 120,
+                                  )),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.rectangle,
+                                      color: Colors.grey[200],
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10)))),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Flexible(
+                            child: InkWell(
+                              onTap: () {},
+                              child: Container(
+                                  width: 160,
+                                  height: 160,
+                                  child: Center(
+                                      child: Image.asset(
+                                    'assets/images/clothes1.png',
+                                    width: 120,
+                                    height: 120,
+                                  )),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.rectangle,
+                                      color: Colors.grey[200],
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10)))),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Flexible(
+                            child: InkWell(
+                              onTap: () {},
+                              child: Container(
+                                  width: 160,
+                                  height: 160,
+                                  child: Center(
+                                      child: Image.asset(
+                                    'assets/images/clothes1.png',
+                                    width: 120,
+                                    height: 120,
+                                  )),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.rectangle,
+                                      color: Colors.grey[200],
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10)))),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
-        InkWell(
-          onTap: () async {
-            getProduct();
-          },
-          child: Text("data"),
-        )
-      ],
+            ),
+            Expanded(
+              child: Container(
+                child: Column(
+                  children: [],
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
     );
+
+    // Column(
+    //   crossAxisAlignment: CrossAxisAlignment.center,
+    //   mainAxisAlignment: MainAxisAlignment.center,
+    //   children: [
+
+    //     // SizedBox(
+    //     //   height: 300,
+    //     // ),
+    //     // get.loading
+    //     //     ? CircularProgressIndicator()
+    //     //     : Container(
+    //     //         child: Text(id),
+    //     //       ),
+    //     // InkWell(
+    //     //   onTap: () async {
+    //     //     getProduct();
+    //     //   },
+    //     //   child: Text("data"),
+    //     // )
+    //   ],
+    // );
   }
 }

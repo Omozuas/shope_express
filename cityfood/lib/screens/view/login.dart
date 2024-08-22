@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cityfood/colorsConstrain/colorsHex.dart';
 import 'package:cityfood/services/Apis/auth_api/user_controller.dart';
 import 'package:cityfood/util/responsive.dart';
-import 'package:cityfood/widgets/appBar.dart';
 import 'package:cityfood/widgets/appbarname.dart';
 import 'package:cityfood/widgets/onboard_model.dart';
 import 'package:cityfood/widgets/snackBarRes.dart';
